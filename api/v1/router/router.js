@@ -21,7 +21,40 @@ router.route("/dashboard")
 router.route("/products")
 	.get(loader.load)
 
+router.route("/login")
+	.get(loader.load)
 
+
+router.route("/verification/:id")
+	.get(loader.load)
+
+
+router.route("/forget/password")
+	.get(loader.load)
+
+router.route("/change/password")
+	.get(loader.load)
+
+router.route("/products/transaction/:id")
+	.get(loader.load)
+
+
+router.route("/buyer/:name/token/:id")
+	.get(loader.load)
+
+router.route("/merchant/:name/token/:id")
+	.get(loader.load)
+
+
+router.route("/transactions")
+	.get(loader.load)
+
+
+router.route("/transactions/:id")
+	.get(loader.load)
+
+router.route("/services/")
+	.get(loader.load)
 
 
 

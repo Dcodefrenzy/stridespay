@@ -7,7 +7,6 @@ exports.productPaymentHandller = (token, id)=>{
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
 	spinner.className ="display-none";
-	let payMent = {};
 
 			const showPaymentProduct=(user,product, milestones)=>{
 
@@ -54,15 +53,14 @@ exports.productPaymentHandller = (token, id)=>{
 				if (response.status === 401) {
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
-					payMent = {price:response.product.price, _id:response.product._id, }
 					showPaymentProduct(response.user, response.product, response.milestones);
 				}
 			}
 
 			getRequest("products/"+id, token, "GET", displayPayment);
 
-	}
 
+	}
 
 
 

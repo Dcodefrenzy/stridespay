@@ -20,7 +20,9 @@ exports.addMilestone=(req, res, next)=>{
 			console.log(err)
 			return res.status(404).send(err);
         }else{	
-			next();
+        	req.data.milestones = milestone;
+				next();
+ 
         }
 	}).catch((e)=>{
 		console.log(e);
@@ -48,7 +50,7 @@ exports.fetchMilestonesById = (req, res)=>{
 
 exports.fetchMilestonesPayment = (req, res, next)=>{
 	milestones.find({product:req.data.product._id}).then((milestones)=>{
-		console.log("miles")
+		
 		req.data.milestones = milestones;
 		next();
 	}).catch((e)=>{

@@ -3,10 +3,14 @@ define(function(require, exports, module) {
 exports.dashBoardHandller = (token, id)=>{
 	const {getRequest} = require("request");
 	const body = document.getElementById("body");
+	const {showNotification} = require("./showNotification");
+	const {updateNotification} = require("./updatePlayerId");
+	const {loginForm} = require("../logins")
 	const spinner = document.getElementById("spinner");
 	spinner.className ="display-none";
 
 			const dashboard=(user)=>{
+				showNotification()
 
 				const html = `<div class="">
 							<div class="container">
@@ -49,7 +53,7 @@ exports.dashBoardHandller = (token, id)=>{
 											</a>
 										</div>
 										<div class="col-6 col-sm-6 col-md-6">
-											<a href="/users/freelancer">
+											<a href="/users/services">
 												<div class="card shadow-lg p-3 mb-3 bg-white rounded">
 													<div class="card-body text-center">
 														<i class="fas fa-user-alt fa-3x text-green" aria-hidden="true"></i>
@@ -83,8 +87,14 @@ exports.dashBoardHandller = (token, id)=>{
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					dashboard(response.user);
+					updateNotification(token);
 				}
 			}
+			OneSignal.getIdsAvailable(function(ids) {
+			    console.log("getIdsAvailable:"
+			                    + "\nUserID: " + ids.userId
+			                    + "\nRegistration ID: " + ids.registrationId);
+			  });
 
 			getRequest("users/profile", token, "GET", loadDashboard);
 

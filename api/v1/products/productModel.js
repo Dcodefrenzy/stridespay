@@ -26,6 +26,10 @@ ProductSchema = mongoose.Schema({
             type:Boolean,
             required:true,
         },
+        isService:{
+            type:Boolean,
+            required:false,
+        },
         dateCreated:{
             type: String,
             required: true,

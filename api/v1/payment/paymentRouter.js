@@ -10,7 +10,7 @@ const router = express.Router();
 
 
 router.route("/verify/:id")
-		.post(usersController.userAuthenticate, productController.findProductById, milestonesController.fetchMilestonesPayment, controller.verifyPayment, transactionController.createBuyerTransactions, controller.createNewPayment, logController.addLogs)
+		.post(usersController.userAuthenticate, productController.findBuyersProductById, milestonesController.fetchMilestonesPayment, controller.verifyPayment, transactionController.createBuyerTransactions, controller.createNewPayment, logController.addLogs)
 
 
 

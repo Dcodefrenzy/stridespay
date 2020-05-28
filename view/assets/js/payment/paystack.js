@@ -1,12 +1,13 @@
   define(function(require, exports, module) {
     const {request}  = require("../request")
     const {loading} = require("../loading")
-  const sessionItem = JSON.parse(sessionStorage.getItem("user")) !== null?JSON.parse(sessionStorage.getItem("user")):{"token":"No token"}; 
+    let sessionItem = sessionStorage.getItem("user")!=="undefined"?JSON.parse(sessionStorage.getItem("user")):{"token":"No token"}; 
 
-  exports.payWithPaystack = (payment)=>{
+
+  exports.payWithPaystack = (payment, id)=>{
    let email = payment.user.email === undefined?"paymerchantafrica@gmail.com":payment.user.email;
 
-console.log(email)
+console.log(id)
   var handler = PaystackPop.setup({
         key: 'pk_test_511eb9851944a653141f6b6f99a57954b4738a55',
         email: email,
@@ -24,12 +25,14 @@ console.log(email)
            ]
         },
         callback: function(response){  
-          
-            alert('success. transaction ref is ' + response.reference);
-          request("payments/verify/"+payment.product._id, sessionItem, "POST", {reference:response.reference}, function(response){
+           alert('success. transaction ref is ' + response.reference);
+              loading("spinner", "");
+          request("payments/verify/"+payment.product._id, sessionItem, "POST", {reference:response.reference, transaction:id}, function(response){
                       if (response.status === 201) {
+                      console.log(response)
                         window.location = response.redirect;
                       }else{
+                        console.log(response)
                           window.location = response.redirect;
                       }
               })       

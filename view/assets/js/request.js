@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 
 exports.request = (url, token, method, body, callback)=>{
-		console.log(url)
+
   fetch("/api/v1/"+url, {
     method:method,
     body:JSON.stringify(body),
@@ -9,6 +9,7 @@ exports.request = (url, token, method, body, callback)=>{
   })
   .then(res=>res.json())
   .then(response=>{
+    
   return callback(response)
   })
 

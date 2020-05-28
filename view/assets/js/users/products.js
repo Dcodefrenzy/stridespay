@@ -54,7 +54,7 @@ exports.productsHandller = (token, id)=>{
 												<a href=/users/products/${product._id}>
 													<div class="card shadow-lg p-3 mb-3 bg-white rounded">
 														<div class="card-body text-center">
-															<i class="fas fa-tasks fa-3x text-green" aria-hidden="true"></i>
+															<i class="fa fa-shopping-cart fa-3x text-green" aria-hidden="true"></i>
 															<p class="text-dark">${product.product}</p>
 															<p class="text-dark">${product.price}</p>
 															<p class="text-dark">You are <b class="text-green">${title}</b> this product</p>

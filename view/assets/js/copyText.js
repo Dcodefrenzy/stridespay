@@ -14,7 +14,7 @@ define(function (require, exports, module) {
 	  document.execCommand("copy");
 
 	  /* Alert the copied text */
-	  alert("Copied the text: " + copyText.value);
+	  alert("Token Copied, you can safely share your token with the person you want to transact with: " + copyText.value);
 	}
 	
 })

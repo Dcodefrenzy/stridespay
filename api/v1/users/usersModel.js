@@ -7,7 +7,7 @@ const _ = require('lodash');
 
 
 const userSchema = new mongoose.Schema({
-	mail: {
+	email: {
 		type: String,
 		required: false,
 		validate: {

@@ -7,8 +7,11 @@ define(function(require, exports, module) {
 		  	let {loginForm} = require('logins');
 		  	let {load} = require("loadFile");
 			let {createProduct} = require('users/createProduct');
+			let {showNotification}= require("users/showNotification");
+			let sessionItem = sessionStorage.getItem("user")!=="undefined"?JSON.parse(sessionStorage.getItem("user")):{"token":"No token"}; 
 
 
+			showNotification();
 		const buyers = Array.from(document.getElementsByClassName("buyers"));
 		const merchants = Array.from(document.getElementsByClassName("merchants"));
 		const logins = Array.from(document.getElementsByClassName("user-login"));

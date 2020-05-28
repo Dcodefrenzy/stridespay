@@ -42,7 +42,7 @@ define(function(require, exports, module) {
 							</div>
 							<div class="col-12 col-sm-12 col-md-12">
 								<div class="form-group">
-									<input type="submit" name="email" class="form-control btn-lg btn-dark" value="Generate token">
+									<input type="submit" name="isMerchant" class="form-control btn-lg btn-dark" value="Generate token">
 								</div>
 							<div>
 						</div>

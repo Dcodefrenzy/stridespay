@@ -17,8 +17,20 @@ TransactionsSchema = mongoose.Schema({
             type:Boolean,
             required:false,
         },
+        creator:{
+            type:String,
+            required:true,
+        },
+        productName:{
+            type:String,        
+            required:true,
+        },
         milestones:[{
             milestone:{
+                type:String,
+                required:true,
+            },
+            description:{
                 type:String,
                 required:true,
             },
@@ -38,6 +50,13 @@ TransactionsSchema = mongoose.Schema({
         price:{
             type:Number,
             required:true,
+        },
+        balance:{
+            type:Number,
+        },
+        withdrawn:{
+            type:Number,
+            required:false,
         },
         paymentReference:{
             type:String,

@@ -1,5 +1,6 @@
 define(function(require, exports, module) {
 	let loginForm;
+	let {registerSessionForm} = require("users/registerSession")
 
 	exports.loginForm = `<div id="login" class="fixed-top bg-green full-height"><div class="container">
 					<div class="row align-items-center mt-5 p-5">
@@ -31,7 +32,7 @@ define(function(require, exports, module) {
 							<div>
 						</div>
 					</form>
-					<p>Please sign up if you dont have an account <a href="/users/signup">Signup</a></p>
+					<p>Please sign up if you dont have an account <button class="btn-sm btn-green" onclick="return registerSessionForm(event, this.name)" name="login">Signup</button></p>
 				</div>
 			</div>
 		</div>

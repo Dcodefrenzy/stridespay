@@ -61,9 +61,26 @@
 	   transform: translate(0, -50%);
     }
 
+  .notification {
+  	width: 100%,
+     	margin: 0;
+	   position: absolute;               /* 2 */
+	   top: 50%;                       /* 3 */
+	   transform: translate(0, -50%);
+    }
+
  .display-none{
  	display: none;
  }
+ .display-block{
+ 	display: block;
+ }
  .min-height{
  	min-height: 100vh;
+ }
+ .small-font{
+ 	border: 3px dashed green;
+ 	border-radius: 100px;
+ 	background-color: green;
+ 	font-weight: bolder;
  }

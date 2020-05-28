@@ -1,10 +1,12 @@
 const {payments} = require("./paymentModel.js");
+require('dotenv').config()
 
-var paystack = require('paystack')("sk_test_015b5407fc52c3638c09cb158ce355996e2cc1a9");
+var paystack = require('paystack')(process.env.PAYSTACK_KEY);
+//console.log(process.env.PAYSTACK_KEY)
 
 exports.verifyPayment=(req, res, next)=>{
 		paystack.transaction.verify(req.body.reference, function(error, body) {
-				
+				//console.log({"paymentbody":body})
 					if (body.data.status === "success" && body.data.amount ===  Number(req.data.product.price)  ) {
 						req.data.paymentStatus = true;
 						req.data.redirect = "/users/products/"+req.data.product._id;

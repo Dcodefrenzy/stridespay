@@ -106,7 +106,7 @@ exports.registerUser=(req, res, next)=>{
 			return res.status(404).send(err);
 		}
 		return user.generateAuthToken().then((token) =>{
-			const userData = {status:201, token:token,  name:user.name, _id:user._id,};
+			const userData = {status:201, token:token, email:user.email,  name:user.name, _id:user._id,};
 			req.data = userData;
 			req.data.redirect = "/users/dashboard";
 			req.data.loggerUser = "User";
@@ -135,8 +135,6 @@ exports.addUser = (req, res, next)=>{
 		dateCreated: new Date(),		
 	});
 	user.save().then((user)=>{
-		console.log(user)
-		
 		if (!user) {
 			const err = {status:404, message:"unable to add user"}
 			return res.status(404).send(err);
@@ -150,6 +148,7 @@ exports.addUser = (req, res, next)=>{
 			}else if (req.body.isMerchant) {
 				req.data.isMerchant = true;
 			}
+			console.log(req.data.isMerchant)
 			req.data.loggerUser = "User";
 			req.data.logsDescription = "User Registration Was Successful";
 			req.data.title = "Register";
@@ -167,22 +166,23 @@ exports.addUser = (req, res, next)=>{
 
 //To authenticate users for every request.
 exports.userAuthenticate =  (req, res, next)=>{
-	//requesting our token from header.
-	
-	var token = req.header('u-auth');
-	users.findByToken(token).then((body)=>{
-		if (!body) {
-			return promise.reject();
-		}
-		console.log("token check successful")
-		req.user = body;
-		req.token = token;
-		next();
-}).catch((e)=>{
-	console.log(e)
-	const error = {status:e.status, message:e.message}
-	res.status(401).send(e);
-});
+		//requesting our token from header.
+		
+		var token = req.header('u-auth');
+		users.findByToken(token).then((body)=>{
+			if (!body) {
+				return promise.reject();
+			}
+			console.log("token check successful")
+			req.user = body;
+			req.isUser = true;
+			req.token = token;
+			next();
+	}).catch((e)=>{
+		console.log(e)
+		const error = {status:e.status, message:e.message}
+		res.status(401).send(e);
+	});
 }
 
 
@@ -220,7 +220,6 @@ exports.userProfile  = (req, res,next)=> {
 res.status(200).send({status:200, user:req.user});
 }
 
-//After registration this is used to verify mail.
 exports.mailVerification = (req, res)=>{
 	const id = req.user._id;
 	const userUpdate = new users({
@@ -230,7 +229,7 @@ exports.mailVerification = (req, res)=>{
 	});
 	users.findByIdAndUpdate(id, {$set: {verification:userUpdate.verification,lastLogin:userUpdate.lastLogin, loginStatus:userUpdate.loginStatus,}}, {new: true}).then((user)=>{
 		return user.generateAuthToken().then((token)=>{
-			const userData = {status:200, token:token, email:user.email, name:user.firstname +" "+ user.lastname, _id:user._id};
+			const userData = {status:200, token:token, email:user.email, name:user.name, _id:user._id};
 			res.status(200).send(userData);
 		})
 	}).catch((e)=>{
@@ -239,13 +238,12 @@ exports.mailVerification = (req, res)=>{
 	})
 }
 
-
 exports.chekMailVerification = (req, res, next)=>{
 	const _id = req.user._id;
 	users.findById({_id:_id}).then((user)=>{
 		if (user.verification === true) {
 			return user.generateAuthToken().then((token)=>{
-				const userData = {status:200, token:token, email:user.email, name:user.firstname +" "+ user.lastname, _id:user._id};
+				const userData = {status:200, token:token, email:user.email, name:user.name, _id:user._id};
 				res.status(200).send(userData);
 			})
 		}else{
@@ -295,13 +293,64 @@ exports.findUserByMail = (req, res, next)=>{
 		if(!user) {
 			const error = {status:404, message:"No User Found"}
 			return res.status(404).send(error)
-		}
-		const userData = {status:201,email:user.email, name:user.firstname +" "+ user.lastname, _id:user._id,message:"You can change your password using the link below."};
-		req.data = userData;
-		next();
+		}	
+		return user.generateAuthToken().then((token)=>{
+			const userData = {status:200, token:token, email:user.email, name:user.name, _id:user._id};
+			req.data = userData;
+			req.data.loggerUser = "User";
+			req.data.logsDescription = "You were send a mail.";
+			req.data.title = "Mailler";
+			next();
+		})
 	}).catch((e)=>{
 		res.status(404).send(e)
 	})
+}
+
+exports.findUserForTransaction = (req, res, next)=>{
+		console.log(req.data)
+	users.findById({_id:req.data.userId}).then((user)=>{
+		if(!user) {
+			const error = {status:404, message:"No User Found"}
+			return res.status(404).send(error)
+		}	
+		console.log(user)
+			const userData = {email:user.email, phonenumber:user.phonenumber, playerId:user.playerId, name:user.name, _id:user._id};
+			req.data.status = 201;
+			req.data.email = user.email;
+			req.data.phonenumber = user.phonenumber;
+			req.data.playerId = user.playerId;
+			req.data.name = user.name;
+			req.data._id = req.user._id
+			req.data.loggerUser = "User";
+			req.data.logsDescription ="You updated a transaction with. "+user.name+" on "+req.data.productName;
+			req.data.title = "Transactions";
+			next();
+	}).catch((e)=>{
+		console.log(e)
+		res.status(404).send(e)
+	})
+}
+
+exports.updatePlayerID=(req, res, next)=>{
+	users.findByIdAndUpdate(req.user._id, {$set: {playerId:req.body.playerId}}, {new: true}).then((user)=>{
+			const userData = {status:201, email:user.email, phonenumber:user.phonenumber, playerId:user.playerId, name:user.name, _id:user._id};
+			req.data  = userData;
+			req.data.loggerUser = "User";
+			req.data.logsDescription ="Updated player id";
+			req.data.title = "Profile";
+			next();
+	}).catch((e)=>{
+		console.log(e)
+		res.status(404).send(e)
+	})	
+}
+
+exports.sendVerification=(req, res, next)=>{
+	req.data.link = "https:paymerchant/users/verification/"+req.data.token;
+	req.data.mailTitle = "Mail Verification";
+	req.data.mailMessage = "Please click on the link below to verify your mail Thanks."
+	next()
 }
 
 //User Update.

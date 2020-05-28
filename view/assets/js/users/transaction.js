@@ -4,7 +4,6 @@ exports.productPaymentHandller = (token, id)=>{
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
 	spinner.className ="display-none";
-	let payMent = {};
 
 			const showPaymentProduct=(user,product, milestones)=>{
 

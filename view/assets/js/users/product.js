@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 
 exports.showProductHandller = (token, id)=>{
 	const {getRequest} = require("request");
+	const {createTransaction}= require("./createTransaction");
 	const {loginForm} = require("../logins");
 	const {loadPaymentHandller} = require("./getPayment");
 	const {copyText} = require("../copyText");
@@ -10,7 +11,7 @@ exports.showProductHandller = (token, id)=>{
 	spinner.className ="display-none";
 	let payMent = {};
 
-			const showProduct=(user,product, milestones, transaction, link)=>{
+			const showProduct=(user,product, milestones, transaction, display)=>{
 
 				const html = `<div class="">
 							<div class="container">
@@ -34,7 +35,7 @@ exports.showProductHandller = (token, id)=>{
 													</ol>
 													<div class="col-12">
 													<p><i class="fa fa-history" aria-hidden="false"></i> Transactions</p>
-														<a class="btn-sm btn-green" href=${link}>New Transaction</a>
+															${display}
 														<div class="mt-3">${transaction}</div>
 													</div>
 												</div>
@@ -54,10 +55,10 @@ exports.showProductHandller = (token, id)=>{
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					let allTransactions;
-					let transactionLink = response.product.isMerchant === true?"/users/products/transaction/"+response.product._id:"/users/product/payment/"+response.product._id
+					let display = response.product.isMerchant === true?`<button onclick="return createTransaction(event, this.id)" class="btn-sm btn-green" id=${"products/transaction/create/"+response.product._id} >New Transaction</button>`:`<a class="btn-sm btn-green"  href=${"/users/product/payment/"+response.product._id}>New Transaction</a>`;
 					if (response.transactions.length >0) {
 						allTransactions = response.transactions.map((transaction)=>{
-							const link = transaction.buyer===response.user._id?	"/merchant/"+response.user.name.replace(" ", "-")+"/token/"+transaction._id:"/buyer"+response.user.name.replace(" ", "-")+"/token/"+transaction._id;
+							const link = transaction.buyer===response.user._id?	"/users/merchant/"+response.user.name.replace(" ", "-")+"/token/"+transaction._id:"/users/buyer/"+response.user.name.replace(" ", "-")+"/token/"+transaction._id;
 							return	`<div class="card shadow-lg p-3  bg-white rounded">
 											<small>Copy unique transaction token and Share to your clients/merchants</small>
 										<input class="form-control" id=${transaction._id} type="text" value=${window.location.hostname+link} readonly="readonly"/>
@@ -67,7 +68,7 @@ exports.showProductHandller = (token, id)=>{
 					}else{
 						allTransactions	 =  `<li class="card shadow-lg p-3 bg-white rounded">No Transaction Token Yet</li>`;
 					}
-					showProduct(response.user, response.product, response.milestones, allTransactions, transactionLink);
+					showProduct(response.user, response.product, response.milestones, allTransactions, display);
 				}
 			}
 
