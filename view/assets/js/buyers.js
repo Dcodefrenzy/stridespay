@@ -1,4 +1,5 @@
 define(function(require, exports, module) {
+
 	let buyersForm;	 
 
 	exports.buyersForm = `<div id="revert" class=" bg-green full-height">

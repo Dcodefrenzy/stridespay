@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 								<div class="card-body">
 								<h1>Revenue</h1>
 								<p><b>Balance: ${wallet.amount.toString().slice(0, -2)}</b></p>
-								<p><b>Total Withdrawals Done: ${wallet.amount}</b></p>
+								<p><b>Total Withdrawals Done: ${withdraw}</b></p>
 								<p><b>Bank: ${bank.bank}</b></p>
 								<p><b>Account Number: ${bank.account}</b></p>
 								<p><b>Account Name: ${bank.accountName}</b></p>
@@ -55,7 +55,7 @@ define(function(require, exports, module) {
 						window.location = "/users/bank/account";
 				}
 			}
-console.log(token)
+
 
 			getRequest("withdraws/withdraw", token, "GET", loadDashboard);
 

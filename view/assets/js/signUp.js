@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
 
 	 exports.registerForm=(sessionItem, id)=>{
-		console.log('s')
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
 	spinner.className ="display-none";

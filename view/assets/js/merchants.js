@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 	let merchantForm;
 
-	exports.merchantForm = `<div id="revert" class=" bg-green full-height">
+	exports.merchantForm = `<div id="revert" class=" bg-green min-height z-index">
 				<div class="">
 					<div class="row mt-2 p-3">
 					<div class="col-12 col-sm-12 col-md-12 col-lg-12">

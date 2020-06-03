@@ -6,6 +6,7 @@ define(function(require, exports, module) {
 		  	let {merchantForm} = require('merchants');
 		  	let {loginForm} = require('logins');
 		  	let {load} = require("loadFile");
+		  	let {loading} = require("./loading");
 			let {createProduct} = require('users/createProduct');
 			let {showNotification}= require("users/showNotification");
 			let sessionItem = sessionStorage.getItem("user")!=="undefined"?JSON.parse(sessionStorage.getItem("user")):{"token":"No token"}; 
@@ -20,6 +21,7 @@ define(function(require, exports, module) {
 	let displayHtml = (event, html)=>{
 		event.preventDefault();
 		body.insertAdjacentHTML('afterbegin', html);
+		loading("body", "display-none");
 	}
 
 
