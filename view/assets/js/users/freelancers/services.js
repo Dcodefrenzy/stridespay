@@ -9,7 +9,7 @@ exports.servicesHandller = (token, id)=>{
 	spinner.className ="display-none";
 
 
-			const services=(services, display, noServices)=>{
+			const services=(services)=>{
 
 				const html = `<div id="products">
 							<div class="container">
@@ -28,30 +28,7 @@ exports.servicesHandller = (token, id)=>{
 												<div class="col-12 col-sm-12 col-md-12 mt-5">
 													<h4>Services</h4>
 													<div class="row">
-														${services.map((service)=>{							
-												return	`<div class=${display}>
-															<a href=/users/services/${service._id}>
-																<div class="card shadow-lg p-3 mb-3 bg-white rounded">
-																	<div class="card-body text-center">
-																		<i class="fa  fa-tasks fa-3x text-green" aria-hidden="true"></i>
-																		<p class="text-dark">${service.product}</p>
-																		<p class="text-dark">${service.price}</p>
-																	</div>
-																</div>
-															</a>
-														</div>`;
-													})}
-														<div class=${noServices}>
-															<div class="card shadow-lg p-3 mb-3 bg-white rounded">
-																<div class="card-body text-center">
-																<i class="fa fa-tasks fa-3x text-green" aria-hidden="true"></i>
-																<p class="text-dark">No Service yet</p>
-																<p>Create a  Service and get going.</p>
-																<div class="col-12 col-sm-12 col-md-12 mt-3">
-																<button class="btn-sm btn-dark" onclick="return createService(event, this.id, this.value)" value="products" id="isMerchant">Create Service</button>
-																</div>
-															</div>
-														</div>
+														${services}
 													</div>
 													</div>
 												</div>
@@ -66,22 +43,42 @@ exports.servicesHandller = (token, id)=>{
 			}
 
 			const load=(response)=>{
-				console.log(response.status)
-				let display;
-				let noServices;
+				let service;
 				if (response.status === 401) {
 					 body.insertAdjacentHTML('afterbegin', loginForm);
-				}else if (response.status === 200) {console.log(response)
-					if (response.products.length <1) {
-							display = "display-none";
-							noServices= "col-12 col-sm-12 col-md-12";
-							response = [""]
+				}else if (response.status === 200) {
+					
+
+					if (response.products.length > 1) {
+
+					 	service = response.products.map((service)=>{							
+							return	`<div class="col-12 col-sm-12 col-md-12">
+										<a href=/users/services/${service._id}>
+											<div class="card shadow-lg p-3 mb-3 bg-white rounded">
+												<div class="card-body text-center">
+													<i class="fa  fa-tasks fa-3x text-green" aria-hidden="true"></i>
+													<p class="text-dark">${service.product}</p>
+													<p class="text-dark">${service.price}</p>
+												</div>
+											</div>
+										</a>
+									</div>`;
+						})
 					}else{
-						display = "col-12 col-sm-12 col-md-12 ";
-							noServices= "display-none";
+				 service  = `<div class="col-12 col-sm-12 col-md-12">
+								<div class="card shadow-lg p-3 mb-3 bg-white rounded">
+									<div class="card-body text-center">
+										<i class="fa fa-tasks fa-3x text-green" aria-hidden="true"></i>
+										<p class="text-dark">No Service yet</p>
+										<p>Create a  Service and get going.</p>
+									<div class="col-12 col-sm-12 col-md-12 mt-3">
+										<button class="btn-sm btn-dark" onclick="return createService(event, this.id, this.value)" value="products" id="isMerchant">Create Service</button>
+									</div>
+								</div>
+							</div>`
 					}
 				}
-				services(response.products, display, noServices)
+				services(service)
 			}
 
 			getRequest("products/services", token, "GET", load);
