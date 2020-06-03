@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 	let buyersForm;	 
 
-	exports.buyersForm = `<div id="revert" class="fixed-top bg-green full-height">
+	exports.buyersForm = `<div id="revert" class=" bg-green full-height">
 				<div class="">
 				<div id="loading"></div>
 					<div class="row mt-2 p-3">
