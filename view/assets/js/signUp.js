@@ -7,7 +7,7 @@ define(function(require, exports, module) {
 	spinner.className ="display-none";
 
 	const html = `<div id="login" class=" bg-green"><div class="container">
-					<div class="row align-items-center p-3">
+					<div class="row align-items-center p-2">
 		<div class="col-12 col-sm-12 col-md-12 col-lg-12">
 				<a href="/"><i class="fa fa-arrow-left text-dark"></i></div></a>
 				<div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-lg-5">

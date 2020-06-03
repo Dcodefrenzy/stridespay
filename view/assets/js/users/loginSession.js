@@ -6,7 +6,7 @@ define(function(require, exports, module) {
 	spinner.className ="display-none";
 
 		let html = `<div id="login" class="fixed-top bg-green full-height"><div class="container">
-					<div class="row align-items-center mt-5 p-5">
+					<div class="row align-items-center mt-2 p-5">
 		<div class="col-12 col-sm-12 col-md-12 col-lg-12">
 				<a href="/"><i class="fa fa-arrow-left text-dark"></i></div></a>
 				<div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-lg-5">
