@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 
 exports.request = (url, token, method, body, callback)=>{
-
+  console.log(url)
   fetch("/api/v1/"+url, {
     method:method,
     body:JSON.stringify(body),
@@ -17,7 +17,7 @@ exports.request = (url, token, method, body, callback)=>{
 
 
 exports.getRequest = (url, token, method, callback)=>{
-
+console.log(url)
   fetch("/api/v1/"+url, {
     method:method,
     headers: {'Content-Type': "application/json", "u-auth": token.token}

@@ -6,15 +6,17 @@ const mailerController = require("../mail/mailController.js");
 const productController = require("../products/productController.js");
 const milestoneController = require("../milestones/milestoneController.js");
 const transactionController = require("../transaction/transcationController.js");
+const walletController = require("../wallet/walletsController.js");
+const withdrawController = require("../withdraw/withdrawController.js");
 const router = express.Router();
 
 
 router.route("/signup")
-	.post(controller.verifyEmail, controller.registerUser, mailerController.sendRegistrationMail, mailerController.welcomeMail, mailerController.adminNotification, logsController.addLogs)
+	.post(controller.verifyEmail, controller.registerUser, walletController.createWallet, withdrawController.createWithdraw, mailerController.sendRegistrationMail, mailerController.welcomeMail, mailerController.adminNotification, logsController.addLogs)
 
 	
 router.route("/register")
-	.post(controller.addUser, productController.addProduct, milestoneController.addMilestone,transactionController.createMerchantTransactions, logsController.addLogs)
+	.post(controller.addUser, walletController.createWallet, withdrawController.createWithdraw, productController.addProduct, milestoneController.addMilestone,transactionController.createMerchantTransactions, logsController.addLogs)
 
 router.route("/login")
 	.post(controller.userLogin)
@@ -32,7 +34,7 @@ router.route("/verification")
 
 
 router.route("/profile")
-	.get(controller.userAuthenticate, controller.userProfile)
+	.get(controller.userAuthenticate, walletController.getUserWallet, withdrawController.getUserWithdraw)
 
 router.route("/create/user")
 	.post(controller.addUser, logsController.addLogs)

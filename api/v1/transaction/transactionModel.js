@@ -72,6 +72,10 @@ TransactionsSchema = mongoose.Schema({
             required:false,
             default:false,
         },
+        isService:{
+            type:Boolean,
+            require:true,
+        },
         dateCreated:{
 			type: String,
 			required: true,

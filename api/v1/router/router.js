@@ -46,6 +46,10 @@ router.route("/merchant/:name/token/:id")
 	.get(loader.load)
 
 
+router.route("/freelancer/:name/token/:id")
+	.get(loader.load)
+
+
 router.route("/transactions")
 	.get(loader.load)
 
@@ -53,9 +57,27 @@ router.route("/transactions")
 router.route("/transactions/:id")
 	.get(loader.load)
 
-router.route("/services/")
+router.route("/services")
 	.get(loader.load)
 
+router.route("/services/:id")
+	.get(loader.load)
+
+router.route("/services/token/:id")
+	.get(loader.load)
+
+
+router.route("/withdraw")
+	.get(loader.load)
+
+router.route("/bank/account")
+	.get(loader.load)
+
+router.route("/payments/verify/transaction/:id/:transaction")
+	.get(loader.load)
+
+router.route("/payments/verify/:id/:transaction")
+	.get(loader.load)
 
 
 

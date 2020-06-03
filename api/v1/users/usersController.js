@@ -215,9 +215,9 @@ users.findByCredentials(user.phonenumber, user.password).then((user)=>{
 	});
 }
 
-exports.userProfile  = (req, res,next)=> {
-	console.log(req.user)
-res.status(200).send({status:200, user:req.user});
+exports.userProfile  = (req, res,next)=> {		
+		req.data = req.user
+			next();
 }
 
 exports.mailVerification = (req, res)=>{

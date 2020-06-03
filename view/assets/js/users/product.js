@@ -72,7 +72,7 @@ exports.showProductHandller = (token, id)=>{
 				}
 			}
 
-			getRequest("products/"+id, token, "GET", load);
+			getRequest("products/product/"+id, token, "GET", load);
 
 	}
 

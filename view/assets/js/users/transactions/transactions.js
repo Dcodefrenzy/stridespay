@@ -33,9 +33,7 @@ exports.transactionsHandller = (token, id)=>{
 													</nav>
 													<div class="tab-content" id="nav-tabContent">
 														<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-													  			
-													  	${transactions.map((transaction)=>{
-													  		console.log(transactions)
+														${transactions.map((transaction)=>{
 													  		if (transaction.transactionComplete === false) {
 													  			return `<div class="card">
 													  					<div class="card-header">${transaction.productName} <span class="float-right text-success">&#8358;  ${transaction.price.toString().slice(0, -2)}</span></div>

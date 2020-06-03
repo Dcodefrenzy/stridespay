@@ -33,7 +33,7 @@ exports.productPaymentHandller = (token, id)=>{
 													</ol>
 													<div class="col-12">
 													<form>
-													  <script src="https://js.paystack.co/v1/inline.js"></script>
+    													<script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
 													  <button  id=${product._id} class="btn btn-lg btn-green" type="button" onclick="return loadPaymentHandller(this.id)"> Pre Payment </button> 
 													</form>
 													</div>
@@ -49,7 +49,7 @@ exports.productPaymentHandller = (token, id)=>{
 			}
 
 			const displayPayment=(response)=>{
-				console.log(response.status)
+				console.log(response)
 				if (response.status === 401) {
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
@@ -57,7 +57,7 @@ exports.productPaymentHandller = (token, id)=>{
 				}
 			}
 
-			getRequest("products/"+id, token, "GET", displayPayment);
+			getRequest("products/merchant/invoice/"+id, token, "GET", displayPayment);
 
 
 	}

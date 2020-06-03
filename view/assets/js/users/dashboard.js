@@ -9,7 +9,7 @@ exports.dashBoardHandller = (token, id)=>{
 	const spinner = document.getElementById("spinner");
 	spinner.className ="display-none";
 
-			const dashboard=(user)=>{
+			const dashboard=(user, wallet,withdraw)=>{
 				showNotification()
 
 				const html = `<div class="">
@@ -31,12 +31,42 @@ exports.dashBoardHandller = (token, id)=>{
 												</div>
 											</div>
 										</div>
+										<div class="row mt-3 ">
+											<div class="col-12 col-sm-12 col-md-12">
+													<div class="card  bg-radius-lg shadow-lg mb-3">
+														<div class="card-body">
+														<div>
+														<h5 class="float-left">Wallet</h5>
+														<i class="float-right fas fa-wallet fa-2x bg-white bg-radius-lg text-green" aria-hidden="true"></i>	
+																
+														</div>
+														<hr class="mt-5">
+														<div class="row align-items-center">
+															<div class="col-4 text-center">	
+																<p class="text-dark">Total Balance</p>
+																<p class="text-dark">&#8358 ${wallet.amount.toString().slice(0, -2)}</p>
+															</div>
+															<div class="col-4 text-center">	
+																<p class="text-dark">Total Withdawal</p>
+																<p class="text-dark">&#8358 ${withdraw}</p>
+															</div>
+															<div class="col-4">
+															<a href="/users/withdraw">
+															<i class="fas fa-landmark fa-4x bg-white bg-radius-lg text-green" aria-hidden="true"></i>	
+																<p class="text-dark">Withdraw</p>
+																</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 										<div class="row">
 										<div class="col-6 col-sm-6 col-md-6">
 											<a href="/users/transactions">
 												<div class="card shadow-lg p-3 mb-3 bg-white rounded">
 													<div class="card-body text-center">
-													<i class="fas fa-tasks fa-3x text-green" aria-hidden="true"></i>
+													<i class="fas fa-handshake fa-3x text-green" aria-hidden="true"></i>
 													<p class="text-dark">Deals</p>
 												</div>
 											</div>
@@ -56,7 +86,7 @@ exports.dashBoardHandller = (token, id)=>{
 											<a href="/users/services">
 												<div class="card shadow-lg p-3 mb-3 bg-white rounded">
 													<div class="card-body text-center">
-														<i class="fas fa-user-alt fa-3x text-green" aria-hidden="true"></i>
+														<i class="fas fa-tasks fa-3x text-green" aria-hidden="true"></i>
 													<p class="text-dark">Freelancer</p>
 													</div>
 												</div>
@@ -82,19 +112,15 @@ exports.dashBoardHandller = (token, id)=>{
 			}
 
 			const loadDashboard=(response)=>{
-				console.log(response.status)
+				console.log(response)
 				if (response.status === 401) {
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
-					dashboard(response.user);
+					dashboard(response.user, response.wallet, response.withdraw);
 					updateNotification(token);
 				}
 			}
-			OneSignal.getIdsAvailable(function(ids) {
-			    console.log("getIdsAvailable:"
-			                    + "\nUserID: " + ids.userId
-			                    + "\nRegistration ID: " + ids.registrationId);
-			  });
+
 
 			getRequest("users/profile", token, "GET", loadDashboard);
 

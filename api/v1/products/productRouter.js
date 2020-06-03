@@ -15,15 +15,35 @@ router.route("/buyer/invoice/:id")
 router.route("/merchant/invoice/:id")
 	.get(usersController.userAuthenticate, controller.findMerchantProductById, milestonesController.fetchMilestonesById)
 
-router.route("/:id")
-	.get(usersController.userAuthenticate, controller.findProductById, milestonesController.fetchMilestonesPayment, transactionController.findTransactionById)
-
 router.route("/")
 	.get(usersController.userAuthenticate, controller.findUserProducts)
+
+	
+router.route("/service/:id")
+	.get(usersController.userAuthenticate, 
+		controller.findUserServiceById, 
+		milestonesController.fetchServiceMilestone, 
+		transactionController.findServiceTransactionById)
+
+
+router.route("/services")
+	.get(usersController.userAuthenticate, controller.findUserServices)
+
+router.route("/services/create")
+	.post(usersController.userAuthenticate, controller.createService, logsController.addLogs)
 
 router.route("/transaction/create/:id")
 	.post(usersController.userAuthenticate, controller.findProductById, milestonesController.fetchMilestonesPayment, transactionController.createNewMerchantTransactions, logsController.addLogs)
 
 
+router.route("/freelancer/transaction/create/:id")
+	.post(usersController.userAuthenticate, controller.findUserServiceById, milestonesController.fetchServiceMilestone, milestonesController.checkMilestone, transactionController.CreateTransactionForFreelancers, logsController.addLogs)
+
+
+router.route("/product/:id")
+	.get(usersController.userAuthenticate, 
+		controller.findProductById, 
+		milestonesController.fetchMilestonesPayment, 
+		transactionController.findTransactionById)
 
 module.exports = router;

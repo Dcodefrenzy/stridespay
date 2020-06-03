@@ -8,14 +8,23 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="/assets/fontawesome/css/all.css">
+	<script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+
+
 </head>
 <body id="body" class="bg-background">
 			<div id="spinner" class="fixed-top bg-background full-height">	
 				<i  class="fa fa-spinner fa-spin fa-5x spining" aria-hidden="true"></i>
 			</div>
-	<form >
+<!-- 	<form >
   <script src="https://js.paystack.co/v1/inline.js"></script>
+</form> -->
+
+<form>
+    <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
+  <!--   <button type="button" onClick="payWithRave()">Pay Now</button> -->
 </form>
+
 </body>
 <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
 <script>
@@ -25,8 +34,8 @@
       appId: "f2d91052-f915-4174-acbd-39e8582f54d0",
     });
   });
-</script>
- <script  type="text/javascript" src ="/assets/js/moments.js"></script>
+</script> 
+<script type="text/javascript" src="/assets/js/moments.js"></script>
  <script  type="text/javascript" src ="/assets/js/jquery.js"></script>
  <script  type="text/javascript" src ="/assets/js/bootstrap.js"></script>
  <script data-main="/assets/js/main" src = "/assets/js/require.js"></script>

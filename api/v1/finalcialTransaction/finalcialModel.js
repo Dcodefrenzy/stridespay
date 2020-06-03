@@ -21,7 +21,7 @@ FinalcialsSchema = mongoose.Schema({
             type:Number,
             required:true,
         },
-        pamentDescription:{
+        paymentDescription:{
             type: String,
             required:true,
         },

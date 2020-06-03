@@ -2,10 +2,20 @@ define(function (require, exports, modules) {
 	
 	exports.showNotification=()=>{
 	const body = document.getElementById("body");
-
-
-		html =`<div class=""><div class='onesignal-customlink-container fixed-top  notification  mt-5'></div></div>`
-
-		 	body.insertAdjacentHTML('afterbegin', html);
+	const OneSignal = window.OneSignal || []; 
+	
 	}
 })
+
+OneSignal.push(["getNotificationPermission", function(permission) {
+    console.log("Site Notification Permission:", permission);
+    // (Output) Site Notification Permission: default)
+				if (permission !== "granted") {		
+						    OneSignal.registerForPushNotifications({
+					        modalPrompt: true
+					    });
+
+				}else {
+					console.log(permission);
+				}
+}]);

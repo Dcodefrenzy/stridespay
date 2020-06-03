@@ -36,6 +36,7 @@
     "onesignal-node": "^3.0.1",
     "path": "^0.12.7",
     "paystack": "^2.0.1",
+    "request-promise": "^4.2.5",
     "socket.io": "^2.3.0",
     "validator": "^10.6.0"
   },

@@ -6,9 +6,7 @@ define(function (require, exports, modules) {
 		OneSignal.push(function() { 
 			OneSignal.getUserId().then(function(userId) {
 				console.log(userId);
-					 request("users/update/notification/", token, "POST", {playerId:userId}, (response)=>{
-							console.log(response)
-						});
+					 request("users/update/notification", token, "POST", {playerId:userId}, (response)=>{});
 			})
 		});
 	}	

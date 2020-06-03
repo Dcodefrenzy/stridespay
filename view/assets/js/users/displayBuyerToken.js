@@ -43,7 +43,7 @@ exports.displayBuyerToken = (token, id)=>{
 													<div class="col-12">
 													<form>
 													  <script src="https://js.paystack.co/v1/inline.js"></script>
-													  <button  id=${transaction._id} value=${"products/buyer/invoice/"+transaction.product} class="btn btn-lg btn-green" type="button" onclick="return loadPaymentHandller(this.id, this.value)"> Pre Payment </button> 
+													  <button  id=${transaction._id} value=${"transactions/payment/token/"+transaction._id} class="btn btn-lg btn-green" type="button" onclick="return loadPaymentHandller(this.id, this.value)"> Pre Payment </button> 
 													</form>
 													</div>
 
@@ -64,6 +64,9 @@ exports.displayBuyerToken = (token, id)=>{
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					showTransaction(response.transaction, response.transaction.milestones);
+				}else if (response.status === 403) {
+					alert(response.message);
+					window.location = "/"
 				}
 			}
 

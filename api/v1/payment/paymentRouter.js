@@ -10,8 +10,12 @@ const router = express.Router();
 
 
 router.route("/verify/:id")
-		.post(usersController.userAuthenticate, productController.findBuyersProductById, milestonesController.fetchMilestonesPayment, controller.verifyPayment, transactionController.createBuyerTransactions, controller.createNewPayment, logController.addLogs)
+		.post(usersController.userAuthenticate, productController.findMerchantProductById, milestonesController.fetchMilestonesPayment, controller.verifyPayment, transactionController.createBuyerTransactions, controller.createNewPayment, logController.addLogs)
 
+router.route("/verify/transaction/:id")
+		.post(usersController.userAuthenticate, transactionController.findTransactionForPayment, controller.verifyTransactionPayment, transactionController.createBuyerTransactions,  controller.createNewPayment, logController.addLogs)
 
+router.route("/banks")
+		.get(usersController.userAuthenticate, controller.getAllBanks)
 
 module.exports = router;

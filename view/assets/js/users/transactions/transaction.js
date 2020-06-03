@@ -43,7 +43,7 @@ exports.transactionHandller = (token, id)=>{
 													
 															${milestones.map((milestone, index)=>{
 																console.log(milestone._id)
-																const userButton = token._id === transaction.buyer && milestone.buyer === false && milestone.merchant === true? `<button onclick="return updateBuyerMilestone(event, this.id, this.value, this.name)" value=${milestone._id} id=${transaction._id} name=${index} class="btn-sm btn-success">Pay Merchant</button>`:""
+																const userButton = token._id === transaction.buyer && milestone.buyer === false && milestone.merchant === true? `<button onclick="return updateBuyerMilestone(event, this.id, this.value, this.name)" value=${milestone._id} id=${transaction._id} name=${index} class="btn-sm btn-success">Pay Merchant</button>`:token._id === transaction.buyer && milestone.buyer === true && milestone.merchant === true? `<p class="text-success">PAID</p>`:"";
 																const merchantButton = token._id === transaction.merchant && milestone.buyer === false && milestone.merchant === false? `<button onclick="return updateMerchantMilestone(event, this.id, this.value)" value=${milestone._id} id=${transaction._id} class="btn-sm btn-success">Complete Milestone</button>`:""
 																const milestoneStatus = milestone.merchant === true? `<i class="fa fa-check-circle text-success text-left"></i>`:milestone.merchant === false?`<i class="fa fa-circle text-left"></i>`:""
 																			return `	
@@ -63,7 +63,7 @@ exports.transactionHandller = (token, id)=>{
 																	      <div class="card-body">
 																	      <p><i class="fas fa-info-circle text-green text-left"></i> ${milestone.description}</p>
 																	      <p> ${milestoneStatus} Milestone Status</p>
-																	      <p>milestone price - &#8358;  ${transaction.price.toString().slice(0, -2)}</p>
+																	      <p>milestone price - &#8358;  ${milestone.price.toString().slice(0, -2)}</p>
 																	      ${userButton}
 																	      ${merchantButton}
 																	      </div>
@@ -99,7 +99,9 @@ exports.transactionHandller = (token, id)=>{
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					transaction(response.transaction, response.transaction.milestones);
-				}
+				}else if (response.status === 403) {
+						alert(response.message);
+				}	
 			}
 
 			getRequest("transactions/"+id, token, "GET", displayTransaction);

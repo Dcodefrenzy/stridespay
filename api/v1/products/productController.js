@@ -122,7 +122,8 @@ exports.findUserProducts = (req, res)=>{
 }
 
 exports.findBuyersProductById= (req, res, next)=>{
-    products.findOne({_id:req.params.id, isMerchant:true, isService:!true}).then((product)=>{
+    console.log(req.params.id)
+    products.findOne({_id:req.params.id, isMerchant:true, isService:false}).then((product)=>{
         if (!product) {
 			const err = {status:404, message:"No product listed yet."}
 			return res.status(404).send(err);
@@ -140,12 +141,12 @@ exports.findBuyersProductById= (req, res, next)=>{
 }
 
 exports.findMerchantProductById= (req, res, next)=>{
-    products.findOne({_id:req.params.id, isMerchant:false, isService:!true}).then((product)=>{
+    products.findOne({_id:req.params.id, isMerchant:false, isService:false}).then((product)=>{
         if (!product) {
             const err = {status:404, message:"No product listed yet."}
             return res.status(404).send(err);
         }else{
-            req.data = {status:200, product:product, user:req.user};
+            req.data = {status:200, transaction:product, product:product, user:req.user};
             next();
         }
     }).catch((e)=>{
@@ -158,7 +159,9 @@ exports.findMerchantProductById= (req, res, next)=>{
 }
 
 exports.findProductById= (req, res, next)=>{
+
     products.findOne({_id:req.params.id, user:req.user._id}).then((product)=>{
+
         if (!product) {
             const err = {status:404, message:"No product listed yet."}
             return res.status(404).send(err);
@@ -175,8 +178,8 @@ exports.findProductById= (req, res, next)=>{
     });
 }
 
+
 exports.createService=(req, res, next)=>{
-  
      product = new products({
         product:req.body.service,
         price:req.body.price+"00",
@@ -220,6 +223,7 @@ exports.createService=(req, res, next)=>{
 
 
 exports.findUserServices = (req, res)=>{
+    console.log(req.user._id)
     products.find({user:req.user._id, isService:true}, null, {sort: {_id: -1}}).then((products)=>{
         if (!products) {
             const err = {status:404, message:"No Service Created yet."}
@@ -236,15 +240,17 @@ exports.findUserServices = (req, res)=>{
 }
 
 
-exports.findUserServiceById = (req, res)=>{
-    products.findOne({user:req.user._id, _id:req.params.id isService:true}).then((products)=>{
-        if (!products) {
+exports.findUserServiceById = (req, res, next)=>{
+    products.findOne({user:req.user._id, _id:req.params.id, isService:true}).then((service)=>{
+        if (!service) {
             const err = {status:404, message:"No Service Created yet."}
             return res.status(404).send(err);
         }else{
-            res.status(200).send({status:200, products:products});
+            req.data = {status:200, service:service, user:req.user};;
+            next()
         }
     }).catch((e)=>{
+        console.log(e)
         let err ={}
         if(e.errors) {err = {status:403, message:e.errors}}
         else if(e){err = {status:403, message:e}}
@@ -254,8 +260,8 @@ exports.findUserServiceById = (req, res)=>{
 
 
         
-exports.findUserServiceById = (req, res)=>{
-    products.findoneAndUpdate({user:req.user._id, _id:req.params.id isService:true}, {$set: {product:req.body.service, price:req.body.price+"00",}}).then((products)=>{
+exports.updateUserServiceById = (req, res)=>{
+    products.findoneAndUpdate({user:req.user._id, _id:req.params.id, isService:true}, {$set: {product:req.body.service, price:req.body.price+"00",}}).then((products)=>{
         if (!products) {
             const err = {status:404, message:"No Service Created yet."}
             return res.status(404).send(err);
@@ -269,6 +275,7 @@ exports.findUserServiceById = (req, res)=>{
             next();
         }
     }).catch((e)=>{
+        console.log(e)
         let err ={}
         if(e.errors) {err = {status:403, message:e.errors}}
         else if(e){err = {status:403, message:e}}

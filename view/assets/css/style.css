@@ -26,6 +26,11 @@
 	border-radius: 10px;
 	border:0px;
 }
+
+.bg-radius-lg{
+	border-radius: 30px;
+	border:0px;
+}
 .bg-background{
 	background-color: #ebf2f1;
 }

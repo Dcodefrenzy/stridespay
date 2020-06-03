@@ -9,13 +9,14 @@ exports.addFinalcialTranaction = (req, res, next)=>{
 			to:req.data.merchant,
 			transaction:req.data._id,
 			paymentStatus:req.data.paymentStatus,
-			amount:req.data.milestones[req.body.index].price,
-			pamentDescription:req.data.milestones[req.body.index].description,
+			amount:req.data.milestonesPrice,
+			paymentDescription:req.data.milestonesDescription,
 			dateCreated:new Date(),
 	});
 
 	finalcial.save().then((finalcials)=>{
 			if (finalcials) {
+				console.log({"finalcials":finalcials})
 				next();
 			}else {
 				
@@ -24,6 +25,7 @@ exports.addFinalcialTranaction = (req, res, next)=>{
 			return res.status(404).send(err);
 			}
 	}).catch((e)=>{
+		console.log(e)
 		let err ={}
 		if(e.errors) {err = {status:403, message:e.errors}}
 		else if(e){err = {status:403, message:e}}
