@@ -75,11 +75,10 @@ exports.transactionsHandller = (token, id)=>{
 			}
 
 			const load=(response)=>{
-				console.log(response.status)
+
 				if (response.status === 401) {
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
-					console.log(response)
 					transactions(response.transactions)
 				}
 			}

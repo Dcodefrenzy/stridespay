@@ -60,7 +60,7 @@ exports.serviceTokens = (token, id)=>{
 			}
 
 			const load=(response)=>{
-				console.log(response)
+
 				if (response.status === 401) {
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {

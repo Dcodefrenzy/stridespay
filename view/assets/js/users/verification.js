@@ -35,7 +35,7 @@ define(function (require, exports, module) {
 			}
 
 			const load=(response)=>{
-				console.log(response.status)
+				
 				if (response.status === 401) {
 					form("users/verify/user", "sendMailVerification", "Resend Mail");
 				}else if (response.status === 200) {

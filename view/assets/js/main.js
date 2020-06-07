@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 			let {register} = require("submit");
 		  	let {buyersForm} = require('buyers');
 		  	let {merchantForm} = require('merchants');
+		  	let {subscribersForm} =require("users/subscribers");
 		  	let {loginForm} = require('logins');
 		  	let {load} = require("loadFile");
 		  	let {loading} = require("./loading");
@@ -14,6 +15,8 @@ define(function(require, exports, module) {
 
 			showNotification();
 		const buyers = Array.from(document.getElementsByClassName("buyers"));
+
+		const subsciber = Array.from(document.getElementsByClassName("subscribe"));
 		const merchants = Array.from(document.getElementsByClassName("merchants"));
 		const logins = Array.from(document.getElementsByClassName("user-login"));
 
@@ -39,6 +42,9 @@ define(function(require, exports, module) {
 	}); 
 	buyers.map((buyer)=>{
 		buyer.addEventListener("click", event=>displayHtml(event, buyersForm), false)
+	});
+	subsciber.map((subscribe)=>{
+		subscribe.addEventListener("click", event=>displayHtml(event, subscribersForm), false)
 	});
 
 

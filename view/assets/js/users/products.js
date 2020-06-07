@@ -43,10 +43,9 @@ exports.productsHandller = (token, id)=>{
 			}
 
 			const load=(response)=>{
-				console.log(response.status)
 				if (response.status === 401) {
 					 body.insertAdjacentHTML('afterbegin', loginForm);
-				}else if (response.status === 200) {console.log(response)
+				}else if (response.status === 200) {
 					if (response.products.length >0) {
 									const allProducts = response.products.map((product)=>{							
 										let title  = product.isMerchant===true?"Selling":product.isMerchant===false?"Buying":"";

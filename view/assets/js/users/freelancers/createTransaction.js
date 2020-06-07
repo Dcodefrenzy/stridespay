@@ -9,7 +9,7 @@ define(function (require, expotrs, module) {
 	const sessionItem = JSON.parse(sessionStorage.getItem("user")) !== null?JSON.parse(sessionStorage.getItem("user")):{"token":"No token"}; 
   
 		request(url, sessionItem, "POST", {"no-body":"No-body"}, function (response) {
-			console.log(response)
+			
 			loading("spinner", "");
 					if (response.status === 200) {
 						loading("spinner", "display-none");

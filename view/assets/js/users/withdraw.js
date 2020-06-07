@@ -45,7 +45,7 @@ define(function(require, exports, module) {
 	 body.insertAdjacentHTML('afterbegin', html);
 		}			
 		const loadDashboard=(response)=>{
-				console.log(response)
+				
 				if (response.status === 401) {
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {

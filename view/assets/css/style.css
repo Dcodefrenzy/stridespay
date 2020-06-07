@@ -4,19 +4,32 @@
 	cursor: pointer;
 }
 .text-green{
-	color: #3DBEA7;
+	color: #0048cd;
 }
 
 .bg-green{
-	background-color: #3DBEA7;
+	background-color: #0048cd;
+}
+.bg-navy{
+	background-color: #dadef5;
 }
 
 .btn-green{
-	background-color: #3DBEA7;
+	background-color: #0048cd;
 	color: white;
 	border:0px;
 }
-
+.text-strides{
+	color: #0048cd;
+}
+.bg-strides{
+	background-color: #0048cd;
+}
+.btn-strides{
+	background-color: #0048cd;
+	color: white;
+	border:0px;
+}
 .btn-radius{
 	border-radius: 10px;
 	border:0px;

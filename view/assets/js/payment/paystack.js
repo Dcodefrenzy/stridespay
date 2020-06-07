@@ -7,7 +7,7 @@
   exports.payWithPaystack = (payment, id, url)=>{
    let email = payment.user.email === undefined?"paymerchantafrica@gmail.com":payment.user.email;
 
-console.log(url)
+
   var handler = PaystackPop.setup({
         key: 'pk_test_511eb9851944a653141f6b6f99a57954b4738a55',
         email: email,
@@ -29,10 +29,10 @@ console.log(url)
               loading("spinner", "");
           request(url, sessionItem, "POST", {reference:response.reference, transaction:id}, function(response){
                       if (response.status === 200) {
-                      console.log(response)
+                   
                        window.location = response.redirect;
                       }else{
-                        console.log(response)
+                       
                           window.location = response.redirect;
                       }
               })       

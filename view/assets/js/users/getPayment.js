@@ -17,7 +17,6 @@ return loadPaymentHandller = (id, link)=>{
 console.log(url)
 
 		getRequest(url, sessionItem, "GET", function (response) {
-			console.log(response)
 					if (response.status === 200) {
 						flutterwave(response, id, paymentLink);
 					}else if (response.status === 401) {

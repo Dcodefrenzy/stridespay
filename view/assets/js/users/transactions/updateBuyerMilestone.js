@@ -9,7 +9,7 @@ define(function (require, exports, module) {
           loading("spinner", "");
 
            request("transactions/buyer/update/milestone", sessionItem, "PATCH", {id:id, milestoneId:milestone, index:index}, (res)=>{
-                console.log(response)
+               
                if (res.status === 201) {
                 alert("You have completed a payment, HURRAY!!!")
                 location.reload();
