@@ -19,6 +19,7 @@ define(function(require, exports, module) {
 	const {verifyPayment} = require("payment/payment_verify");
 	const {verifyPaymentProduct} = require("payment/productPaymentVerify");
 	const {withdraw} = require("users/withdraw");
+	const {registrationSuccess} = require("users/registrationSuccess");
 	let styles; 
 	let sessionItem = sessionStorage.getItem("user")==="undefined"?{"token":"No token"}: sessionStorage.getItem("user") === "null" ?{"token":"No token"}:sessionStorage.getItem("user") === null?{"token":"No token1"}:JSON.parse(sessionStorage.getItem("user")); 
 
@@ -37,6 +38,9 @@ define(function(require, exports, module) {
 				break;
 				case "/users/signup":
 				registerForm(sessionItem, path[0]);
+				break;
+				case "/users/register/"+path[3]:
+				registerForm(sessionItem, path[3]);
 				break;
 				case "/users/dashboard":
 				dashBoardHandller(sessionItem, path[0]);
@@ -88,6 +92,9 @@ define(function(require, exports, module) {
 				break;
 				case "/users/payments/verify/"+path[4]+"/"+path[5]:
 				verifyPaymentProduct(sessionItem, path[4], path[5]);
+				break;
+				case "/users/registration/success/"+path[4]:
+				registrationSuccess(sessionItem, path[4]);
 				break;
 				
 			}

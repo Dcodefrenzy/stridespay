@@ -79,6 +79,12 @@ router.route("/payments/verify/transaction/:id/:transaction")
 router.route("/payments/verify/:id/:transaction")
 	.get(loader.load)
 
+router.route("/registration/success/:id")
+	.get(loader.load)
+
+router.route("/register/:id")
+	.get(loader.load)
+
 
 
 

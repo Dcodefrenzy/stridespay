@@ -8,11 +8,30 @@ const milestoneController = require("../milestones/milestoneController.js");
 const transactionController = require("../transaction/transcationController.js");
 const walletController = require("../wallet/walletsController.js");
 const withdrawController = require("../withdraw/withdrawController.js");
+const premiumController = require("../premium/premiumController.js")
 const router = express.Router();
 
 
 router.route("/signup")
-	.post(controller.verifyEmail, controller.registerUser, walletController.createWallet, withdrawController.createWithdraw, mailerController.sendRegistrationMail, mailerController.welcomeMail, mailerController.adminNotification, logsController.addLogs)
+	.post(controller.verifyEmail, controller.registerUser, 
+			walletController.createWallet, 
+			withdrawController.createWithdraw, 
+			premiumController.addUserCoupon, 
+			/*mailerController.sendRegistrationMail,*/ 
+			mailerController.welcomeMail, 
+			mailerController.adminNotification, 
+			logsController.addLogs)
+
+
+router.route("/subscribe/:id")
+	.post(controller.verifyEmail, controller.registerUser, 
+			walletController.createWallet, 
+			withdrawController.createWithdraw, 
+			premiumController.addUserCoupon, 
+			premiumController.updatePremium, 
+			mailerController.welcomeMail, 
+			mailerController.adminNotification, 
+			logsController.addLogs)
 
 	
 router.route("/register")

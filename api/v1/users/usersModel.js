@@ -76,6 +76,10 @@ const userSchema = new mongoose.Schema({
 		type:Boolean,
 		required:false,
 	},
+	roles:{
+		type:Number,
+		required:false,
+	},
 	deleteUser: {
 		type: Boolean,
 		required: true, 

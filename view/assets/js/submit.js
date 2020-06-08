@@ -104,19 +104,23 @@ const registerUser=(url, token, data)=>{
 		loading("spinner", "");
 		 request(url, token, "POST", data, (res)=>{
 	 if (res.status === 201) {
-	 	alert("Registration Successful.")
-		sessionStorage.setItem("user", JSON.stringify({"token":res.token, "_id":res._id}))
-		window.location = res.redirect;
+	 	alert("Yay! Excited to get going?  A mail has been sent to you.")
+	 	window.location = "/users/registration/success/"+res._id;
+	/*	sessionStorage.setItem("user", JSON.stringify({"token":res.token, "_id":res._id}))
+		window.location = res.redirect;*/
 	}else {
 		loading("spinner", "display-none");
 		console.log(res);
-		if (res.message === "User do not exist.") {
-			handleError({"message":"User do not exist"}, "is invalid");
+		if (res.message) {
+			if (res.message === "User do not exist.") {
+				handleError({"message":"User do not exist"}, "is invalid");
+			}
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
+			handleError(res.message, "is invalid")
 		}
-		if (res.message.name === "MongoError") {
-			handleError(res.message.keyValue, "already exist");
-		}
-		handleError(res, "is invalid");
+		handleError(res, "is invalid or exist");
 	}
 	});
 }

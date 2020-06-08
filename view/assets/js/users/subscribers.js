@@ -8,24 +8,46 @@ define(function(require, exports, module) {
 				<a href="/"><i class="fa fa-arrow-left text-dark"></i></div></a>
 					</div>
 				<div class="col-12 col-sm-12 col-md-12 col-lg-12">
-					<h1>Start Selling</h1>
-					<form id="users/subscibe" class="registerSubscriber" name="submitForm" onsubmit="return register(event)">
+					<h3>Register and get free cupons when we launch</h3>
+					<form id="users/signup" class="signUpUser" name="submitForm" onsubmit="return register(event)">
 						<div class="row">
-							<div class="col-12 col-sm-12 col-md-12">
-								<div class="form-group">
-									<label id="error-name">Name</label>
-									<input type="text" name="name" oninput="return returnValidation(this.value, this.name)"  class="form-control" placeholder="Eg John Doe">
-								</div>
-							</div>
-							<div class="col-12 col-sm-12 col-md-12">
-								<div class="form-group">
+							<p id="error-message"></p>
+							<div class="col-12 col-sm-12 col-md-6">
+								<div class="form-group text-white">
+									<label id="error-message"></label>
 									<label id="error-email">Email</label>
-									<input type="email" name="email" oninput="return returnValidation(this.value, this.name)"  class="form-control" placeholder="How can we reach you?">
+									<input type="email" name="email" oninput="return returnValidation(this.value, this.name)"  class="form-control" placeholder="Enter your email here" required>
 								</div>
 							</div>
-							<div class="col-12 col-sm-12 col-md-12">
+							<div class="col-12 col-sm-12 col-md-6">
+								<div class="form-group text-white">
+									<label id="error-firstname"></label>
+									<label id="error-firstname">Firstname</label>
+									<input type="text" name="firstname" oninput="return returnValidation(this.value, this.name)"  class="form-control" placeholder="Enter your firstname here" required>
+								</div>
+							</div>
+							<div class="col-12 col-sm-12 col-md-6">
+								<div class="form-group text-white">
+									<label id="error-lastname"></label>
+									<label id="error-firstname">Lastname</label>
+									<input type="text" name="lastname" oninput="return returnValidation(this.value, this.name)"  class="form-control" placeholder="Enter your lastname here" required>
+								</div>
+							</div>
+							<div class="col-12 col-sm-12 col-md-6">
+								<div class="form-group text-white">
+									<label id="error-message"></label>
+									<label id="error-phonenumber">Phone Number</label>
+									<input type="text" name="phonenumber" oninput="return returnValidation(this.value, this.name)"  class="form-control" placeholder="Enter your number here" required>
+								</div>
+							</div>
+							<div class="col-12 col-sm-12 col-md-6">
+								<div class="form-group text-white">
+									<label id="error-password">Password</label>
+									<input type="password" name="password" oninput="return returnValidation(this.value, this.name)" class="form-control" placeholder="Enter your password here" required></div>
+							</div>
+							<div class="col-12 col-sm-12 col-md-6">
 								<div class="form-group">
-									<input type="submit" name="isMerchant" class="form-control btn-lg btn-dark" value="Generate token">
+									<input type="submit" name="submit" class="form-control btn-lg btn-success" value="Signup">
 								</div>
 							<div>
 						</div>
