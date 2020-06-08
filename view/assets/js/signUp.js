@@ -57,7 +57,6 @@ define(function(require, exports, module) {
 							<div>
 						</div>
 					</form>
-					<p>Please sign up if you already an account <a href="/users/login">login</a></p>
 				</div>
 			</div>
 		</div>
