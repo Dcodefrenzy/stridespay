@@ -42,6 +42,18 @@ const loginUser=(url, token, data)=>{
 		sessionStorage.setItem("user", JSON.stringify({"token":res.token, "_id":res._id}))
 		loading("login", "display-none");
 		location.reload();
+	}else if (res.status === 400) {
+				loading("spinner", "display-none");
+		if (res.message) {
+			if (res.message.message) {
+				handleError({"message":"User do not exist"}, res.message.message);
+			}
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}else{
+				handleError(res.message, "is invalid");
+			}
+		};
 	}else {
 		console.log(res);
 		if (res.message) {
@@ -49,8 +61,10 @@ const loginUser=(url, token, data)=>{
 		}
 		if (res.message.name === "MongoError") {
 			handleError(res.message.keyValue, "already exist");
-		}
+		}else{
 		handleError(res, "is invalid");
+			
+		}
 	}
 	});
 }
@@ -62,16 +76,30 @@ const userLogin=(url, token, data)=>{
 	 	alert("Login Successful.")
 		sessionStorage.setItem("user", JSON.stringify({"token":res.token, "_id":res._id}))
 		window.location = "/users/dashboard";
-	}else {
-		loading("spinner", "display-none");
-		console.log(res);
+	}else if (res.status === 400) {
+				loading("spinner", "display-none");
 		if (res.message) {
+			if (res.message) {
+				handleError({"message":"User do not exist"}, res.message.message);
+			}
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
 			handleError(res.message, "is invalid");
 		}
-		if (res.message.name === "MongoError") {
-			handleError(res.message.keyValue, "already exist");
+		handleError(res, "is invalid or exist");
+	} else {
+		loading("spinner", "display-none");
+		if (res.message) {
+			if (res.message === "User do not exist.") {
+				handleError({"message":"User do not exist"}, "is invalid");
+			}
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
+			handleError(res.message, "is invalid")
 		}
-		handleError(res, "is invalid");
+		handleError(res, "is invalid or exist");
 	}
 	});
 }

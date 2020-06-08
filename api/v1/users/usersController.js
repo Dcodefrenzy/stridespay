@@ -187,13 +187,49 @@ exports.userAuthenticate =  (req, res, next)=>{
 
 
 //User login.
+
 exports.userLogin = (req, res)=>{
+	if (req.body.email) {
+		loginEmail(req, res);
+	}else if (req.body.phonenumber) {
+		loginPhone(req, res);
+	}
+}
+const loginPhone = (req, res)=>{
 	const user = new users({
 	phonenumber : req.body.phonenumber,
 	password : req.body.password
 });
 
-users.findByCredentials(user.phonenumber, user.password).then((user)=>{
+users.findByPhoneCredentials(user.phonenumber, user.password).then((user)=>{
+		return user.generateAuthToken().then((token)=>{
+			const userUpdate = new users({
+				lastLogin: Date.now,
+				loginStatus: true,
+			});
+			users.findByIdAndUpdate(user._id, {$set: {lastLogin:userUpdate.lastLogin, loginStatus:userUpdate.loginStatus,}}).then((newUSer)=>{
+				if(!newUSer) {
+					const err = {status:403, message:"unable to update login status"}
+					return res.status(403).send(err);
+				}else{
+					const userDetails = {status:200, token:token, name:user.firstname +" "+ user.lastname, _id:user._id};
+					res.status(200).send(userDetails);
+				}
+			}) 
+		})
+	}).catch((e)=>{
+		console.log(e);
+		res.status(403).send(e);
+	});
+}
+
+const loginEmail = (req, res)=>{
+	const user = new users({
+	phonenumber : req.body.email,
+	password : req.body.password
+});
+
+users.findByEmailCredentials(user.email, user.password).then((user)=>{
 		return user.generateAuthToken().then((token)=>{
 			const userUpdate = new users({
 				lastLogin: Date.now,

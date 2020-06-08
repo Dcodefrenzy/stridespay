@@ -145,7 +145,7 @@ const userSchema = new mongoose.Schema({
 			return token;
 		});
 	};
-userSchema.statics.findByCredentials = function (phonenumber, password){
+userSchema.statics.findByPhoneCredentials = function (phonenumber, password){
 	const user = this;
 	return user.findOne({phonenumber}).then((body)=>{
 		if (!body) {
@@ -163,6 +163,31 @@ userSchema.statics.findByCredentials = function (phonenumber, password){
 					
 				}else{
 					const error = {status:403, message:{message:"phonenumber or password do not exist"}}
+					return reject(error);
+				}	
+			})
+		})
+	})
+}
+
+userSchema.statics.findByEmailCredentials = function (email, password){
+	const user = this;
+	return user.findOne({email}).then((body)=>{
+		if (!body) {
+			const err = {status:400, message:{message:"User do not exist."}}
+			return Promise.reject(err);
+		}
+		if(body.deleteUser === true) {
+			const err = {status:400, message:{message:"This user has been deleted."}}
+			return Promise.reject(err);
+		}
+		return new Promise((resolve, reject)=>{
+			bcrypt.compare(password, body.password, (err, res)=>{
+				if (res) {
+					return resolve(body);
+					
+				}else{
+					const error = {status:400, message:{message:"Email or password do not exist"}}
 					return reject(error);
 				}	
 			})
