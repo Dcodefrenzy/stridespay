@@ -13,7 +13,8 @@ define(function(require, exports, module) {
 				<div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-lg-5">
 					<img  src="/assets/images/strides.png"></div>
 				<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-					<h1>Sign Up</h1>
+					<h1>Join our waiitng list</h1>
+					<p>Get one month free access</p>
 					<form id=${`users/subscribe/${id}`} class="signUpUser" name="submitForm" onsubmit="return register(event)">
 						<div class="row">
 							<p id="error-message"></p>
@@ -55,6 +56,7 @@ define(function(require, exports, module) {
 									<input type="submit" name="submit" class="form-control btn-lg btn-strides" value="Signup">
 								</div>
 							<div>
+					<p>learn about us here <a href="/" class="btn-sm btn-strides">Here</a></p>
 						</div>
 					</form>
 				</div>
