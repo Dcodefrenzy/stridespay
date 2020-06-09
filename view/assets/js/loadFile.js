@@ -37,7 +37,7 @@ define(function(require, exports, module) {
 				productPaymentHandller(sessionItem, path[4]);
 				break;
 				case "/users/signup":
-				registerForm(sessionItem, path[0]);
+				registerForm(sessionItem, 1);
 				break;
 				case "/users/register/"+path[3]:
 				registerForm(sessionItem, path[3]);

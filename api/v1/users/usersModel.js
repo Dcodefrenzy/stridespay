@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
 	email: {
 		type: String,
 		required: false,
+		unique:true,
 		validate: {
 			validator: validator.isEmail,
 			message: '{value} is not a valid email',
@@ -173,6 +174,7 @@ userSchema.statics.findByPhoneCredentials = function (phonenumber, password){
 userSchema.statics.findByEmailCredentials = function (email, password){
 	const user = this;
 	return user.findOne({email}).then((body)=>{
+		
 		if (!body) {
 			const err = {status:400, message:{message:"User do not exist."}}
 			return Promise.reject(err);

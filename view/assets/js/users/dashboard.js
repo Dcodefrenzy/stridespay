@@ -4,6 +4,7 @@ exports.dashBoardHandller = (token, id)=>{
 	const {getRequest} = require("request");
 	const body = document.getElementById("body");
 	const {showNotification} = require("./showNotification");
+	const {sideBar} = require("./sidebar");
 	const {updateNotification} = require("./updatePlayerId");
 	const {loginForm} = require("../logins")
 	const spinner = document.getElementById("spinner");
@@ -11,15 +12,15 @@ exports.dashBoardHandller = (token, id)=>{
 
 			const dashboard=(user, wallet,withdraw)=>{
 				showNotification()
+				sideBar(token, id);
 
-				const html = `<div class="">
+				const html = `<div class="mt-2">
 							<div class="container">
 								<div class="row align-items-center mt-3 p-0">
-									<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2">
-										<div class="card shadow-lg p-3 mb-3 bg-white rounded">
+									<div class="col-12 col-sm-10 offset-sm-1 col-md-10 offset-md-1">
+										<div class="card shadow-lg p-3 mb-3 bg-navy rounded">
 										<div class="float-right">
 												<i class="fa fa-bell text-green float-right mt-2" aria-hidden="true"></i>
-												<i class="fa fa-arrow-left mt-2 float-left" aria-hidden="true"></i>
 										</div>
 											<div class="card-body row">
 												<div class="col-12 col-sm-12 col-md-12 text-center">
@@ -33,7 +34,7 @@ exports.dashBoardHandller = (token, id)=>{
 										</div>
 										<div class="row mt-3 ">
 											<div class="col-12 col-sm-12 col-md-12">
-													<div class="card  bg-radius-lg shadow-lg mb-3">
+													<div class="card bg-navy  bg-radius-lg shadow-lg mb-3">
 														<div class="card-body">
 														<div>
 														<h5 class="float-left">Wallet</h5>
@@ -57,6 +58,29 @@ exports.dashBoardHandller = (token, id)=>{
 																</a>
 															</div>
 														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row mt-3 ">
+											<div class="col-12 col-sm-12 col-md-12">
+													<div class="card bg-navy shadow-lg mb-3">
+														<div class="card-header"><h3>Most Recent Projetcs</h3></div>
+														<div class="card-body">
+						                                <div class="row">
+						                                    <div class="col-12 col-sm-12 col-md-12">
+						                                        <div class="card">
+						                                          <div class="card-body">
+						                                          	<p>Project Name</p>
+																	<p>Project Progress</p>
+																	<div class="progress">
+																		  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+																	</div>
+																	</div>
+						                                        </div>
+						                                    </div>
+						                                </div>
+														<div>
 													</div>
 												</div>
 											</div>
@@ -108,7 +132,7 @@ exports.dashBoardHandller = (token, id)=>{
 							</div>
 						 </div>`;
 
-		 				body.insertAdjacentHTML('afterbegin', html);
+		 				body.insertAdjacentHTML('beforeend', html);
 			}
 
 			const loadDashboard=(response)=>{

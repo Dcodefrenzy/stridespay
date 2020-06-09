@@ -40,16 +40,20 @@ const addPremiumTranaction = (req, res, next)=>{
 
 exports.updatePremium = (req, res, next)=>{
 	console.log(req.params.id)
-	premium.findOneAndUpdate({user:req.params.id}, {$inc: {count: 1}}, {new:true}).then((premium)=>{
-		if (premium) {
-			console.log({"new":premium})
-			next();
-		}
-	}).catch((e)=>{
-		console.log(e)
-		let err ={}
-		if(e.errors) {err = {status:403, message:e.errors}}
-		else if(e){err = {status:403, message:e}}
-		res.status(404).send(err);
-	});
+	if (req.params.id === 1) {
+		next();
+	}else{
+		premium.findOneAndUpdate({user:req.params.id}, {$inc: {count: 1}}, {new:true}).then((premium)=>{
+			if (premium) {
+				console.log({"new":premium})
+				next();
+			}
+		}).catch((e)=>{
+			console.log(e)
+			let err ={}
+			if(e.errors) {err = {status:403, message:e.errors}}
+			else if(e){err = {status:403, message:e}}
+			res.status(404).send(err);
+		});
+	}
 }

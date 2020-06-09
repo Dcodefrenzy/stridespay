@@ -189,6 +189,7 @@ exports.userAuthenticate =  (req, res, next)=>{
 //User login.
 
 exports.userLogin = (req, res)=>{
+	//console.log(req.body)
 	if (req.body.email) {
 		loginEmail(req, res);
 	}else if (req.body.phonenumber) {
@@ -225,7 +226,7 @@ users.findByPhoneCredentials(user.phonenumber, user.password).then((user)=>{
 
 const loginEmail = (req, res)=>{
 	const user = new users({
-	phonenumber : req.body.email,
+	email : req.body.email,
 	password : req.body.password
 });
 
