@@ -18,7 +18,7 @@ exports.dashBoardHandller = (token, id)=>{
 							<div class="container">
 								<div class="row align-items-center mt-3 p-0">
 									<div class="col-12 col-sm-10 offset-sm-1 col-md-10 offset-md-1">
-										<div class="card shadow-lg p-3 mb-3 bg-navy rounded">
+										<div class="card shadow-lg p-3 mb-3  rounded">
 										<div class="float-right">
 												<i class="fa fa-bell text-green float-right mt-2" aria-hidden="true"></i>
 										</div>
@@ -34,7 +34,7 @@ exports.dashBoardHandller = (token, id)=>{
 										</div>
 										<div class="row mt-3 ">
 											<div class="col-12 col-sm-12 col-md-12">
-													<div class="card bg-navy  bg-radius-lg shadow-lg mb-3">
+													<div class="card   bg-radius-lg shadow-lg mb-3">
 														<div class="card-body">
 														<div>
 														<h5 class="float-left">Wallet</h5>
@@ -64,7 +64,7 @@ exports.dashBoardHandller = (token, id)=>{
 										</div>
 										<div class="row mt-3 ">
 											<div class="col-12 col-sm-12 col-md-12">
-													<div class="card bg-navy shadow-lg mb-3">
+													<div class="card  shadow-lg mb-3">
 														<div class="card-header"><h3>Most Recent Projetcs</h3></div>
 														<div class="card-body">
 						                                <div class="row">
