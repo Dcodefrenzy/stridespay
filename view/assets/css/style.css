@@ -177,6 +177,15 @@ a >.hover-strides:hover {
   margin-top: 30px;
 }
 
+.fixed {
+	z-index: 100;
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	top:0;
+	left: 0;
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 

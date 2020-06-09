@@ -6,11 +6,13 @@ exports.productsHandller = (token, id)=>{
 	const {getRequest} = require("../request");
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
+	const {sideBar} = require("./sidebar");
 	spinner.className ="display-none";
 
 
 			const products=(products)=>{
 
+				sideBar(token, id);
 				const html = `<div id="products">
 							<div class="container">
 								<div class="row align-items-center mt-5 p-0">
@@ -23,7 +25,7 @@ exports.productsHandller = (token, id)=>{
 												</a>
 												</div>
 												<div class="col-12 col-sm-12 col-md-12 mt-3">
-													<button onclick="return createProduct(event, this.id, this.value)" value="products" id="isBuyer" class="btn-lg btn-green">Buying</button>
+													<button onclick="return createProduct(event, this.id, this.value)" value="products" id="isBuyer" class="btn-lg btn-green"> <i class="fa fa-plus-circle"></i>New Project</button>
 													<button class="btn-lg btn-dark" onclick="return createProduct(event, this.id, this.value)" value="products" id="isMerchant">Selling</button>
 												</div>
 												<div class="col-12 col-sm-12 col-md-12 mt-5">
@@ -39,7 +41,7 @@ exports.productsHandller = (token, id)=>{
 							</div>
 						 </div>`;
 
-		 				body.insertAdjacentHTML('afterbegin', html);
+		 				body.insertAdjacentHTML('beforeend', html);
 			}
 
 			const load=(response)=>{

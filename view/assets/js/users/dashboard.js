@@ -85,48 +85,6 @@ exports.dashBoardHandller = (token, id)=>{
 												</div>
 											</div>
 										</div>
-										<div class="row">
-											<div class="col-6 col-sm-6 col-md-6">
-												<a href="/users/transactions">
-													<div class="card shadow-lg p-3 mb-3 bg-white rounded">
-														<div class="card-body text-center">
-														<i class="fas fa-handshake fa-3x text-green" aria-hidden="true"></i>
-														<p class="text-dark">Deals</p>
-													</div>
-												</div>
-												</a>
-											</div>
-											<div class="col-6 col-sm-6 col-md-6">
-												<a href="/users/products">
-													<div class="card shadow-lg p-3 mb-3 bg-white rounded">
-														<div class="card-body text-center">
-														<i class="fas fa-boxes fa-3x text-green" aria-hidden="true"></i>
-														<p class="text-dark">Products</p>
-														</div>
-													</div>
-												</a>
-											</div>
-											<div class="col-6 col-sm-6 col-md-6">
-												<a href="/users/services">
-													<div class="card shadow-lg p-3 mb-3 bg-white rounded">
-														<div class="card-body text-center">
-															<i class="fas fa-tasks fa-3x text-green" aria-hidden="true"></i>
-														<p class="text-dark">Freelancer</p>
-														</div>
-													</div>
-												</a>
-											</div>
-											<div class="col-6 col-sm-6 col-md-6">
-												<a href="/users/settings">
-													<div class="card shadow-lg p-3 mb-3 bg-white rounded">
-														<div class="card-body text-center">
-															<i class="fas fa-user-cog fa-3x text-green" aria-hidden="true"></i>
-														<p class="text-dark">Settings</p>
-														</div>
-													</div>
-												</a>
-											</div>		
-										</div>
 									</div>
 								</div>
 							</div>
