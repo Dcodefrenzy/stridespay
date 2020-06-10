@@ -3,6 +3,7 @@ define(function(require, exports, module) {
 exports.productsHandller = (token, id)=>{
 	const {loginForm} = require("../logins");
 	let {createProduct} = require("./createProduct");
+	let {createService} = require("./freelancers/createService");
 	const {getRequest} = require("../request");
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
@@ -10,13 +11,13 @@ exports.productsHandller = (token, id)=>{
 	spinner.className ="display-none";
 
 
-			const products=(products)=>{
+			const products=(products, services)=>{
 
 				sideBar(token, id);
 				const html = `<div id="products">
 							<div class="container">
 								<div class="row align-items-center mt-5 p-0">
-									<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2">
+									<div class="col-12 col-sm-12 col-md-10 offset-md-2">
 										<div class="card min-height">
 											<div class="card-body">
 												<div class="col-12 col-sm-12 col-md-12">
@@ -25,13 +26,27 @@ exports.productsHandller = (token, id)=>{
 												</a>
 												</div>
 												<div class="col-12 col-sm-12 col-md-12 mt-3">
-													<button onclick="return createProduct(event, this.id, this.value)" value="products" id="isBuyer" class="btn-lg btn-green"> <i class="fa fa-plus-circle"></i>New Project</button>
-													<button class="btn-lg btn-dark" onclick="return createProduct(event, this.id, this.value)" value="products" id="isMerchant">Selling</button>
+													<h3>Create a project</h3>
+													<p>Are you selling a Product or offering a Service?</p>
+															<button class="btn-lg btn-dark mt-2" onclick="return createService(event, this.id, this.value)" value="products" id="isMerchant">Service</button>
+															<button onclick="return createProduct(event, this.id, this.value)" value="products" id="isMerchant" class="mt-2 btn-lg btn-green">Product</button>
 												</div>
 												<div class="col-12 col-sm-12 col-md-12 mt-5">
 													<h4>Product Prepaid Ticket</h4>
-													<div class="row">
-														${products}
+													<nav>
+														  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+														    <a class="col-6 nav-item nav-link active" id="nav-service-tab" data-toggle="tab" href="#nav-service" role="tab" aria-controls="nav-service" aria-selected="true"><i class="fa fa-tasks text-green" aria-hidden="true"></i> Services </a>
+														    <a class="col-6 nav-item nav-link" id="nav-product-tab" data-toggle="tab" href="#nav-product" role="tab" aria-controls="nav-product" aria-selected="false"><i class="fa fa-gift text-green" aria-hidden="true"></i> Product</a>
+														  </div>
+													</nav>
+													<div class="tab-content" id="nav-tabContent">
+														
+														<div class="tab-pane fade show active" id="nav-service" role="tabpanel" aria-labelledby="nav-service-tab">
+														<div class="row">${services}</div>
+														</div>
+													  	<div class="tab-pane fade" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
+													  		<div class="row">${products}</div>	
+													  	</div>
 													</div>
 												</div>
 											</div>
@@ -45,42 +60,60 @@ exports.productsHandller = (token, id)=>{
 			}
 
 			const load=(response)=>{
-				if (response.status === 401) {
-					 body.insertAdjacentHTML('afterbegin', loginForm);
-				}else if (response.status === 200) {
-					if (response.products.length >0) {
-									const allProducts = response.products.map((product)=>{							
-										let title  = product.isMerchant===true?"Selling":product.isMerchant===false?"Buying":"";
-									return	`<div class="col-12 col-sm-12 col-md-12">
-												<a href=/users/products/${product._id}>
-													<div class="card shadow-lg p-3 mb-3 bg-white rounded">
-														<div class="card-body text-center">
-															<i class="fa fa-shopping-cart fa-3x text-green" aria-hidden="true"></i>
-															<p class="text-dark">${product.product}</p>
-															<p class="text-dark">${product.price}</p>
-															<p class="text-dark">You are <b class="text-green">${title}</b> this product</p>
-														</div>
+		if (response.status === 401) {
+			 body.insertAdjacentHTML('afterbegin', loginForm);
+		}
+		else if (response.status === 200) {
+			if (response.products.length >0) {
+				const product = response.products.map((product)=>{							
+					let title  = product.isMerchant===true?"Selling":product.isMerchant===false?"Buying":"";
+					if (product.isService === false) {
+							return `<div class="col-12 col-sm-12 col-md-6">
+											<a href=/users/products/${product._id}>
+												<div class="card shadow-lg p-3 mb-3 bg-white rounded">
+													<div class="card-body text-center">
+														<i class="fa fa-shopping-cart fa-3x text-green" aria-hidden="true"></i>
+														<p class="text-dark">${product.product}</p>
+														<p class="text-dark">&#8358; ${product.price.slice(0, -2)}</p>
+														<p class="text-dark">You are <b class="text-green">${title}</b> this product</p>
 													</div>
-												</a>
-											</div>`;
-										})
-									products(allProducts);
+												</div>
+											</a>
+										</div>`
+					};
+				});
+				const services = response.products.map((product)=>{
+					if (product.isService  === true) {
+						return	`<div class="col-12 col-sm-6 col-md-6">
+									<a href=/users/services/${product._id}>
+										<div class="card shadow-lg p-3 mb-3 bg-white rounded">
+											<div class="card-body text-center">
+												<i class="fa fa-tasks fa-3x text-green" aria-hidden="true"></i>
+												<p class="text-dark">${product.product}</p>
+												<p class="text-dark">&#8358; ${product.price.slice(0, -2)}</p>
+											</div>
+										</div>
+										</a>
+									</div>`
+					}
+				})
+				products(product, services);
 					}else{
 							const allProducts =  `<div class="col-12 col-sm-12 col-md-12">
 													<div class="card shadow-lg p-3 mb-3 bg-white rounded">
 														<div class="card-body text-center">
-														<i class="fa fa-shopping-bag fa-6x text-green" aria-hidden="true"></i>
-														<p class="text-dark">No Product prepaid ticket yet</p>
-														<p>Create a  Product prepaid ticket</p>
+														<img src="/assets/svg/empty.svg" width="50%" alt="online payment transfer">
+														<p class="text-dark">No Project created yet. project can be a product you want to sell or a service you want to render</p>
+														<p>Product or Service?</p>
 														<div class="col-12 col-sm-12 col-md-12 mt-3">
-															<button onclick="return createProduct(event, this.id, this.value)" value="products" id="isBuyer" class="btn-lg btn-green">Buying</button>
-															<button onclick="return createProduct(event, this.id, this.value)" value="products" id="isMerchant" class="btn-lg btn-dark">Selling</button>
+															<button class="btn-lg btn-dark mt-2" onclick="return createService(event, this.id, this.value)" value="products" id="isMerchant">Service</button>
+															<button onclick="return createProduct(event, this.id, this.value)" value="products" id="isMerchant" class="mt-2 btn-lg btn-green">Product</button>
 														</div>
 													</div>
 												</div>
 											</div>`
 
-								products(allProducts)
+								products(allProducts, allProducts)
 					}
 				}
 			}

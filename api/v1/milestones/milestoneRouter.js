@@ -8,7 +8,7 @@ const router = express.Router();
 
 
 router.route("/create/:id")
-	.post(usersController.userAuthenticate, serviceController.findUserServiceById, controller.checkForTotalMilestonePriceById, logsController.addLogs)
+	.post(usersController.userAuthenticate, serviceController.findUserServiceById, controller.addServiceMilestone, controller.checkForTotalMilestonePriceById, serviceController.updateServicePrice, logsController.addLogs)
 
 
 module.exports = router;

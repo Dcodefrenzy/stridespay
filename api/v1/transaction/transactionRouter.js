@@ -13,13 +13,17 @@ const smsController = require("../sms/sms.js");
 const router = express.Router();
 
 router.route("/merchant/token/:id")
-	.get(controller.findOneTransactionById)
+	.get(controller.findOneTransactionById, usersController.getMerchantDetails)
 
 router.route("/buyer/token/:id")
-	.get(controller.findOneTransactionById)
+	.get(controller.findOneTransactionById, usersController.getMerchantDetails)
 
 router.route("/service/token/:id")
-	.get(controller.findOneTransactionById)
+	.get(controller.findOneTransactionById, usersController.getMerchantDetails)
+
+
+router.route("/service/tokens/:id")
+	.get(usersController.userAuthenticate, controller.findOneTransactionById, usersController.getMerchantDetails)
 
 
 router.route("/payment/token/:id")

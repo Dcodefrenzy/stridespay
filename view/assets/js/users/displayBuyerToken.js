@@ -7,12 +7,14 @@ exports.displayBuyerToken = (token, id)=>{
 	const {loadPaymentHandller} = require("./getPayment");
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
+	const {loading} = require("../loading");
 	spinner.className ="display-none";
 
 
-			const showTransaction=(transaction, milestones)=>{
+			const showTransaction=(transaction, milestones, user)=>{
 				
-
+				loading("user-side-bar-open", "display-none");
+				loading("user-open-side-bar", "display-none");
 				const html = `<div class="">
 							<div class="container">
 								<div class="row align-items-center mt-5 p-0">
@@ -20,31 +22,40 @@ exports.displayBuyerToken = (token, id)=>{
 										<div class="card shadow-lg p-3 mb-5 bg-white rounded">
 											<div class="card-body row">
 											<div class="col-12 col-sm-12 col-md-12">
-												<img width="10%" src="/assets/images/fav.png" class="text-center float-left"/>
-												<a href="https://paymerchant.co" class="float-right text-dark" target="_blank">payMerchant.co</a>
+												<img width="10%" src="/assets/images/fav1.png" class="text-center float-left"/>
+												<a href="https://stridespay.com" class="float-right text-dark" target="_blank">stridespay</a>
 											</div>
-												<div class="col-12 col-sm-12 col-md-12 text-center">
-													<i class="fa fa-shopping-bag fa-5x" aria-hidden="true"></i>
+												<div class="col-12 col-sm-12 col-md-12 float-right mt-3">
+													<p>Payment Link Created</p>
+													<p class="text-strides">By ${transaction.creator}</p>
+													<p class="">+234 ${user.phonenumber}</p>
+													<p class=""> ${user.email}</p>
+													<p class=""> Created ${moment(transaction.dateCreated).format("L")}</p>
+													<p class="">ID ${id}</p>
 												</div>
-												<div class="col-12 col-sm-12 col-md-12 text-center mt-5">
-													<p>By ${transaction.creator}</p>
-													<p>Created ${moment(transaction.dateCreated).fromNow()}</p>
-													<p><i class="fas fa-shopping-basket" aria-hidden="true"></i> ${transaction.productName}</p>
+												
+												<div class="col-12 col-sm-12 col-md-12  mt-5">
+													<p><i class="fas fa-shopping-basket" aria-hidden="true"></i> Product: ${transaction.productName}</p>
 													<p class="text-success">Total price - &#8358;  ${transaction.price.toString().slice(0, -2)}</p>
-													<p><i class="fa fa-tasks" aria-hidden="false"></i> Milestones</p>
+													<div class="card card-body">
+														<p> <i class="fa fa-tasks" aria-hidden="true"></i> Milestones</p>
+													</div>
 													<ol>
 														${milestones.map((milestone)=>{
-														return `<li class="card shadow-lg p-3 mb-2 bg-white rounded">
-														<i class="fa fa-circle text-green" aria-hidden="true"> ${milestone.milestone} &#8358; ${milestone.price.toString().slice(0, -2)}</i> 
-															<span class="display-block">${milestone.description}</span>
+														return `<li class="p-3 mb-2 bg-white rounded">
+															<p>
+														<i class="fa fa-circle text-green" aria-hidden="true"> ${milestone.milestone} </i></p> 
+															<span class="display-block float-left">${milestone.description}</span>
+															<span class="float-right">&#8358; ${milestone.price.toString().slice(0, -2)}</span>
 														</li>`
 														})}
 													</ol>
-													<div class="col-12">
+													<div class="col-12 text-center">
 													<form>
 													  <script src="https://js.paystack.co/v1/inline.js"></script>
-													  <button  id=${transaction._id} value=${"transactions/payment/token/"+transaction._id} class="btn btn-lg btn-green" type="button" onclick="return loadPaymentHandller(this.id, this.value)"> Pre Payment </button> 
+													  <button  id=${transaction._id} value=${"transactions/payment/token/"+transaction._id} class="btn btn-lg btn-green text-center" type="button" onclick="return loadPaymentHandller(this.id, this.value)">Payment </button> 
 													</form>
+													<p>Secured by <a href="https://stridespay.com" class="text-dark" target="_blank">stridespay</a></p>
 													</div>
 
 												</div>
@@ -59,10 +70,11 @@ exports.displayBuyerToken = (token, id)=>{
 			}
 
 			const displayTransaction=(response)=>{
+				console.log(response)
 				if (response.status === 401) {
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
-					showTransaction(response.transaction, response.transaction.milestones);
+					showTransaction(response.transaction, response.transaction.milestones, response.user);
 				}else if (response.status === 403) {
 					alert(response.message);
 					window.location = "/"

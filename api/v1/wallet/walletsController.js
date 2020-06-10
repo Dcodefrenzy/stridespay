@@ -5,7 +5,7 @@ const {wallets} = require("./walletsModel.js");
 exports.createWallet = (req, res, next)=>{
 	const wallet =  new wallets({
 		user:req.data._id,
-		amount:0,
+		amount:0+"00",
 		dateCreated:new Date(),
 	});
 

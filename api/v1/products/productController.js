@@ -106,7 +106,7 @@ exports.ViewAllProducts = (req, res)=>{
 }
 
 exports.findUserProducts = (req, res)=>{
-    products.find({user:req.user._id, isService:!true}, null, {sort: {_id: -1}}).then((products)=>{
+    products.find({user:req.user._id}, null, {sort: {_id: -1}}).then((products)=>{
         if (!products) {
 			const err = {status:404, message:"No product listed yet."}
 			return res.status(404).send(err);
@@ -182,7 +182,7 @@ exports.findProductById= (req, res, next)=>{
 exports.createService=(req, res, next)=>{
      product = new products({
         product:req.body.service,
-        price:req.body.price+"00",
+        price:"000",
         isMerchant:true,
         display:true,
         user:req.user._id,
@@ -220,8 +220,11 @@ exports.createService=(req, res, next)=>{
     });
 }
 
-
-
+exports.updateServicePrice=(req, res, next)=>{
+    products.findOneAndUpdate({_id:req.data.service._id}, {$set:{price:req.data.updatePrice}}).then((service)=>{
+        next();
+    })
+}
 exports.findUserServices = (req, res)=>{
     console.log(req.user._id)
     products.find({user:req.user._id, isService:true}, null, {sort: {_id: -1}}).then((products)=>{

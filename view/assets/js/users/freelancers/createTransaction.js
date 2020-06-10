@@ -12,9 +12,10 @@ define(function (require, expotrs, module) {
 			
 			loading("spinner", "");
 					if (response.status === 200) {
+						console.log(response)
 						loading("spinner", "display-none");
 						alert("Created A service token successfully.")
-						window.location  =  response.redirect;
+						//window.location  = "/users/services/token/";
 					} else if (response.status === 401) {
 						loading("spinner", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);

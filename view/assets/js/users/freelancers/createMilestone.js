@@ -6,11 +6,11 @@ define(function(require, exports, module) {
 	spinner.className ="display-none";
 	
 
-		const html = `<div id="revert" class="bg-white container">
+		const html = `<div id="revert" class="bg-background container">
 				<div class="">
 				<div id="loading"></div>
 					<div class="row mt-2 p-3">
-					<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3">
 				<a href=${"/users/services/"+id}><i class="fa fa-arrow-left text-dark"></i></div></a>
 					</div>
 				<div class="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3">
@@ -32,6 +32,7 @@ define(function(require, exports, module) {
 							</div>
 							<div class="col-12 col-sm-12 col-md-12">							
 								<div class="form-group">
+									<label id="error-price">Description</label>
 						            <textarea class="form-control" name="description" id="editor1" placrholder="eg"></textarea>
 						            <script>
 						                // Replace the <textarea id="editor1"> with a CKEditor
@@ -42,7 +43,7 @@ define(function(require, exports, module) {
 							</div>
 							<div class="col-12 col-sm-12 col-md-12">
 								<div class="form-group">
-									<input type="submit" name=${id} class="form-control btn-lg btn-dark" value="Generate token">
+									<input type="submit" name=${id} class="form-control btn-lg btn-dark" value="Save">
 								</div>
 							<div>
 						</div>
@@ -51,7 +52,7 @@ define(function(require, exports, module) {
 			</div>
 		</div>
 	 </div>`;
-	 body.insertAdjacentHTML('afterbegin', html);
+	 body.insertAdjacentHTML('beforeend', html);
 	}
 
 

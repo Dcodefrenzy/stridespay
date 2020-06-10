@@ -21,6 +21,11 @@ router.route("/dashboard")
 router.route("/products")
 	.get(loader.load)
 
+
+router.route("/projects")
+	.get(loader.load)
+
+
 router.route("/login")
 	.get(loader.load)
 

@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 	let {loading}  = require("loading");
 	const loginEmail = require("users/logins/loginEmail");
 	const loginPhone = require("users/logins/loginPhone");
-
+	//loading("user-side-bar-open", "display-none")
 
 	exports.loginForm = `<div id="login" class="fixed  bg-navy full-height"><div class="container">
 					<div class="row align-items-center mt-2 p-5">

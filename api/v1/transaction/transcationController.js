@@ -160,13 +160,16 @@ exports.findTransactionForPayment = (req, res, next)=>{
     });
 
 }
-exports.findOneTransactionById = (req, res)=>{
+exports.findOneTransactionById = (req, res, next)=>{
     transactions.findOne({_id:req.params.id, transactionComplete:false}).then((transaction)=>{
         if (!transaction) {
             const err = {status:403, message:"This transaction Do not exist anymore."}
             return res.status(403).send(err);
         }
-        res.status(200).send({status:200,transaction:transaction, user:req.user});
+
+        req.data = {status:200, transaction:transaction};
+        next()/*
+        res.status(200).send({status:200,transaction:transaction, user:req.user});*/
     }).catch((e)=>{
         console.log(e)
         let err ={}

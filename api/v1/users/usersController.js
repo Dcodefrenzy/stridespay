@@ -224,6 +224,7 @@ users.findByPhoneCredentials(user.phonenumber, user.password).then((user)=>{
 	});
 }
 
+
 const loginEmail = (req, res)=>{
 	const user = new users({
 	email : req.body.email,
@@ -495,6 +496,14 @@ exports.updateImage =  (req, res, next) => {
 })
 }
 
+exports.getMerchantDetails=(req, res, next)=>{
+	users.findById({_id:req.data.transaction.merchant}).then((user)=>{
+		if (user) {
+			req.data.user = user;
+			res.status(200).send(req.data);
+		}
+	})
+}
 
 //Logout function
 exports.logout =(req, res, next)=>{

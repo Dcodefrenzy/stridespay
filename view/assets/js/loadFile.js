@@ -48,6 +48,9 @@ define(function(require, exports, module) {
 				case "/users/products":
 				productsHandller(sessionItem, path[0]);
 				break;
+				case "/users/projects":
+				productsHandller(sessionItem, path[0]);
+				break;
 				case "/users/products/"+path[3]:
 				showProductHandller(sessionItem, path[3]);
 				break;

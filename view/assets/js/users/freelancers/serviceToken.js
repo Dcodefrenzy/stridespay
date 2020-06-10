@@ -11,7 +11,7 @@ exports.serviceTokens = (token, id)=>{
 	const spinner = document.getElementById("spinner");
 	spinner.className ="display-none";
 
-			const showService=(transaction, milestones)=>{
+			const showService=(transaction, milestones, user)=>{
 
 				const html = `<div class="">
 							<div class="container">
@@ -20,18 +20,19 @@ exports.serviceTokens = (token, id)=>{
 										<div class="card shadow-lg p-3 mb-5 bg-white rounded">
 											<div class="card-body row">
 											<div class="col-12 col-sm-12 col-md-12">
-												<img width="10%" src="/assets/images/fav.png" class="text-center float-left"/>
-												<a href="https://paymerchant.co" class="float-right text-dark" target="_blank">payMerchant.co</a>
+												<img width="10%" src="/assets/images/fav1.png" class="text-center float-left"/>
+												<a href="https://stridespay.com" class="float-right text-dark" target="_blank">stridespay</a>
 											</div>
 												<div class="col-12 col-sm-12 col-md-12 text-center">
 													<i class="fa fa-tasks fa-3x" aria-hidden="true"></i>
 												</div>
-												<div class="col-12 col-sm-12 col-md-12 text-center mt-5">
-													<p>By ${transaction.creator}</p>
-													<p>Created ${moment(transaction.dateCreated).fromNow()}</p>
-													<p><i class="fas fa-shopping-basket" aria-hidden="true"></i> ${transaction.productName}</p>
-													<p class="text-success">Total price - &#8358;  ${transaction.price.toString().slice(0, -2)}</p>
-													<h3>Milestones</h3>
+												<div class="col-12 col-sm-12 col-md-12 float-right mt-3">
+													<p>Payment Link Created</p>
+													<p class="text-strides">By ${transaction.creator}</p>
+													<p class="">+234 ${user.phonenumber}</p>
+													<p class=""> ${user.email}</p>
+													<p class=""> Created ${moment(transaction.dateCreated).format("L")}</p>
+													<p class="">ID ${id}</p>
 												</div>
 													${milestones.map((milestone)=>{
 														return `<div class="col-12 col-sm-12 col-md-12 mt-3">
@@ -65,7 +66,7 @@ exports.serviceTokens = (token, id)=>{
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 
-					showService(response.transaction, response.transaction.milestones);
+					showService(response.transaction, response.transaction.milestones, response.user);
 				}
 			}
 

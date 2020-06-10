@@ -7,7 +7,7 @@ define(function(require, exports, module) {
 	spinner.className ="display-none";
 	
 
-		const html = `<div id="revert" class="fixed-top bg-green full-height">
+		const html = `<div id="revert" class="fixed-top bg-background full-height">
 				<div class="">
 				<div id="loading"></div>
 					<div class="row mt-2 p-3">

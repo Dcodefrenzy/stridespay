@@ -16,7 +16,7 @@ define(function (require, exports, module) {
 						          <p class="hover-strides"><a href="/users/dashboard"><i class="fa fa-home" aria-hidden="true"></i> Home</a></p>
 						          <p class="hover-strides"><a href="/users/dashboard"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></p>
 						          <h6 class="mt-4">Your Business</h6>
-						          <p class="hover-strides"><a href="/users/products"><i class="fa fa-plus-circle" aria-hidden="true"></i> Start new Project</a></p>
+						          <p class="hover-strides"><a href="/users/projects"><i class="fa fa-plus-circle" aria-hidden="true"></i> Start new Project</a></p>
 						          <p class="hover-strides"><a href="/users/transactions"><i class="fa fa-tasks" aria-hidden="true"></i> Project Tracking</a></p>
 						          <p class="hover-strides"><a href="/users/dashboard"><i class="fa fa-users" aria-hidden="true"></i> Client Database</a></p>
 						          <p class="hover-strides"><a href="/users/withdraw"><i class="fa fa-landmark" aria-hidden="true"></i> Wallet</a></p>

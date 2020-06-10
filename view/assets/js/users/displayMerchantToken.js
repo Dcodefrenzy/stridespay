@@ -19,8 +19,8 @@ exports.displayMerchantToken = (token, id)=>{
 										<div class="card shadow-lg p-3 mb-5 bg-white rounded">
 											<div class="card-body row">
 											<div class="col-12 col-sm-12 col-md-12">
-												<img width="10%" src="/assets/images/fav.png" class="text-center float-left"/>
-												<a href="https://paymerchant.co" class="float-right text-dark" target="_blank">payMerchant.co</a>
+												<img width="10%" src="/assets/images/fav1.png" class="text-center float-left"/>
+												<a href="https://stridespay.com" class="float-right text-dark" target="_blank">stridespay</a>
 											</div>
 												<div class="col-12 col-sm-12 col-md-12 text-center">
 													<i class="fa fa-shopping-bag fa-5x" aria-hidden="true"></i>
