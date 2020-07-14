@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="./assets/images/fav1.png" sizes="150x150" type="image/png">
+	<title>stridespay</title>
+	<link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="./assets/fontawesome/css/all.css">
+</head>
+<body id="app">
+	<div id="spinner" class="display-none fixed-top bg-background full-height">	
+		<i  class="fa fa-spinner fa-spin fa-5x spining" aria-hidden="true"></i>
+	</div>
+	<main id="body">
+		<nav id="side-bar-open" class="display-none fixed-top bg-strides side-bar full-height">
+			<i class="fa fa-times fa-3x close-side-bar"></i>
+			<a class=" subscribe">Get Started</a>
+			<!-- <a href="/users/login">Login</a> -->
+		</nav>
+		<nav class="bg-strides container-fluid">
+			<a class="text-white" href="mailto:stridespay@gmail.com?cc=ayodejisamuelfakunle@gmail.com&subject=Mail from Stridespay Site">contact us: stridespay@gmail.com</a>
+		</nav>
+		<div class="bg-navy sticky opacity">		
+			<nav class="navbar container">
+				<img class="image-responsive col-6 col-sm-4 col-md-2" src="./assets/images/strides.png">
+				<div class="col-2 col-sm-2 col-md-6">
+					<div class="row">
+						<div class="col-12 col-sm-8 col-md-6 nav-hide">
+							<button class="btn-strides btn-sm subscribe">Get Started</button>
+						</div>
+						<!-- <div class="col-4 col-sm-6 col-md-6 nav-hide">
+							<p><a href="/users/login">Login</a></p>
+						</div> -->
+						<div class="col-1 col-sm-1 col-md-6 nav-icon"><i id="open-side-bar" class="float-right fa fa-bars fa-2x text-strides" aria-hidden="true"></i></div>
+					</div>
+				</div>
+			</nav>
+		</div>
+	<div  class="container-fluid bg-navy opacity">
+		<div class="container p-5">		
+			<div class="row">
+				<div class="col-12 col-sm-12 col-md-5 col-lg-5 mt-md-5 mt-lg-5 text-strides">
+					<h1>Make Deals, set milestones & checkout faster.</h1>
+					<p class="text-dark mt-2"><b>stridespay allows freelancers and merchants get paid  while we handle your business workflow .</b></p>
+					<div class="mt-3">
+				<!-- 		<form class="">
+								<div class="col-12 col-sm-8 col-md-8">
+									<div class="form-group">
+										<p>Get early access</p>
+										<label id="error-name">mail</label>
+										<input type="email" name="mail" oninput="return returnValidation(this.value, this.name)"  class="form-control" placeholder="email">
+									</div>
+								</div>
+						</form> -->
+						<button class="btn-lg btn-strides subscribe">Get early access</button>
+						<!-- <button class="btn-lg btn-success  buyers">Buyers</button>
+						<button class="btn-lg btn-light  text-green merchants">Merchants</button> -->
+					</div>
+				</div>
+				<div class="col-12 col-sm-12 col-md-7 col-lg-7 mt-3">
+					<img src="./assets/svg/transfer1.svg" width="100%" alt="online payment transfer">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid p-5 bg-light">
+		<div class="container mt-5 mb-5">
+			<div class="row">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+					<h1 class="text-center">HOW IT WORKS</h1>
+				</div>
+				<div class="col-md-12 col-sm-12 col-md-6 col-lg-6 mt-5">
+					<h1 class="mb-5">For Merchants</h1>
+					<h5><i class="fa fa-check-circle text-strides"></i> Create a Payment link.</h5>
+					<p>Generate a  stridepay payment link for buyers on your favorite market place like Whatsapp and Instagram and the buyer pays.</p>
+					<h5><i class="fa fa-check-circle text-strides"></i> Deliver the product.</h5>
+					<p>After you confirm buyers payment on stridespay, Deliver the item to the buyer.</p>
+					<h5><i class="fa fa-check-circle text-strides"></i> Get your money to your Account</h5>
+					<p>Buyers confirm the item you delivered and you get paid immediately into your bank account.</p>
+					<button class="btn-sm btn-strides subscribe">Get early access</button>
+				</div>
+				<div class="col-md-12 col-sm-12 col-md-6 col-lg-6 mt-5 p-5">
+					<img src="./assets/svg/delivery.svg" width="100%" alt="Item delivery">
+				</div>
+				<div class="col-md-12 col-sm-12 col-md-6 col-lg-6 mt-5 p-5">
+					<img src="./assets/svg/task.svg" width="100%" alt="tasks">
+				</div>
+				<div class="col-md-12 col-sm-12 col-md-6 col-lg-6 mt-5">
+					<h1 class="mb-5">For Freelancers</h1>
+					<h5><i class="fa fa-check-circle text-strides"></i> Create a project.</h5> <p>Define project scope, milestones and deliverable.</p>
+					<h5><i class="fa fa-check-circle text-strides"></i> Generate a payment link.</h5>
+					<p>Generate a stridespay payment link for your clients and confirm clients payment.</p>
+					<h5><i class="fa fa-check-circle text-strides"></i> Secure the bag</h5>
+					<p>Finish milestones and get paid to your account.</p>
+					<button class="btn-sm btn-strides subscribe">Get early access</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid bg-strides  p-5">
+			<div class="container mt-5 mb-5">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-md-6 col-lg-6 mt-5">
+						<div class="mt-5">
+							<h3 class="text-white">Doing business can be difficult but transacting payment should not be.</h3>	
+						<h5 class="text-white mt-5">We protect everyone's interest by making payment transparent to both parties</h5>
+						</div>
+					<button class="btn-sm btn-dark text-center subscribe">Get early access</button>
+
+					<!-- 	<button class="btn-lg btn-dark btn-radius buyers">Buyers</button>				
+						<button class="btn-lg btn-light btn-radius text-green merchants">Merchants</button> -->
+					</div>
+					<div class="col-md-12 col-sm-12 col-md-6 col-lg-6 mt-5">
+						<img src="./assets/svg/mobile_payment.svg" width="100%" alt="online payment transfer">	
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="container-fluid  p-5">
+			<div class="container mt-5 mb-5">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-md-12 col-lg-12 mt-5">
+					<h1 class="text-center mb-5">What Makes us Special</h1>
+						<div class="row">
+							<div class="col-12 col-sm-6 col-md-3 col-lg-3">
+								<div class="offset-3 mb-5">
+									<i class="fas fa-chart-bar fa-3x text-strides" aria-hidden="true"></i>
+								</div>
+								<h3>Project Tracking</h3>
+								<p>Stridespay allows you and your clients to Track your time and project progress easily.</p>
+							</div>
+							<div class="col-12 col-sm-6 col-md-3 col-lg-3">
+								<div class="offset-3 mb-5">
+									<i class="fas fa-money-check fa-3x text-strides" aria-hidden="true"></i>
+								</div>
+								<h3>Get Your Payment Once</h3>
+								<p>Stridespay allows your Clients to pay you once and you get access to them as you complete milestones and deliver projects.</p>
+							</div>
+							<div class="col-12 col-sm-6 col-md-3 col-lg-3">
+								<div class="offset-3 mb-5">
+									<i class="fas fa-chart-pie text-strides fa-3x" aria-hidden="true"></i>
+								</div>
+								<h3>Financial Analysis</h3>
+								<p>Stop worrying and guessing about how much you have made as a freelancer or merchant, allow us to give you analysis of how much you have earned.</p>
+							</div>
+							<div class="col-12 col-sm-6 col-md-3 col-lg-3">
+								<div class="offset-3 mb-5">
+									<i class="fas fa-chart-pie text-strides fa-3x" aria-hidden="true"></i>
+								</div>
+								<h3>Client community</h3>
+								<p>Build your client community as you get your work done. Stridepay provide a client database for you to reach out to your clients all at once through text notification.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div class="container mt-5" id="pricing">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-md-12 col-lg-12 mt-5">
+				<div class="card">
+					<div class="card-header bg-green text-white">
+						<h1 class="text-center">Price, Free? Well, almost! </h1>
+					</div>
+					<div class="card-body text-center">
+
+						<div class="row">							     
+							<div class="col-lg-4 offset-1">
+						        <div class="card mb-5 mb-lg-0">
+						          <div class="card-body text-center">
+						            <h5 class="card-title text-muted text-uppercase text-center">Free</h5>
+						            <h6 class="card-price text-center"><span class="period"> &#8358 0/month</span></h6>
+						            <hr>
+						            <ul class="fa-ul">
+						              <li><span class="fa-li"><i class="fas fa-check"></i></span>Free account</li>
+						              <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Invoice</li>
+						              <li><span class="fa-li"><i class="fas fa-check"></i></span>Task organizer</li>
+						              <li><span class="fa-li"><i class="fas fa-check"></i></span>Account Wallet</li>
+						              <li><span class="fa-li"><i class="fas fa-times"></i></span>Notifications</li>
+						              <li><span class="fa-li"><i class="fas fa-times"></i></span>Client Database</li>
+						              <li><span class="fa-li"><i class="fas fa-times"></i></span>Finalcial analysis</li>
+						              <li><span class="fa-li"><i class="fas fa-times"></i></span>Export your data to pdf</li>
+						            </ul>
+						            <a href="#" class="btn btn-block btn-primary text-uppercase subscribe">Get early access</a>
+						          </div>
+						        </div>
+						    </div>							     
+							<div class="col-lg-4 offset-1">
+						        <div class="card mb-5 mb-lg-0">
+						          <div class="card-body">
+						            <h5 class="card-title text-muted text-uppercase text-center">Plus</h5>
+						            <h6 class="card-price text-center">&#8358 350<span class="period">/month</span> <span>&#8358 or 3,000/year</span></h6>
+						            <hr>
+						            <ul class="fa-ul">
+						              <li><span class="fa-li"><i class="fas fa-check"></i></span>Free account</li>
+						              <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Invoice</li>
+						              <li><span class="fa-li"><i class="fas fa-check"></i></span>Task organizer</li>
+						              <li><span class="fa-li"><i class="fas fa-check"></i></span>Account Wallet</li>
+						              <li><span class="fa-li"><i class="fas fa-check"></i></span>Notifications</li>
+						              <li><span class="fa-li"><i class="fas fa-check"></i></span>Client Database</li>
+						              <li><span class="fa-li"><i class="fas fa-check"></i></span>Finalcial analysis</li>
+						              <li><span class="fa-li"><i class="fas fa-check"></i></span>Export your data to pdf</li>
+						            </ul>
+						            <a href="#" class="btn btn-block btn-primary text-uppercase subscribe">Get early access</a>
+						          </div>
+						        </div>
+						    </div>
+						</div>
+
+						    <div class="text-center mt-5">
+						    	<h3>Transaction Charges</h3>
+						    	<p><b>Who bears the transaction charge? By default, your customers bear the transaction charges. Transaction charges will be automatically added to your billing amount.</b></p>.
+							<p>stridespay charges 3% of every successful transaction done and not more than 2,000 naira in total, that means, if the 3% of the transaction is more than 2,000 naira, it will be capped at 2,000 naira. </p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- 	<div class="container mt-5" id="faqs">
+		<div class="row">
+			<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+				<h1 class="text-center">FAQs</h1>
+			</div>
+			<div class="col-md-12 col-sm-12 col-md-12 col-lg-12 mt-5">
+				<ul class="list-group text-center">
+				  <li class="list-group-item text-center bg-green text-white"><b class="btn btn-green btn-lg">How does pay merchant works ?</b></li>
+				  <li class="list-group-item">
+				  	Pay Merchant serves as a third party that transact money between merchants and buyers.
+				  	<ul class="p-4">
+				  		<li class="p-2">Merchants and Buyers agrees terms on their favourite market place, eg, WhatsApp, Facebook, Instagram etc.</li>
+				  		<li class="p-2">Buyer pre aprove payment and the fund will be held by paymerchant.</li>
+				  		<li class="p-2">Merchants delivers Item based on agreement and notifies paymerchant</li>
+				  		<li class="p-2">Buyers confirm delivery- A 24 hour window is open for the buyer to confirm delivery or open a disput(If the item do not satisfy the agreement.)</li>
+				  		<li class="p-2">If the Buyers confirms payment, the funds is imediately transfered to the merchant.</li>
+				  	</ul>
+				  </li>
+				  <li class="list-group-item bg-green text-white"> How long will it take for me to get paid after delivering the Item?</li>
+				  <li class="list-group-item">You will get paid imediately the buyers confirms the delivery on our platform.</li>
+				  <li class="list-group-item bg-green text-white">How Much do you charge for transactions on payMerchant?</li>
+				  <li class="list-group-item">We charge 3% of every transaction at a NGN2,000 CAP</li>
+				  <li class="list-group-item text-center bg-green text-white"><b class="btn btn-green btn-lg">What happens if Seller does not confirm delivery After the item has been delivered?</b></li>
+				  <li class="list-group-item">Once the item has been delivered and  if no action is taken by the Buyer within the 24 hour inspection window, the money will be sent to the Merchant and the transaction will be marked as complete.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+ -->
+	<footer class="container-fluid bg-dark mt-5 p-5">
+		<div class="row">
+			<div class="col-12 col-sm-6 col-md-6 col-lg-6">
+				<img class="col-12 col-sm-6 col-md-6 col-lg-6" src="./assets/images/strides.png">
+			</div>
+			<div class="col-12 col-sm-6 col-md-6 col-lg-6 text-white">
+					<h3>Resources</h3>
+				  <!-- <p><a href="#faqs" class="text-white">FAQs</a></p> -->
+				  <p><a href="#pricing" class="text-white">Pricing</a></p>
+				  <button class="btn-strides btn-sm subscribe">Get Early Access</button>
+				  <!-- <a href="/users/login"><p class="text-white">Login</p></a> -->
+			</div>
+			<div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center mt-5 text-white">
+				<p>© 2020 PayMerchant.</p>
+			</div>
+		</div>
+	</footer>
+	</main>
+
+</body>
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+  var OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "f2d91052-f915-4174-acbd-39e8582f54d0",
+    });
+  });
+</script>
+ <script data-main="./assets/js/main" src = "./assets/js/require.js"></script>
+</html>
