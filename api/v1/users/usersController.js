@@ -62,7 +62,8 @@ exports.userAuthenticate =  (req, res, next)=>{
 		var token = req.header('u-auth');
 		users.findByToken(token).then((body)=>{
 			if (!body) {
-				return promise.reject();
+		const error = {status:401, message:"Unauthorized! Session has ended"};
+		return res.status(401).send(error);
 			}
 			console.log("token check successful")
 			req.user = body;
@@ -148,7 +149,6 @@ exports.addUser = (req, res, next)=>{
 			}else if (req.body.isMerchant) {
 				req.data.isMerchant = true;
 			}
-			console.log(req.data.isMerchant)
 			req.data.loggerUser = "User";
 			req.data.logsDescription = "User Registration Was Successful";
 			req.data.title = "Register";
@@ -165,25 +165,25 @@ exports.addUser = (req, res, next)=>{
 }
 
 //To authenticate users for every request.
-exports.userAuthenticate =  (req, res, next)=>{
-		//requesting our token from header.
+// exports.userAuthenticate =  (req, res, next)=>{
+// 		requesting our token from header.
 		
-		var token = req.header('u-auth');
-		users.findByToken(token).then((body)=>{
-			if (!body) {
-				return promise.reject();
-			}
-			console.log("token check successful")
-			req.user = body;
-			req.isUser = true;
-			req.token = token;
-			next();
-	}).catch((e)=>{
-		console.log(e)
-		const error = {status:e.status, message:e.message}
-		res.status(401).send(e);
-	});
-}
+// 		var token = req.header('u-auth');
+// 		users.findByToken(token).then((body)=>{
+// 			if (!body) {
+// 				return promise.reject();
+// 			}
+// 			console.log("token check successful")
+// 			req.user = body;
+// 			req.isUser = true;
+// 			req.token = token;
+// 			next();
+// 	}).catch((e)=>{
+// 		console.log(e)
+// 		const error = {status:e.status, message:e.message}
+// 		res.status(401).send(e);
+// 	});
+// }
 
 
 //User login.
@@ -399,16 +399,20 @@ exports.updateUser = (req, res, next)=>{
 		lastname: req.body.lastname,
 		gender: req.body.gender,
 		age: req.body.age,
-		phonenumber:req.body.phonenumber,	
+		about: req.body.about,
+		location:req.body.location,
+		phonenumber:req.body.phonenumber,
+		name:req.body.username	
 	});
 	if (!ObjectID.isValid(id)) {
 		return res.status(404).send("err")
 	}
-	users.findByIdAndUpdate(id, {$set: {firstname:user.firstname, lastname:user.lastname,gender:user.gender, age:user.age,phonenumber:user.phonenumber}}, {new: true}).then((user)=>{
+	users.findByIdAndUpdate(id, {$set: {firstname:user.firstname,about:user.about,name:user.name, lastname:user.lastname,gender:user.gender, age:user.age,phonenumber:user.phonenumber,location:user.location}}, {new: true}).then((user)=>{
 		if (!user) {
 			const err ={status:403, message:"Unable to update"};
 			return res.status(403).send(err);
 		}
+		console.log(user)
 		req.data ={status:201,loggerUser:"User", logsDescription:"Profile information update  Successful",title:"Profile update", _id:id}
 		next();
 	}).catch((e)=>{
@@ -421,11 +425,8 @@ exports.passwordChange =(req, res, next) =>{
 	const email = req.user.email;
 	const oldPassword = req.body.oldPassword;
 
-	users.findByCredentials(email, oldPassword).then((user)=>{ 
-		const userPassword = new users({
-			password : req.body.newPassword,
-		})
-		users.findOneAndUpdate({_id:user._id}, {$set: {password:userPassword.password}}, {new:true}).then((user)=>{
+	users.findByEmailCredentials(email, oldPassword).then((user)=>{ 
+		users.findOneAndUpdate({_id:req.user._id}, {$set: {password:req.body.password}}, {new:true}).then((user)=>{
 				if(!user) {
 					const err = {status:403, message:"unable to update password"}
 					return res.status(403).send(err);
@@ -434,7 +435,9 @@ exports.passwordChange =(req, res, next) =>{
 					next();
 				}
 		})
+
 	}).catch((e)=>{
+		console.log(e);
 		const error = {status:403, message:"Email or password do not exist"}
 		res.status(403).send(error);
 	})
@@ -507,8 +510,8 @@ exports.getMerchantDetails=(req, res, next)=>{
 
 //Logout function
 exports.logout =(req, res, next)=>{
-	const id = req.admin._id;
-	const userUpdate = new admins({
+	const id = req.user._id;
+	const userUpdate = new users({
 		loginStatus: false,
 	});
 	users.findByIdAndUpdate(id, {$set: { loginStatus:userUpdate.loginStatus,}}, {new: true}).then((user)=>{

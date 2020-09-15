@@ -3,6 +3,11 @@ define(function(require, exports, module) {
 	 exports.registerForm=(sessionItem, id)=>{
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
+
+	const nav = document.getElementById("user-side-bar-open");
+	const navIcon = document.getElementById("user-open-side-bar");
+	nav.className = "display-none";
+	navIcon.className = "display-none";
 	spinner.className ="display-none";
 
 	const html = `<div id="login" class=" bg-navy min-height">

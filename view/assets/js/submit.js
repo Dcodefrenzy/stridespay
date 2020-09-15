@@ -234,6 +234,24 @@ const createMilestone = (url, token, data)=>{
 		});
 }
 
+const updateProfile = (url, token, data)=>{
+		
+	request(url, token, "POST", data, (res)=>{
+
+		 if (res.status === 201) {
+		 	alert("Your profile has been updated");
+			window.location = "/users/profile";
+		}else if(res.status === 403){
+			loading("spinner", "display-none")
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
+			handleError(res, "is invalid");
+		}
+	});
+}
+
+
 const sendMailVerification = (url, token, data)=>{
 		
 	request(url, token, "POST", data, (res)=>{
@@ -266,6 +284,25 @@ console.log(res)
 			handleError(res.message, "is invalid");
 		}
 	});
+}
+
+const changePassword = (url, token, data)=>{
+	request(url, token, "PATCH", data, (res)=>{
+		 if (res.status === 201) {
+		 	alert("Your password has been changed successfully.");
+		 	sessionStorage.removeItem("user");
+			window.location = "/users/login";
+		}else if(res.status === 403){
+			loading("spinner", "display-none")
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
+			handleError(res, "is invalid");
+		}else if(res.status === 400){
+			loading("spinner", "display-none")
+			handleError(res.message, "is invalid");
+		}
+	});	
 }
 
 
@@ -304,6 +341,10 @@ console.log(res)
   		createMilestone(form.id, sessionItem, formElement);
   	}else if (event.target.className === "createAccount") {
   			createAccount(form.id, sessionItem, formElement);
+  	}else if (event.target.className === "updateProfile") {
+  			updateProfile(form.id, sessionItem, formElement);
+  	}else if (event.target.className === "changePassword") {
+  		changePassword(form.id, sessionItem, formElement);
   	}
 }
 

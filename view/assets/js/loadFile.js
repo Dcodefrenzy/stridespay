@@ -20,6 +20,9 @@ define(function(require, exports, module) {
 	const {verifyPaymentProduct} = require("payment/productPaymentVerify");
 	const {withdraw} = require("users/withdraw");
 	const {registrationSuccess} = require("users/registrationSuccess");
+	const {profile} = require("users/profile");
+	const {settingsHandler} = require("users/settings");
+	const {changePassword} = require("users/changePassword");
 	let styles; 
 	let sessionItem = sessionStorage.getItem("user")==="undefined"?{"token":"No token"}: sessionStorage.getItem("user") === "null" ?{"token":"No token"}:sessionStorage.getItem("user") === null?{"token":"No token1"}:JSON.parse(sessionStorage.getItem("user")); 
 
@@ -98,6 +101,15 @@ define(function(require, exports, module) {
 				break;
 				case "/users/registration/success/"+path[4]:
 				registrationSuccess(sessionItem, path[4]);
+				break;
+				case "/users/profile":
+				profile(sessionItem, path[0]);
+				break;
+				case "/users/settings":
+				settingsHandler(sessionItem, path[0]);
+				break;
+				case "/users/change/password":
+				changePassword(sessionItem, path[0]);
 				break;
 				
 			}

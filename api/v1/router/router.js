@@ -90,6 +90,15 @@ router.route("/registration/success/:id")
 router.route("/register/:id")
 	.get(loader.load)
 
+router.route("/profile")
+	.get(loader.load)
+
+router.route("/settings")
+	.get(loader.load)
+
+router.route("/change/password")
+	.get(loader.load)
+
 
 
 

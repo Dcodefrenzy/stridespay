@@ -11,7 +11,7 @@ define(function(require, exports, module) {
 				<div id="loading"></div>
 					<div class="row mt-2 p-3">
 					<div class="col-12 col-sm-12 col-md-12 col-lg-12">
-				<a href="/users/services"><i class="fa fa-arrow-left text-dark"></i></div></a>
+				<a href="/users/projects"><i class="fa fa-arrow-left text-dark offset-lg-3 offset-md-3 offset-sm-3"></i></div></a>
 					</div>
 				<div class="col-12 col-sm-12 col-md-6 col-lg-6 offset-lg-3">
 					<h1>Service Token</h1>

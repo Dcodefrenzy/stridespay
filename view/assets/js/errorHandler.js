@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
 
  exports.handleError = (res, msg)=>{
-	console.log(Object.keys(res));
 		if (res.status) {
 			delete res.status;
 		}

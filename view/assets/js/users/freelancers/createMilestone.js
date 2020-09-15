@@ -1,11 +1,9 @@
 define(function(require, exports, module) {
 		 
-	return createMilestone =(event, id, close)=>{		
+	return createMilestone =(event, id, close)=>{	
 	const body = document.getElementById("body");
 	const spinner = document.getElementById(close);
 	spinner.className ="display-none";
-	
-
 		const html = `<div id="revert" class="bg-background container">
 				<div class="">
 				<div id="loading"></div>
@@ -34,9 +32,8 @@ define(function(require, exports, module) {
 								<div class="form-group">
 									<label id="error-price">Description</label>
 						            <textarea class="form-control" name="description" id="editor1" placrholder="eg"></textarea>
+									<script src="/ckeditor4/ckeditor.js"></script>
 						            <script>
-						                // Replace the <textarea id="editor1"> with a CKEditor
-						                // instance, using default configuration.
 						                CKEDITOR.replace( 'editor1' );
 						            </script>
 								</div>

@@ -60,6 +60,9 @@ define(function(require, exports, module) {
 	}
 	
 	const loadDashboard=(response)=>{
+		console.log(response);
+		
+			showbankForm(response.data.Banks)
 		if (response.status === "success") {
 			showbankForm(response.data.Banks)
 

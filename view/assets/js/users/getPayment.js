@@ -14,7 +14,7 @@ return loadPaymentHandller = (id, link)=>{
 		url = "products/merchant/invoice/"+id;
 		paymentLink = "payments/verify/"+id;
 	}
-console.log(url)
+//console.log(url)
 
 		getRequest(url, sessionItem, "GET", function (response) {
 					if (response.status === 200) {

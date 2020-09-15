@@ -32,6 +32,10 @@ return returnValidation = (val, name)=>{
 		if (name === "password") {
 			passwordValidation(val, name);
 		}
+
+		if (name === "oldPassword") {
+			passwordValidation(val, name);
+		}
 		if (name === "phonenumber") {
 			phoneValidation(val, name);
 		}

@@ -12,12 +12,12 @@ define(function(require, exports, module) {
 				<div id="loading"></div>
 					<div class="row mt-2 p-3">
 					<div class="col-12 col-sm-12 col-md-12 col-lg-12">
-				<a href="/users/products"><i class="fa fa-arrow-left text-dark"></i></div></a>
+				<a href="/users/projects"><i class="fa fa-arrow-left text-dark offset-lg-3 offset-md-3 offset-sm-3"></i></div></a>
 					</div>
 				<div class="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3">
 					<h1>Product Token</h1>
-					<p class="text-white">create a product prepaid token</p>
-					<p class="text-white">and speed up your transcations</p>
+					<p class="text-dark">create a product prepaid token</p>
+					<p class="text-dark">and speed up your transcations</p>
 					<form id="products/create" class="createProduct" name="submitForm" onsubmit="return register(event)">
 						<div class="row">
 							<div class="col-12 col-sm-12 col-md-12">
@@ -34,7 +34,7 @@ define(function(require, exports, module) {
 							</div>
 							<div class="col-12 col-sm-12 col-md-12">
 								<div class="form-group">
-									<input type="submit"   name=${id} class="form-control btn-lg btn-dark" value="Generate token">
+									<input type="submit"   name="${id}" class="form-control btn-lg btn-dark" value="Generate token">
 								</div>
 							<div>
 						</div>
