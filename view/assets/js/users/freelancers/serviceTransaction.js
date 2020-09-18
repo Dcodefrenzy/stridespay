@@ -37,7 +37,7 @@ exports.showServiceTransaction = (token, id)=>{
 													<p class="float-right"> Created ${moment(transaction.dateCreated).format("L")}</p>
 												</div>
 												<div class="col-12 col-sm-12 col-md-12  mt-2">
-													<h3><i class="fa fa-circle text-green" aria-hidden="true"></i> Service: ${transaction.productName}</h3>
+													<h6><i class="fa fa-circle text-green" aria-hidden="true"></i> Service: ${transaction.productName}</h6>
 													<p class="text-success">Total price - &#8358;  ${transaction.price.toString().slice(0, -2)}</p>
 													<div class="mt-5 text-center card-body">
 														<p> <i class="fa fa-tasks" aria-hidden="true"></i> Milestones</p>

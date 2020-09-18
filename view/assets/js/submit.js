@@ -72,6 +72,7 @@ const loginUser=(url, token, data)=>{
 const userLogin=(url, token, data)=>{
 		loading("spinner", "");
 		 request(url, token, "POST", data, (res)=>{
+		 	console.log(res.status)
 	 if (res.status === 200) {
 	 	alert("Login Successful.")
 		sessionStorage.setItem("user", JSON.stringify({"token":res.token, "_id":res._id}))
