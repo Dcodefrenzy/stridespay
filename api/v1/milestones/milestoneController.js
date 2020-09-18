@@ -38,6 +38,10 @@ return parseInt(number);
 }
 
  exports.checkMilestone = (req, res, next)=>{
+ 	if (req.data.milestones.length < 1) {
+		const err = {status:403, message:"ERROR! You need to create milestone for before creating a payment link or token."}
+		return res.status(403).send(err);
+ 	}else {
 	const sum = req.data.milestones.map((milestone)=>{
 				let price  =+ milestone.price;
 				return price;
@@ -59,6 +63,8 @@ return parseInt(number);
 			else{
 				next();
 			}
+ 		
+ 	}
 
 }
 exports.checkForTotalMilestonePriceById=(req, res, next)=>{

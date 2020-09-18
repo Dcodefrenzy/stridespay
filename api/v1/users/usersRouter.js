@@ -44,6 +44,10 @@ router.route("/login")
 router.route("/verify/user")
 	.post(controller.findUserByMail, controller.sendVerification, mailerController.sendMail, logsController.addLogs)
 
+
+router.route("/update/user")
+	.post(controller.userAuthenticate, controller.updateUser,  logsController.addLogs)
+
 router.route("/update/notification")
 	.post(controller.userAuthenticate, controller.updatePlayerID,  logsController.addLogs)
 
@@ -57,6 +61,14 @@ router.route("/profile")
 
 router.route("/create/user")
 	.post(controller.addUser, logsController.addLogs)
+
+
+router.route("/change/password")
+	.patch(controller.userAuthenticate, controller.passwordChange, logsController.addLogs)
+
+router.route("/logout")
+	.patch(controller.userAuthenticate, controller.logout, logsController.addLogs)
+	
 
 
 

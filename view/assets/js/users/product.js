@@ -8,11 +8,13 @@ exports.showProductHandller = (token, id)=>{
 	const {copyText} = require("../copyText");
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
+	const {sideBar} = require("./sidebar");
 	spinner.className ="display-none";
 	let payMent = {};
 
 			const showProduct=(user,product, milestones, transaction, display)=>{
-
+				
+				sideBar(token, id);
 				const html = `<div class="">
 							<div class="container">
 								<div class="row align-items-center mt-2 p-0">
@@ -46,7 +48,7 @@ exports.showProductHandller = (token, id)=>{
 							</div>
 						 </div>`;
 
-		 				body.insertAdjacentHTML('afterbegin', html);
+		 				body.insertAdjacentHTML('beforeend', html);
 			}
 
 			const load=(response)=>{

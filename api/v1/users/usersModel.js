@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
 		required: true,
 		unique: true,	
 	},
+	about:{
+		type:String,
+		required:false,
+	},
 	gender:{
 		type: String,
 		required: false,
@@ -54,6 +58,10 @@ const userSchema = new mongoose.Schema({
 		required: true,
 		trim: true,
 		minlenght: 6,
+	},
+	location:{
+		type:String,
+		required:false,
 	},
 	image: {
 		type:String,
@@ -130,7 +138,7 @@ const userSchema = new mongoose.Schema({
 	userSchema.methods.toJSON = function(){
 		const user = this;
 		const userObject = user.toObject();
-		return _.pick(userObject, ['_id', 'email', 'firstname', 'lastname', 'name',  'phonenumber', 'gender', 'age', 'verification','image', 'lastLogin','loginStatus','dateCreated']);
+		return _.pick(userObject, ['_id', 'email', 'firstname', 'lastname', 'name',  'phonenumber', 'gender', 'age', 'location', 'about', 'verification','image', 'lastLogin','loginStatus','dateCreated']);
 	};
 
 
@@ -189,7 +197,7 @@ userSchema.statics.findByEmailCredentials = function (email, password){
 					return resolve(body);
 					
 				}else{
-					const error = {status:400, message:{message:"Email or password do not exist"}}
+					const error = {status:403, message:{message:"Email or password do not exist"}}
 					return reject(error);
 				}	
 			})
@@ -207,6 +215,7 @@ userSchema.statics.findByEmailCredentials = function (email, password){
 		}catch(e){
 			return new Promise((resolve, reject)=>{
 				e.status = 401;
+				console.log({"model": e});
 				return reject(e);
 			});
 		}	

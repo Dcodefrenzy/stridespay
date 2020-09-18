@@ -37,7 +37,12 @@ router.route("/transaction/create/:id")
 
 
 router.route("/freelancer/transaction/create/:id")
-	.post(usersController.userAuthenticate, controller.findUserServiceById, milestonesController.fetchServiceMilestone, milestonesController.checkMilestone, transactionController.CreateTransactionForFreelancers, logsController.addLogs)
+	.post(usersController.userAuthenticate, 
+		controller.findUserServiceById, 
+		milestonesController.fetchServiceMilestone, 
+		milestonesController.checkMilestone, 
+		transactionController.CreateTransactionForFreelancers, 
+		logsController.addLogs)
 
 
 router.route("/product/:id")

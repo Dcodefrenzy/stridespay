@@ -3,6 +3,10 @@ define(function(require, exports, module) {
 
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
+	const nav = document.getElementById("user-side-bar-open");
+	const navIcon = document.getElementById("user-open-side-bar");
+	nav.className = "display-none";
+	navIcon.className = "display-none";
 	spinner.className ="display-none";
 	const loginEmail = require("../users/logins/loginEmail");
 	const loginPhone = require("../users/logins/loginPhone");

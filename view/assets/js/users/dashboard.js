@@ -17,7 +17,7 @@ exports.dashBoardHandller = (token, id)=>{
 				const html = `<div class="mt-2">
 							<div class="container">
 								<div class="row align-items-center mt-3 p-0">
-									<div class="col-12 col-sm-10 offset-sm-1 col-md-10 offset-md-1">
+									<div class="col-12 col-sm-12 col-md-9 offset-md-3 col-lg-10 offset-lg-2">
 										<div class="card shadow-lg p-3 mb-3  rounded">
 										<div class="float-right">
 												<i class="fa fa-bell text-green float-right mt-2" aria-hidden="true"></i>
@@ -94,7 +94,9 @@ exports.dashBoardHandller = (token, id)=>{
 			}
 
 			const loadDashboard=(response)=>{
+				
 				if (response.status === 401) {
+					console.log(response);
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					dashboard(response.user, response.wallet, response.withdraw);
