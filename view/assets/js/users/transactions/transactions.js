@@ -3,6 +3,7 @@ define(function (require, exports, modules) {
 exports.transactionsHandller = (token, id)=>{
 	const {loginForm} = require("../../logins");
 	let {createProduct} = require("../createProduct");
+	const {loading} = require("../../loading");
 	const {getRequest} = require("../../request");
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
@@ -28,7 +29,7 @@ exports.transactionsHandller = (token, id)=>{
 													<h4>Deals</h4>
 													<i>Break things and move faster</i>
 													<nav>
-														  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+														  <div class="nav nav-tabs justify-center" id="nav-tab" role="tablist">
 														    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fa fa-handshake text-green" aria-hidden="true"></i> Ongoing</a>
 														    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><i class="fa fa-hourglass-end text-green" aria-hidden="true"></i> Ended</a>
 														  </div>
@@ -79,6 +80,7 @@ exports.transactionsHandller = (token, id)=>{
 			const load=(response)=>{
 
 				if (response.status === 401) {
+					loading("user-side-bar-open", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					transactions(response.transactions)

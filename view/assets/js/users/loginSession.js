@@ -18,8 +18,8 @@ define(function(require, exports, module) {
 				<div class="col-12 col-sm-12 col-md-5 offset-md-3 col-lg-5 offset-lg-3">
 					<h1>Login</h1>
 					<div class="row text-center">
-						<button class="btn-sm btn-success m-2" onclick="return loginEmail(event)">Login with Email</button>
-						<button class="btn-sm btn-dark m-2" onclick="return loginPhone(event)">Login with Phone</button>
+						<button class="btn-sm btn-success m-2" onclick="return loginEmail(event, 'userLogin')">Login with Email</button>
+						<button class="btn-sm btn-dark m-2" onclick="return loginPhone(event, 'userLogin')">Login with Phone</button>
 					</div>
 					<div id="changeLogin">
 						<form id="users/login" class="userLogin" name="submitForm" onsubmit="return register(event)">

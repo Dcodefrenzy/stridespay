@@ -3,6 +3,7 @@ define(function(require, exports, module) {
 exports.displayMerchantToken = (token, id)=>{
 	const {getRequest} = require("request");
 	const {loginForm} = require("../logins");
+	const {loading} = require("../loading");
 	const {startTransaction} = require("./startTransaction");
 	const {loadPaymentHandller} = require("./getPayment");
 	const body = document.getElementById("body");
@@ -57,6 +58,7 @@ exports.displayMerchantToken = (token, id)=>{
 			const displayTransaction=(response)=>{
 			
 				if (response.status === 401) {
+					loading("user-side-bar-open", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					showTransaction(response.transaction, response.transaction.milestones);

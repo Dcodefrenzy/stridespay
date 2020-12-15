@@ -2,6 +2,7 @@ define(function (require, exports, module) {
 	let sideBar;
 	 exports.sideBar=(token, id)=>{
 	const {updateNotification} = require("./updatePlayerId");
+	const {loading} = require("../loading");
 	const {getRequest} = require("request");
 	const {loginForm} = require("../logins");
 	const {logout} = require("./logout");
@@ -40,6 +41,7 @@ define(function (require, exports, module) {
 
 		const loadDashboard=(response)=>{
 				if (response.status === 401) {
+					loading("user-side-bar-open", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					showNavBar(response.user, response.wallet, response.withdraw);

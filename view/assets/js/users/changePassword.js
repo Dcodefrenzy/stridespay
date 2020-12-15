@@ -23,13 +23,13 @@ define(function(require, exports, module) {
 								<div class="form-group">
 									<label id="error-message"></label>
 									<label id="error-oldPassword">Old password</label>
-									<input type="password" name="oldPassword" required oninput="return returnValidation(this.value, this.name)"  class="form-control" placeholder="Product?">
+									<input type="password" name="oldPassword" required oninput="return returnValidation(this.value, this.name)"  class="form-control" placeholder="Old password">
 								</div>
 							</div>
 							<div class="col-12 col-sm-12 col-md-12">							
 								<div class="form-group">
 									<label id="error-password">New password</label>
-									<input type="password" name="password" required oninput="return returnValidation(this.value, this.name)"  class="form-control" placeholder="password">
+									<input type="password" name="password" required oninput="return returnValidation(this.value, this.name)"  class="form-control" placeholder="New password">
 								</div>
 							</div>
 							<div class="col-12 col-sm-12 col-md-12">

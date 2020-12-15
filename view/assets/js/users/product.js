@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 
 exports.showProductHandller = (token, id)=>{
 	const {getRequest} = require("request");
+	const {loading} = require("../loading");
 	const {createTransaction}= require("./createTransaction");
 	const {loginForm} = require("../logins");
 	const {loadPaymentHandller} = require("./getPayment");
@@ -54,6 +55,7 @@ exports.showProductHandller = (token, id)=>{
 			const load=(response)=>{
 			
 				if (response.status === 401) {
+					loading("user-side-bar-open", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					let allTransactions;

@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 
 return loadPaymentHandller = (id, link)=>{
 	const {loginForm} = require("../logins");
+	const {loading} = require("../loading");
 	const {flutterwave} = require("../payment/paystack");
 	const sessionItem = JSON.parse(sessionStorage.getItem("user")) !== null?JSON.parse(sessionStorage.getItem("user")):{"token":"eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0"}; 
      console.log(id)
@@ -20,6 +21,7 @@ return loadPaymentHandller = (id, link)=>{
 					if (response.status === 200) {
 						flutterwave(response, id, paymentLink);
 					}else if (response.status === 401) {
+					loading("user-side-bar-open", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 					}else if (response.status === 403) {
 						alert(response.message);

@@ -3,6 +3,7 @@ define(function(require, exports, module) {
 exports.productsHandller = (token, id)=>{
 	const {loginForm} = require("../logins");
 	let {createProduct} = require("./createProduct");
+	const {loading} = require("../loading");
 	let {createService} = require("./freelancers/createService");
 	const {getRequest} = require("../request");
 	const body = document.getElementById("body");
@@ -61,6 +62,7 @@ exports.productsHandller = (token, id)=>{
 
 			const load=(response)=>{
 		if (response.status === 401) {
+			loading("user-side-bar-open", "display-none");
 			 body.insertAdjacentHTML('afterbegin', loginForm);
 		}
 		else if (response.status === 200) {
@@ -68,7 +70,7 @@ exports.productsHandller = (token, id)=>{
 				const product = response.products.map((product)=>{							
 					let title  = product.isMerchant===true?"Selling":product.isMerchant===false?"Buying":"";
 					if (product.isService === false) {
-							return `<div class="col-12 col-sm-12 col-md-6">
+							return `<div class="col-12 col-sm-5 col-md-5">
 											<a href=/users/products/${product._id}>
 												<div class="card shadow-lg p-3 mb-3 bg-white rounded">
 													<div class="card-body text-center">
@@ -84,7 +86,7 @@ exports.productsHandller = (token, id)=>{
 				});
 				const services = response.products.map((product)=>{
 					if (product.isService  === true) {
-						return	`<div class="col-12 col-sm-6 col-md-6">
+						return	`<div class="col-12 col-sm-5 col-md-5">
 									<a href=/users/services/${product._id}>
 										<div class="card shadow-lg p-3 mb-3 bg-white rounded">
 											<div class="card-body text-center">

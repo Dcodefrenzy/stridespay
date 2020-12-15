@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 	exports.withdraw =(token, id)=>{	
 	const {getRequest} = require("../request")
 	const {loginForm} = require("../logins");
+  const {loading} = require("../loading");
 	const {startTransfer} = require("./transfer");	
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
@@ -47,6 +48,7 @@ define(function(require, exports, module) {
 		const loadDashboard=(response)=>{
 				
 				if (response.status === 401) {
+                  loading("spinner", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					displayWithdraw(response.user, response.wallet, response.withdraw, response.bank);

@@ -1,9 +1,9 @@
 define(function(require, exports, module) {
-	return loginEmail = (event)=>{
+	return loginEmail = (event, login)=>{
 		event.preventDefault();
 		const changeLogin  = document.getElementById("changeLogin");
 
-		const html = `<form id="users/login" class="loginUser" name="submitForm" onsubmit="return register(event)">
+		const html = `<form id="users/login" class=${login} name="submitForm" onsubmit="return register(event)">
 						<div class="row">
 							<p id="error-message"></p>
 								<div class="col-12 col-sm-12 col-md-12">
@@ -25,7 +25,7 @@ define(function(require, exports, module) {
 							<div>
 						</div>
 					</form>
-					<p class="text-white">Please sign up if you dont have an account <a href="/users/signup">Signup</a></p>`;
+					<p class="text-dark"><b>Please sign up if you dont have an account <a href="/users/signup">Signup</a></b></p>`;
 
 
 	 changeLogin.innerHTML = html;

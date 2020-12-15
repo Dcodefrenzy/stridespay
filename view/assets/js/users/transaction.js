@@ -1,5 +1,7 @@
 define(function(require, exports, module) {
 
+  const {loginForm} = require("../logins");
+  const {loading} = require("../loading");
 exports.productPaymentHandller = (token, id)=>{
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
@@ -45,7 +47,10 @@ exports.productPaymentHandller = (token, id)=>{
 
 			const displayTransaction=(response)=>{
 				if (response.status === 401) {
-
+					
+					loading("user-side-bar-open", "display-none");
+                const body = document.getElementById("body");
+                  body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					payMent = {price:response.product.price, _id:response.product._id, }
 					showPaymentProduct(response.user, response.product, response.milestones);

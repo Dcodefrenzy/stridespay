@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 
 	 exports.profile=(token, id)=>{
 	const {loginForm} = require("../logins");
+	const {loading} = require("../loading");
 	const {getRequest} = require("../request");
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
@@ -80,7 +81,7 @@ define(function(require, exports, module) {
 							</div>
 							<div class="col-12 col-sm-12 col-md-12">
 								<div class="form-group">
-									<input type="submit" class="form-control btn-lg btn-dark" value="Generate token">
+									<input type="submit" class="form-control btn-lg btn-dark" value="Update">
 								</div>
 							<div>
 						</div>
@@ -98,6 +99,7 @@ define(function(require, exports, module) {
 		const loadProfile=(response)=>{
 			console.log(response);
 				if (response.status === 401) {
+					loading("user-side-bar-open", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 								let option = response.user.gender === undefined?`<option value="">Select Gender</option>`:`<option value=${response.user.gender}>${response.user.gender}</option>`;

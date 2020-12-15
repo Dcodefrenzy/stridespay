@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 
 exports.dashBoardHandller = (token, id)=>{
 	const {getRequest} = require("request");
+	const {loading} = require("../loading");
 	const body = document.getElementById("body");
 	const {showNotification} = require("./showNotification");
 	const {sideBar} = require("./sidebar");
@@ -97,6 +98,7 @@ exports.dashBoardHandller = (token, id)=>{
 				
 				if (response.status === 401) {
 					console.log(response);
+					loading("user-side-bar-open", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					dashboard(response.user, response.wallet, response.withdraw);

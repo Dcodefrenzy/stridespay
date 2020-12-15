@@ -3,6 +3,7 @@ define(function(require, exports, module) {
 exports.showServiceHandller = (token, id)=>{
 	const {getRequest} = require("request");
 	const {createTransaction} = require("./createTransaction");
+	const {loading} = require("../../loading");
 	const {loginForm} = require("../../logins");
 	const {loadPaymentHandller} = require("../getPayment");
 	const {copyText} = require("../../copyText");
@@ -33,10 +34,10 @@ exports.showServiceHandller = (token, id)=>{
 									</div>
 									<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2 mt-2">
 										<div class="card shadow-lg  mb-5 bg-white rounded p-3">
-									<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2 text-center">
-										<p><i class="fa fa-thumbtack" aria-hidden="false"></i> Milestones</p>
-										<button class="btn-sm btn-green" value="service" id=${service._id} onclick="return createMilestone(event, this.id, this.value)">Add Milestone</button>
-									</div>
+											<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2 text-center">
+												<p><i class="fa fa-thumbtack" aria-hidden="false"></i> Milestones</p>
+												<button class="btn-sm btn-green" value="service" id=${service._id} onclick="return createMilestone(event, this.id, this.value)">Add Milestone</button>
+											</div>
 											${milestones.map((milestone, index)=>{
 										return `<div class="col-12">
 												<div class="card shadow-lg  bg-white rounded mt-0">
@@ -45,6 +46,26 @@ exports.showServiceHandller = (token, id)=>{
 														<span>&#8358; ${milestone.price.toString().slice(0, -2)}</span>
 														<p>${milestone.description}</p>
 														 <button class="btn-sm btn-green col-md-6  col-sm-6 col-12">Manage</button>
+													</div>
+												</div>
+											</div>`
+											})}
+										</div>
+									</div>
+									<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2 mt-2">
+										<div class="card shadow-lg  mb-5 bg-white rounded p-3">
+											<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2 text-center">
+												<p><i class="fa fa-star text-warning" aria-hidden="false"></i> <b>Unused Payment Tokens</b></p>
+												<p>Here are lists of dormant tokens. you can delete or use them instead of creating another</p>
+											</div>
+											${transaction.map((transaction, index)=>{
+										return `<div class="col-12">
+												<div class="card shadow-lg  bg-white rounded mt-0">
+													<div class="card-body text-center">
+												<small>Copy unique transaction token and Share to your clients/merchants</small>
+												<input class="form-control" id=${transaction._id} type="text" value=${window.location.hostname+"/users/freelancer/"+transaction.creator.replace(" ", "-")+"/token/"+transaction._id} readonly="readonly"/>
+													<button onclick="return copyText(this.value)" value=${transaction._id} class="mt-2 col-md-6  col-sm-6 col-12 btn-sm btn-green ">Copy</button>
+													<button  value=${transaction._id} class="mt-2 col-md-6  col-sm-6 col-12 btn-sm btn-danger ">Delete</button>
 													</div>
 												</div>
 											</div>`
@@ -61,12 +82,14 @@ exports.showServiceHandller = (token, id)=>{
 			const load=(response)=>{
 				console.log(response)
 				if (response.status === 401) {
+
+				loading("user-side-bar-open", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					let allTransactions;
 					let display = response.service.isMerchant === true?`<button onclick="return createTransaction(event, this.id)" class="btn-sm btn-green" id=${"products/transaction/create/"+response.service._id} >New Transaction</button>`:`<a class="btn-sm btn-green"  href=${"/users/product/payment/"+response.product._id}>New Transaction</a>`;
 					console.log(response.milestones)
-					showService(response.user, response.service, response.milestones);
+					showService(response.user, response.service, response.milestones, response.transactions);
 				}
 			}
 

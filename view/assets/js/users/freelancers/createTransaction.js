@@ -15,7 +15,7 @@ define(function (require, expotrs, module) {
 						console.log(response)
 						loading("spinner", "display-none");
 						alert("Created A service token successfully.")
-						//window.location  = "/users/services/token/";
+						window.location  = `/users/services/token/${response.transaction._id}`;
 					} else if (response.status === 401) {
 						loading("spinner", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);

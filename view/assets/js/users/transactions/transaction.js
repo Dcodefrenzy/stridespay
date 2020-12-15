@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 
 exports.transactionHandller = (token, id)=>{
 	const {getRequest} = require("request");
+	const {loading} = require("../../loading");
 	const {loginForm} = require("../../logins");
 	const {loadPaymentHandller} = require("../getPayment");
 	const {updateMerchantMilestone} = require("./updateMilestone");
@@ -96,6 +97,7 @@ exports.transactionHandller = (token, id)=>{
 			const displayTransaction=(response)=>{
 			
 				if (response.status === 401) {
+					loading("user-side-bar-open", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					transaction(response.transaction, response.transaction.milestones);
