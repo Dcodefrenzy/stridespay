@@ -135,12 +135,13 @@ exports.verifyPayment=(req, res, next)=>{
 
 
 exports.verifyTransactionPayment=(req, res, next)=>{
-
+	console.log({'res.body':req.body})
 	const body =  {
 			  "SECKEY": FLUTTERWAVELOCAL,
 			  "txref": req.body.reference
 			};
 			
+			console.log({'body':body})
 	request.post("https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/v2/verify", {
 		headers: {"Content-Type": "application/json"},
 		body:JSON.stringify(body)
@@ -148,6 +149,7 @@ exports.verifyTransactionPayment=(req, res, next)=>{
 	.then((res)=>{
 
 		const response = JSON.parse(res)
+		console.log({'response':response})
             //check status is success.
             console.log("get data")
           if (response.status === "success" && response.data.txref == req.body.reference) {

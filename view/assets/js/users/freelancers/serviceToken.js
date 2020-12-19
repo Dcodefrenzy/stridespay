@@ -3,6 +3,7 @@ define(function(require, exports, module) {
 exports.serviceTokens = (token, id)=>{
 	const {getRequest} = require("request");
 	const {loading} = require("../../loading");
+	const {sideBar} = require("../sidebar");
 	const {createTransaction} = require("./createTransaction");
 	const {loginForm} = require("../../logins");
 	const {loadPaymentHandller} = require("../getPayment");
@@ -13,7 +14,7 @@ exports.serviceTokens = (token, id)=>{
 	spinner.className ="display-none";
 
 			const showService=(transaction, milestones, user)=>{
-
+				sideBar(token, id);
 				const html = `<div class="">
 							<div class="container">
 								<div class="row align-items-center mt-5 p-0">
@@ -69,9 +70,13 @@ exports.serviceTokens = (token, id)=>{
 				if (response.status === 401) {
 						loading("user-side-bar-open", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);
-				}else if (response.status === 200) {
-
+				}else if (response.status === 200 && response.transaction.paymentStatus !== true) {
+					console.log(response)
 					showService(response.transaction, response.transaction.milestones, response.user);
+				}else if (response.status === 200 && response.transaction.paymentStatus === true) {
+					alert("Yay you have paid for this Transaction already.");
+
+                    window.location = "/users/transactions";
 				}
 			}
 

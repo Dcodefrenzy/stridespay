@@ -19,7 +19,7 @@ exports.productsHandller = (token, id)=>{
 							<div class="container">
 								<div class="row align-items-center mt-5 p-0">
 									<div class="col-12 col-sm-12 col-md-9 offset-md-3 col-lg-10 offset-lg-2">
-										<div class="card min-height">
+										<div class="card bg-background min-height">
 											<div class="card-body">
 												<div class="col-12 col-sm-12 col-md-12">
 												<a href="/users/dashboard">
@@ -72,7 +72,7 @@ exports.productsHandller = (token, id)=>{
 					if (product.isService === false) {
 							return `<div class="col-12 col-sm-5 col-md-5">
 											<a href=/users/products/${product._id}>
-												<div class="card shadow-lg p-3 mb-3 bg-white rounded">
+												<div class="card shadow-lg p-3 mb-3 bg-background rounded">
 													<div class="card-body text-center">
 														<i class="fa fa-shopping-cart fa-3x text-green" aria-hidden="true"></i>
 														<p class="text-dark">${product.product}</p>
@@ -88,7 +88,7 @@ exports.productsHandller = (token, id)=>{
 					if (product.isService  === true) {
 						return	`<div class="col-12 col-sm-5 col-md-5">
 									<a href=/users/services/${product._id}>
-										<div class="card shadow-lg p-3 mb-3 bg-white rounded">
+										<div class="card shadow-lg p-3 mb-3 bg-background rounded">
 											<div class="card-body text-center">
 												<i class="fa fa-tasks fa-3x text-green" aria-hidden="true"></i>
 												<p class="text-dark">${product.product}</p>

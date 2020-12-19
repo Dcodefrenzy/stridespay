@@ -2,12 +2,14 @@ define(function(require, exports, module) {
 		 let createBankAccount;
 
 	exports.createBankAccount =(token, id)=>{
+	const {loading} = require("../loading");
 	const {getRequest} = require("../request");
 	const {loginForm} = require("../logins");		
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
 	spinner.className ="display-none";
 
+     loading("spinner", "display-none");
 	const showbankForm =(banks)=>{
 		const html = `<div id="revert" class="fixed-top bg-green full-height">
 				<div class="">

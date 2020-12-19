@@ -18,8 +18,8 @@ exports.showServiceHandller = (token, id)=>{
 				const html = `<div id="service" class="">
 							<div class="container">
 								<div class="row align-items-center mt-4 p-0">
-									<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2">
-										<div class="card shadow-lg p-3 mb-5 bg-white rounded">
+									<div class="col-12 col-sm-12  col-md-8 offset-md-3 col-lg-8 offset-lg-3">
+										<div class="card bg-background shadow-lg p-3 mb-5 rounded">
 											<div class="card-body row">
 											<a href="/users/projects">
 												<i class="fa fa-arrow-left float-left mt-2 text-dark" aria-hidden="true"></i></a>
@@ -32,44 +32,48 @@ exports.showServiceHandller = (token, id)=>{
 											</div>
 										</div>
 									</div>
-									<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2 mt-2">
-										<div class="card shadow-lg  mb-5 bg-white rounded p-3">
-											<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2 text-center">
-												<p><i class="fa fa-thumbtack" aria-hidden="false"></i> Milestones</p>
-												<button class="btn-sm btn-green" value="service" id=${service._id} onclick="return createMilestone(event, this.id, this.value)">Add Milestone</button>
-											</div>
-											${milestones.map((milestone, index)=>{
-										return `<div class="col-12">
-												<div class="card shadow-lg  bg-white rounded mt-0">
-													<div class="card-body text-center">
-														<h5>${milestone.milestone}</h5>
-														<span>&#8358; ${milestone.price.toString().slice(0, -2)}</span>
-														<p>${milestone.description}</p>
-														 <button class="btn-sm btn-green col-md-6  col-sm-6 col-12">Manage</button>
+									<div class="col-12 col-sm-12  col-md-8 offset-md-3 col-lg-8 offset-lg-3">
+										<div class="row">
+											<div class="col-12 col-sm-6 col-md-6  mt-2">
+												<div class="card bg-background shadow-lg  mb-5  rounded p-3">
+													<div class="col-12 col-sm-8 offset-sm-2 col-md-8  text-center">
+														<p><i class="fa fa-thumbtack" aria-hidden="false"></i> Milestones</p>
+														<button class="btn-sm btn-green" value="service" id=${service._id} onclick="return createMilestone(event, this.id, this.value)">Add Milestone</button>
 													</div>
+													${milestones.map((milestone, index)=>{
+												return `<div class="col-12">
+														<div class="card shadow-lg  bg-background rounded mt-0">
+															<div class="card-body text-center">
+																<h5>${milestone.milestone}</h5>
+																<span>&#8358; ${milestone.price.toString().slice(0, -2)}</span>
+																<p>${milestone.description}</p>
+																 <button class="btn-sm btn-green col-md-12  col-sm-12 col-12">Manage</button>
+															</div>
+														</div>
+													</div>`
+													})}
 												</div>
-											</div>`
-											})}
-										</div>
-									</div>
-									<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2 mt-2">
-										<div class="card shadow-lg  mb-5 bg-white rounded p-3">
-											<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2 text-center">
-												<p><i class="fa fa-star text-warning" aria-hidden="false"></i> <b>Unused Payment Tokens</b></p>
-												<p>Here are lists of dormant tokens. you can delete or use them instead of creating another</p>
 											</div>
-											${transaction.map((transaction, index)=>{
-										return `<div class="col-12">
-												<div class="card shadow-lg  bg-white rounded mt-0">
-													<div class="card-body text-center">
-												<small>Copy unique transaction token and Share to your clients/merchants</small>
-												<input class="form-control" id=${transaction._id} type="text" value=${window.location.hostname+"/users/freelancer/"+transaction.creator.replace(" ", "-")+"/token/"+transaction._id} readonly="readonly"/>
-													<button onclick="return copyText(this.value)" value=${transaction._id} class="mt-2 col-md-6  col-sm-6 col-12 btn-sm btn-green ">Copy</button>
-													<button  value=${transaction._id} class="mt-2 col-md-6  col-sm-6 col-12 btn-sm btn-danger ">Delete</button>
+											<div class="col-12 col-sm-6 col-md-6  mt-2">
+												<div class="card bg-background shadow-lg  mb-5  rounded p-3">
+													<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2 text-center">
+														<p><i class="fa fa-star text-warning" aria-hidden="false"></i> <b>Unused Payment Tokens</b></p>
+														<p>Here are lists of dormant tokens. you can delete or use them instead of creating another</p>
 													</div>
+													${transaction.map((transaction, index)=>{
+												return `<div class="col-12">
+														<div class="card bg-background shadow-lg   rounded mt-0">
+															<div class="card-body text-center">
+														<small>Copy unique transaction token and Share to your clients/merchants</small>
+														<input class="form-control" id=${transaction._id} type="text" value=${window.location.hostname+"/users/freelancer/"+transaction.creator.replace(" ", "-")+"/token/"+transaction._id} readonly="readonly"/>
+															<button onclick="return copyText(this.value)" value=${transaction._id} class="mt-2 col-md-12  col-sm-12 col-12 btn-sm btn-green ">Copy</button>
+															<button  value=${transaction._id} class="mt-2 col-md-12  col-sm-12 col-12 btn-sm btn-danger ">Delete</button>
+															</div>
+														</div>
+													</div>`
+													})}
 												</div>
-											</div>`
-											})}
+											</div>
 										</div>
 									</div>
 								</div>

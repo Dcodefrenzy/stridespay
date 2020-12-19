@@ -20,7 +20,7 @@ exports.showProductHandller = (token, id)=>{
 							<div class="container">
 								<div class="row align-items-center mt-2 p-0">
 									<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2">
-										<div class="card shadow-lg p-3 mb-5 bg-white rounded">
+										<div class="card bg-background shadow-lg p-3 mb-5 bg-white rounded">
 											<div class="card-body row">
 											<a href="/users/products">
 												<i class="fa fa-arrow-left float-left mt-2 text-dark" aria-hidden="true"></i></a>
@@ -63,7 +63,7 @@ exports.showProductHandller = (token, id)=>{
 					if (response.transactions.length >0) {
 						allTransactions = response.transactions.map((transaction)=>{
 							const link = transaction.buyer===response.user._id?	"/users/merchant/"+response.user.name.replace(" ", "-")+"/token/"+transaction._id:"/users/buyer/"+response.user.name.replace(" ", "-")+"/token/"+transaction._id;
-							return	`<div class="card shadow-lg p-3  bg-white rounded">
+							return	`<div class="card shadow-lg p-3  bg-background rounded">
 											<small>Copy unique transaction token and Share to your clients/merchants</small>
 										<input class="form-control" id=${transaction._id} type="text" value=${window.location.hostname+link} readonly="readonly"/>
 										<button onclick="return copyText(this.value)" value=${transaction._id} class="mt-2 col-12 col-sm-5 offset-sm-3 col-md-5 offset-md-3 btn-sm btn-green ">Copy</button>

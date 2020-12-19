@@ -54,6 +54,7 @@ define(function(require, exports, module) {
 					displayWithdraw(response.user, response.wallet, response.withdraw, response.bank);
 				}else if (response.status === 403) {
 						alert(response.message)
+                  		loading("spinner", "display-none");
 						window.location = "/users/bank/account";
 				}
 			}
