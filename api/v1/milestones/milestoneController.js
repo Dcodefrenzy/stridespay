@@ -2,17 +2,18 @@ const {milestones} = require("./milestoneModel.js");
 const {ObjectID} = require("mongodb");
 
 exports.addMilestone=(req, res, next)=>{
-
+console.log(req.body)
 	let description = !req.body.description?"Deliver"+" "+req.data.product:req.body.description;
 	let milestoneType = !req.body.milestone?"Delivery":req.body.milestone;
 
 	const milestone = new milestones({
 			milestone:milestoneType,
-			description:description,
+			description:req.body.description,
 			price:req.data.price,
 			product:req.data.productId,
 			dateCreated:new  Date(),
 	});
+	console.log({"milesone":milestone})
 
 	milestone.save().then((milestone)=>{
         if (!milestone) {
@@ -69,14 +70,19 @@ return parseInt(number);
 }
 exports.checkForTotalMilestonePriceById=(req, res, next)=>{
 	milestones.find({product:req.data.service._id}, {price:1, _id:0}).then((milestones)=>{
-
-		const sum = milestones.map((milestone)=>{
-				let price  =+ milestone.price;
-				return price;
-		}).reduce((total, amount) => total + amount); 
-			//Used slice because we are storing amounts in Kobo which means there will always be two 00 at the end so to add our value we must remove those two zeros.
-			req.data.updatePrice = sum;
+		if (milestones.length <1) {
+				req.data.updatePrice = "00";
 			next();
+		}else{
+			const sum = milestones.map((milestone)=>{
+					let price  =+ milestone.price;
+					return price;
+			}).reduce((total, amount) => total + amount); 
+				//Used slice because we are storing amounts in Kobo which means there will always be two 00 at the end so to add our value we must remove those two zeros.
+				req.data.updatePrice = sum;
+				next();
+			}
+	
 	}).catch((e)=>{
 		console.log(e);
 		let err ={}
@@ -118,7 +124,25 @@ exports.addServiceMilestone=(req, res, next)=>{
 		res.status(404).send(err);
 	});
 }
+exports.fetchMilestone= (req, res)=>{
+	milestones.findById({_id:req.params.id}).then((milestone)=>{
+		if (!milestone) {
+			const err = {status:403, message:{message:`unable to find milestone with id ${req.params.id}`} }
+			console.log(err)
+			return res.status(403).send(err);
+		}
+		//console.log(milestone)
+		req.data = {status:200, milestone:milestone}
+		res.status(200).send(req.data);
 
+	}).catch((e)=>{
+		console.log(e);
+		let err ={}
+		if(e.errors) {err = {status:403, message:e.errors}}
+		else if(e){err = {status:403, message:e}}
+		res.status(404).send(err);
+	})
+}
 exports.fetchMilestonesById = (req, res)=>{
 	milestones.find({product:req.data.product._id}).then((milestones)=>{
 		console.log("miles")
@@ -136,7 +160,12 @@ exports.fetchMilestonesById = (req, res)=>{
 
 exports.fetchMilestonesPayment = (req, res, next)=>{
 	milestones.find({product:req.data.product._id}).then((milestones)=>{
-		
+		if (!milestones) {
+			console.log('eeeo')
+			const err = {status:403, message:{message:`You have to add at list one milestone before you can be able to generate a payment link for your client`} }
+			console.log(err)
+			return res.status(403).send(err);
+		}
 		req.data.milestones = milestones;
 		next();
 	}).catch((e)=>{
@@ -164,3 +193,56 @@ exports.fetchServiceMilestone = (req, res, next)=>{
 	})
 }
 
+exports.updateMilestone = (req, res, next)=>{
+	
+		const milestone = new milestones({
+			milestone:req.body.title,
+			description:req.body.description,
+			price:req.body.price+"00",
+			dateUpdated:new  Date(),
+	});
+		console.log(milestone)
+	milestones.findByIdAndUpdate(req.params.milestoneId, {$set: {milestone:milestone.milestone, description:milestone.description, price:milestone.price, dateUpdated:milestone.dateUpdated}}).then((milestone)=>{
+		if (!milestone) {
+			const err = {status:403, message:{message:"unable to add milestone."} }
+			console.log(err)
+			return res.status(403).send(err);
+        }
+        	req.data.milestones = milestone;
+        	req.data._id  = req.data.user._id		
+			req.data.loggerUser = "User";
+			req.data.logsDescription = "Updated Service milestone successfully";
+			req.data.title = "Milestones";
+				next();
+
+	}).catch((e)=>{
+		console.log(e);
+		let err ={}
+		if(e.errors) {err = {status:403, message:e.errors}}
+		else if(e){err = {status:403, message:e}}
+		res.status(404).send(err);
+	})
+}
+exports.deleteMilestone = (req, res, next)=>{
+	
+	milestones.findByIdAndDelete(req.params.milestoneId).then((milestone)=>{
+		if (!milestone) {
+			const err = {status:403, message:{message:"Could not find this milestone."} }
+			console.log(err)
+			return res.status(403).send(err);
+        }
+        	req.data.milestones = milestone;
+        	req.data._id  = req.data.user._id		
+			req.data.loggerUser = "User";
+			req.data.logsDescription = "Deleted Service milestone successfully";
+			req.data.title = "Milestones";
+				next();
+
+	}).catch((e)=>{
+		console.log(e);
+		let err ={}
+		if(e.errors) {err = {status:403, message:e.errors}}
+		else if(e){err = {status:403, message:e}}
+		res.status(404).send(err);
+	})
+}

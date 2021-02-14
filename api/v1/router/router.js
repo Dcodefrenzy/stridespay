@@ -17,6 +17,21 @@ router.route("/signup")
 router.route("/dashboard")
 	.get(loader.load)
 
+router.route("/upload/image")
+	.get(loader.load)
+
+router.route("/client-database")
+	.get(loader.load)
+
+router.route("/client-projects/:id")
+	.get(loader.load)
+
+router.route("/financial-analysis")
+	.get(loader.load)
+
+router.route("/project-analysis")
+	.get(loader.load)
+
 
 router.route("/products")
 	.get(loader.load)
@@ -55,11 +70,17 @@ router.route("/freelancer/:name/token/:id")
 	.get(loader.load)
 
 
-router.route("/transactions")
+router.route("/transactions/:id")
+	.get(loader.load)
+
+router.route("/contracts")
+	.get(loader.load)
+
+router.route("/notifications")
 	.get(loader.load)
 
 
-router.route("/transactions/:id")
+router.route("/transaction/:id")
 	.get(loader.load)
 
 router.route("/services")
@@ -97,6 +118,9 @@ router.route("/settings")
 	.get(loader.load)
 
 router.route("/change/password")
+	.get(loader.load)
+
+router.route("/milestone/:id")
 	.get(loader.load)
 
 

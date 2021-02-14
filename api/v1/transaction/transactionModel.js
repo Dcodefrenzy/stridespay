@@ -13,6 +13,10 @@ TransactionsSchema = mongoose.Schema({
             type:String,
             required:true,
         },
+        description:{
+            type:String,
+             required:false,
+        },
         paymentStatus:{
             type:Boolean,
             required:false,
@@ -47,6 +51,11 @@ TransactionsSchema = mongoose.Schema({
                 default:false,
             },
         }],
+        milestoneComplete:{
+            type:Number,
+            default:0,
+            required:true,
+        },
         price:{
             type:Number,
             required:true,

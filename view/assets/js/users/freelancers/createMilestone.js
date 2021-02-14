@@ -1,17 +1,19 @@
 define(function(require, exports, module) {
 		 
-	return createMilestone =(event, id, close)=>{	
-	const body = document.getElementById("body");
+	return createMilestone =(event, id, close)=>{
+	
+	const {displayTextEditor} = require('../texteditor');
 	const spinner = document.getElementById(close);
+
 	spinner.className ="display-none";
 		const html = `<div id="revert" class="bg-background container">
-				<div class="">
+				<div class="container">
 				<div id="loading"></div>
 					<div class="row mt-2 p-3">
-					<div class="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3">
+					<div class="col-12 col-sm-12 col-md-9 offset-md-3 col-lg-9 offset-lg-3">
 				<a href=${"/users/services/"+id}><i class="fa fa-arrow-left text-dark"></i></div></a>
 					</div>
-				<div class="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3">
+				<div class="col-12 col-sm-12 col-md-9 offset-md-3 col-lg-9 offset-lg-3">
 					<h1>Create Milestone</h1>
 					<p class="text-dark">Create a Milestone</p>
 					<form id=${"milestones/create/"+id} class="createMilestone" name="submitForm" onsubmit="return register(event)">
@@ -29,13 +31,9 @@ define(function(require, exports, module) {
 								</div>
 							</div>
 							<div class="col-12 col-sm-12 col-md-12">							
-								<div class="form-group">
-									<label id="error-price">Description</label>
-						            <textarea class="form-control" name="description" id="editor1" placrholder="eg"></textarea>
-									<script src="/ckeditor4/ckeditor.js"></script>
-						            <script>
-						                CKEDITOR.replace( 'editor1' );
-						            </script>
+								<div class="form-group" id='textarea-div'>
+									<label id="error-description">Description</label>	
+									
 								</div>
 							</div>
 							<div class="col-12 col-sm-12 col-md-12">
@@ -50,6 +48,7 @@ define(function(require, exports, module) {
 		</div>
 	 </div>`;
 	 body.insertAdjacentHTML('beforeend', html);
+	 displayTextEditor()
 	}
 
 

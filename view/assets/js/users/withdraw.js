@@ -8,23 +8,26 @@ define(function(require, exports, module) {
 	const {startTransfer} = require("./transfer");	
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
+	const {sideBar} = require("./sidebar");
 	spinner.className ="display-none";
 	
 		const displayWithdraw = (user, wallet, withdraw, bank,)=>{
-			const html = `<div id="revert" class="fixed-top bg-green full-height">
+				sideBar(token, id);
+				console.log(wallet.amount)
+			const html = `<div id="revert" class="bg-background full-height">
 				<div class="">
 				<div id="loading"></div>
 					<div class="row mt-2 p-3">
 					<div class="col-12 col-sm-12 col-md-12 col-lg-12">
-				<a href="/users/products"><i class="fa fa-arrow-left text-dark"></i></div></a>
+				<a href="/users/dashboard"><i class="fa fa-arrow-left text-dark"></i></div></a>
 					</div>
 				<div class="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3">
-					<h1>Withdraw Page</h1>
+					<h1>withdrawal Page</h1>
 					<span>Withdraw all your money, no questions.</span>
 					<div  class="mt-5">
 						<div class="row">
 							<div class="col-12 col-sm-12 col-md-12">
-								<div class="card">
+								<div class="card bg-background">
 								<div class="card-body">
 								<h1>Revenue</h1>
 								<p><b>Balance: ${wallet.amount.toString().slice(0, -2)}</b></p>
@@ -43,7 +46,7 @@ define(function(require, exports, module) {
 			</div>
 		</div>
 	 </div>`;
-	 body.insertAdjacentHTML('afterbegin', html);
+	 body.insertAdjacentHTML('beforeend', html);
 		}			
 		const loadDashboard=(response)=>{
 				

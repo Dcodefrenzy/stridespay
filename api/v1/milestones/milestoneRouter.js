@@ -10,5 +10,14 @@ const router = express.Router();
 router.route("/create/:id")
 	.post(usersController.userAuthenticate, serviceController.findUserServiceById, controller.addServiceMilestone, controller.checkForTotalMilestonePriceById, serviceController.updateServicePrice, logsController.addLogs)
 
+router.route("/read/:id")
+	.get(usersController.userAuthenticate, controller.fetchMilestone)
+
+router.route("/update/:id/:milestoneId")
+	.post(usersController.userAuthenticate, serviceController.findUserServiceById, controller.updateMilestone, controller.checkForTotalMilestonePriceById, serviceController.updateServicePrice, logsController.addLogs)
+
+
+router.route("/delete/:id/:milestoneId")
+	.post(usersController.userAuthenticate, serviceController.findUserServiceById, controller.deleteMilestone, controller.checkForTotalMilestonePriceById, serviceController.updateServicePrice, logsController.addLogs)
 
 module.exports = router;

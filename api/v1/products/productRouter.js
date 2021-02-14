@@ -18,6 +18,12 @@ router.route("/merchant/invoice/:id")
 router.route("/")
 	.get(usersController.userAuthenticate, controller.findUserProducts)
 
+router.route("/service/update/:id")
+	.post(usersController.userAuthenticate, controller.updateUserServiceById, logsController.addLogs)
+
+
+router.route("/service/delete/:id")
+	.post(usersController.userAuthenticate, controller.deleteUserServiceById, logsController.addLogs)
 	
 router.route("/service/:id")
 	.get(usersController.userAuthenticate, 
@@ -31,6 +37,13 @@ router.route("/services")
 
 router.route("/services/create")
 	.post(usersController.userAuthenticate, controller.createService, logsController.addLogs)
+
+
+router.route("/product/delete/:id")
+	.post(usersController.userAuthenticate, controller.deleteProductById, logsController.addLogs)
+
+router.route("/product/update/:id")
+	.post(usersController.userAuthenticate, controller.updateProductById, logsController.addLogs)
 
 router.route("/transaction/create/:id")
 	.post(usersController.userAuthenticate, controller.findProductById, milestonesController.fetchMilestonesPayment, transactionController.createNewMerchantTransactions, logsController.addLogs)

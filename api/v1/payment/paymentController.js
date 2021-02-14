@@ -158,7 +158,7 @@ exports.verifyTransactionPayment=(req, res, next)=>{
                   console.log("Payment successful");
                   //then give value for the payment
 						req.data.paymentStatus = true; 
-						req.data.redirect = "/users/transactions/"+req.data.transaction._id;
+						req.data.redirect = "/users/transaction/"+req.data.transaction._id;
 	  						next();
               }else if (response.body.data.status !== "success" &&  response.body.data.amount !== req.data.transaction.price.toString().slice(0, -2)) {
 						req.data.paymentStatus = false;
@@ -203,6 +203,9 @@ exports.createNewPayment =(req, res, next)=>{
 					req.data.loggerUser = "User";
 					req.data.logsDescription = `Your payment of ${payment.price} was ${payMentStatus}`;
 					req.data.title = "Payment";
+					req.data.mailTitle = "Payment Verification"; 
+					req.data.link = "/users/transaction/"+req.data.transaction._id;
+					req.data.mailMessage = `A payment of ${payment.price.toString().slice(0, -2)}NGN was made by ${req.user.firstname+" "+req.user.lastname} for project ${req.data.transaction.productName}. Please visit the link below and start your project.`;
 					next();
 					}
 			})

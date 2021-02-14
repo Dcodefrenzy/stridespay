@@ -18,7 +18,7 @@ exports.productsHandller = (token, id)=>{
 				const html = `<div id="products">
 							<div class="container">
 								<div class="row align-items-center mt-5 p-0">
-									<div class="col-12 col-sm-12 col-md-9 offset-md-3 col-lg-10 offset-lg-2">
+									<div class="col-12 col-sm-12 col-md-9 offset-md-3 col-lg-9 offset-lg-3">
 										<div class="card bg-background min-height">
 											<div class="card-body">
 												<div class="col-12 col-sm-12 col-md-12">
@@ -33,7 +33,7 @@ exports.productsHandller = (token, id)=>{
 															<button onclick="return createProduct(event, this.id, this.value)" value="products" id="isMerchant" class="mt-2 btn-lg btn-green">Product</button>
 												</div>
 												<div class="col-12 col-sm-12 col-md-12 mt-5">
-													<h4>Product Prepaid Ticket</h4>
+													<h4>Prjects Created</h4>
 													<nav>
 														  <div class="nav nav-tabs" id="nav-tab" role="tablist">
 														    <a class="col-6 nav-item nav-link active" id="nav-service-tab" data-toggle="tab" href="#nav-service" role="tab" aria-controls="nav-service" aria-selected="true"><i class="fa fa-tasks text-green" aria-hidden="true"></i> Services </a>
@@ -61,6 +61,7 @@ exports.productsHandller = (token, id)=>{
 			}
 
 			const load=(response)=>{
+				
 		if (response.status === 401) {
 			loading("user-side-bar-open", "display-none");
 			 body.insertAdjacentHTML('afterbegin', loginForm);
@@ -69,7 +70,7 @@ exports.productsHandller = (token, id)=>{
 			if (response.products.length >0) {
 				const product = response.products.map((product)=>{							
 					let title  = product.isMerchant===true?"Selling":product.isMerchant===false?"Buying":"";
-					if (product.isService === false) {
+					if (product.isService === false && product.delete ===false) {
 							return `<div class="col-12 col-sm-5 col-md-5">
 											<a href=/users/products/${product._id}>
 												<div class="card shadow-lg p-3 mb-3 bg-background rounded">
@@ -85,7 +86,7 @@ exports.productsHandller = (token, id)=>{
 					};
 				});
 				const services = response.products.map((product)=>{
-					if (product.isService  === true) {
+					if (product.isService  === true && product.delete ===false) {
 						return	`<div class="col-12 col-sm-5 col-md-5">
 									<a href=/users/services/${product._id}>
 										<div class="card shadow-lg p-3 mb-3 bg-background rounded">
@@ -105,7 +106,8 @@ exports.productsHandller = (token, id)=>{
 													<div class="card shadow-lg p-3 mb-3 bg-white rounded">
 														<div class="card-body text-center">
 														<img src="/assets/svg/empty.svg" width="50%" alt="online payment transfer">
-														<p class="text-dark">No Project created yet. project can be a product you want to sell or a service you want to render</p>
+														<h4>No Project created yet.</h4>
+														<p class="text-dark">Project can be a product you want to sell or a service you want to render</p>
 														<p>Product or Service?</p>
 														<div class="col-12 col-sm-12 col-md-12 mt-3">
 															<button class="btn-lg btn-dark mt-2" onclick="return createService(event, this.id, this.value)" value="products" id="isMerchant">Service</button>

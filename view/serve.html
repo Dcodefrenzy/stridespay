@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KYKKGNF2XZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-KYKKGNF2XZ');
+    </script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/assets/images/fav1.png" sizes="150x150" type="image/png">
@@ -12,9 +22,10 @@
 
 </head>
 <body id="body" class="bg-background">
+
         <div class="bg-background sticky  opacity nav-icon">
           <div class="col-12">
-            <i id="user-open-side-bar" class="offset-1 fa fa-bars fa-2x text-strides" aria-hidden="true"></i>
+            <i id="user-open-side-bar" class="fa fa-bars fa-2x text-strides mt-3" aria-hidden="true"></i>
             <div class="display-none" id="user-close">
               <i class="float-right fa fa-times-circle text-strides fa-2x"></i>
             </div>
@@ -23,15 +34,11 @@
       <nav id="user-side-bar-open" class="nav-hide fixed-top bg-background side-bar full-height p-4 pb-5">
       </nav>
 			<div id="spinner" class="fixed-top bg-background full-height">	
-				<i  class="fa fa-spinner fa-spin fa-5x spining" aria-hidden="true"></i>
+				<i  class="fa fa-stroopwafel fa-spin fa-3x spining" aria-hidden="true"></i>
 			</div>
-<!-- 
-              <div class="col-12 col-sm-12 col-md-5 offset-md-4">              
-                <div class="form-group">
-                  <label id="error-price">Description</label>
-                        <textarea name="editor1" class="form-control" name="description" id="editor1" placrholder="eg"></textarea>
-                </div>
-              </div> -->
+
+      <textarea  class="form-control hide display-none" oninput="return returnValidation(this.value, this.name)" name="description" id="textarea" placeholder="eg" required></textarea>
+      
 
                     
 <!-- 	<form >
@@ -43,6 +50,10 @@
     <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>
   <!--   <button type="button" onClick="payWithRave()">Pay Now</button> -->
 </form>
+
+                        <script>
+                            CKEDITOR.replace( 'description' );
+                        </script>
 
 </body>
 
@@ -56,8 +67,11 @@
   });
 </script> 
 <script type="text/javascript" src="/assets/js/moments.js"></script>
+<script type="text/javascript" src="/assets/js/popper.min.js"></script>
  <script  type="text/javascript" src ="/assets/js/jquery.js"></script>
  <script  type="text/javascript" src ="/assets/js/bootstrap.js"></script>
+ <script  type="text/javascript" src ="/assets/js/bootstrap.bundle.min.js"></script>
  <script data-main="/assets/js/main" src = "/assets/js/require.js"></script>
+  <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
 </html>

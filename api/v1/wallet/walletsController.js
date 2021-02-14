@@ -94,7 +94,29 @@ exports.subtractUserWallet = (req, res, next)=>{
 
 exports.getUserWallet = (req, res, next)=>{
 	wallets.findOne({user:req.user._id}).then((wallet)=>{
+		if (wallet === "null" || wallet === null || !wallet) {	
+				const wallet =  new wallets({
+					user:req.user._id,
+					amount:0+"00",
+					dateCreated:new Date(),
+				});
+				wallet.save().then((wallet)=>{
+					req.data = {status:200, wallet:wallet, user:req.user};
+					next();
+
+				});
+		}else if (wallet) {
 		req.data = {status:200, wallet:wallet, user:req.user};
+		next();
+			
+		}
+	})
+}
+
+exports.getUserWallets = (req, res, next)=>{
+	wallets.find({user:req.user._id}).then((wallets)=>{
+
+		req.data.wallets = wallets;
 		next();
 	})
 }

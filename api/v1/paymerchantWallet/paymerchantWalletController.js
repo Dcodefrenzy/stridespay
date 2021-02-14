@@ -7,9 +7,9 @@ exports.addAddTooPaymerchant = (req, res, next)=>{
 
 	let deduction;
 	const checkDeduction = req.data.milestones[req.body.index].price * 3/100;
-	if (checkDeduction > 200000) {
-		deduction = 200000;
-	}else if (checkDeduction < 200000) {
+	if (checkDeduction > 300000) {
+		deduction = 300000;
+	}else if (checkDeduction < 300000) {
 		deduction = checkDeduction;	
 	}
 

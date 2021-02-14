@@ -60,7 +60,7 @@ exports.welcomeMail = (req, res, next) =>{
 		text: '',
 		html: `<div style="border:2px solid rgba(0,0,0,.125); border-radius: 10px; padding:20px;">
 	<img style="50%" src="" />
-		<p><b>Hi ${usersName}, </b></p><p style="margin-bottom:25px;">My name is Ayodeji Fakune, Co-founder of stridespay, I want to say a big thank you for registering with us and we are glad to have you onboard.</p> 
+		<p><b>Hi ${usersName}, </b></p><p style="margin-bottom:25px;">My name is Ayodeji Fakunle, Co-founder of stridespay, I want to say a big thank you for registering with us and we are glad to have you onboard.</p> 
 		<p style="margin-bottom:25px;">stridespay started with the goal of helping freelancers, small business collect payment with ease using a milestone based system.</p>
 		<p>Being a freelancer is a really hard job, so as Getting clients, delivering projets, and even payment transaction has always been a pain in the ass for us all. But, I am tired of that already and thats why we created stridespay, to help us can keep track of our finances, projects, clients while we do our jobs.</p>
 		<p>In the coming weeks, our website will be ready for use and we have provided our early users such as you free coupons pior to when we launch.</p>
@@ -81,8 +81,8 @@ exports.welcomeMail = (req, res, next) =>{
 			Client community
 			<li>Build your client community as you work. Stridepay provide a client database for you to reach out to your clients all at once through text notifications</li>		
 		</ul> 
-		<h2>Don't you love us already??</h2>
-		<p>Tell your friends about us and win more coupons after they register using your uquiue link ${url}</p>
+		<h2>Don't you love us already?</h2>
+		<p>Tell your friends about us and win more coupons after they register using your unquiue link ${url}</p>
 		<p>If you invite 12 people that means we have got you covered for 12 months without paying a dime.</p>
 		<p> Any questions??  You can  reach our support team  at <a href="mailto: stridespay@gmail.com">stridespay@gmail.com</a><p>
 		<p style="margin-top:70px">Ayodeji Fakunle,</p><p style="">Stridespay.</p><div>`,
@@ -104,7 +104,7 @@ exports.mailUser = (req, res, next) =>{
 	const usermail = req.data.email;
 	const mailMessage = req.data.message;
 	let url = "google.com";
-
+//console.log(req.data)
 	  let mailOptions = {
 		to:usermail,
 		from: `"stridespay" noreply@stridespay.com`,
@@ -167,7 +167,7 @@ exports.sendMail = (req, res, next) =>{
 				<a href=${url} style="background-color:green; border:0px; border-radius:10px; width:100%; padding:10px;  color:white;">Click Here
 				</a><div>`,
 	  };
-
+console.log(mailOptions)
 		transporter.sendMail(mailOptions, function(error, info){
 		  if (error) {
 			console.log(error);
@@ -177,4 +177,5 @@ exports.sendMail = (req, res, next) =>{
 		  next();
 		});
 }
+
 

@@ -11,47 +11,66 @@ exports.serviceTokens = (token, id)=>{
 	const {createMilestone} = require("./createMilestone");
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
+	const nav = document.getElementById("user-side-bar-open")
 	spinner.className ="display-none";
+	nav.className = "display-none";
 
 			const showService=(transaction, milestones, user)=>{
-				sideBar(token, id);
+
 				const html = `<div class="">
 							<div class="container">
 								<div class="row align-items-center mt-5 p-0">
-									<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2">
-										<div class="card shadow-lg p-3 mb-5 bg-white rounded">
+									<div class="col-12 col-sm-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+										<div class="card shadow-lg p-3 mb-5 bg-background rounded">
 											<div class="card-body row">
 											<div class="col-12 col-sm-12 col-md-12">
 												<img width="10%" src="/assets/images/fav1.png" class="text-center float-left"/>
-												<a href="https://stridespay.com" class="float-right text-dark" target="_blank">stridespay</a>
+												<a href="https://stridespay.com" class="float-right text-dark" target="_blank">powered by stridespay</a>
 											</div>
 
 												<div class="col-12 col-sm-12 col-md-12 float-right mt-3">
-													<p>Payment Link Created</p>
+													<h1>${transaction.productName.toUpperCase()}</h1>
+													<p><b>Overview: </b>${transaction.description}</p>
 													<p class="text-strides">By ${transaction.creator}</p>
 													<p class="">+234 ${user.phonenumber}</p>
 													<p class=""> ${user.email}</p>
 													<p class=""> Created ${moment(transaction.dateCreated).format("L")}</p>
-													<p class="">Token ID ${id}</p>
+													<p class="">Token: ID-${id}</p>
 												</div>												
 												<div class="col-12 col-sm-12 col-md-12 text-center">
 													<h1>Milestones 
 														<i class="fa fa-tasks" aria-hidden="true"></i>
 													</h1>
-												</div>
-													${milestones.map((milestone)=>{
-														return `<div class="col-12 col-sm-12 col-md-12 mt-3">
-
-														<h5 class="" aria-hidden="true"> ${milestone.milestone} &#8358; ${milestone.price.toString().slice(0, -2)}</h5>
-														<p class="display-block">${milestone.description}</p>
-														<hr></div>`
+												</div>												
+												<div class="col-12 col-sm-12 col-md-12 text-center">
+													<ul id="timeline">
+													<div class="">
+															${milestones.map((milestone, index)=>{
+																//console.log(milestone._id)
+													return	`<div class="col-12 col-sm-12 col-md-12">
+																<i class="whatsappLink bg-primary timeline-icon" aria-hidden="true">${index + 1}</i>
+																<li>
+																	<div class="card shadow-lg p-3 mb-2 bg-background bg-radius-sm">
+																		<div class="card-body">
+																			<p class="text-dark"><b>${milestone.milestone}</b></p>
+																			<p><i class="fas fa-info-circle text-green text-left"></i> ${milestone.description}</p>
+																			<p>Milestone price - &#8358;  ${milestone.price.toString().slice(0, -2)}</p>
+																		</div>
+																	</div>
+																</li>
+															</div>`
 														})}
+													</div>
+													</ul>
+												</div>
 													<div class="col-12 col-sm-12 col-md-12 mt-3">
-														<form>
-    													<script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>		
-														  <h4 class="">Total price - &#8358; ${transaction.price.toString().slice(0, -2)}</h4> 
-														  <button  id=${transaction._id} value=${"transactions/payment/token/"+transaction._id} class="btn btn-lg btn-green" type="button" onclick="return loadPaymentHandller(this.id, this.value)"> Pre Payment </button>
-														</form>
+														<div class="row justify-content-center">
+															<form>
+	    													<script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>		
+															  <h4 class="">Total price - &#8358; ${transaction.price.toString().slice(0, -2)}</h4> 
+															  <button  id=${transaction._id} value=${"transactions/payment/token/"+transaction._id} class="btn btn-lg btn-green col-12" type="button" onclick="return loadPaymentHandller(this.id, this.value)">Agreed</button>
+															</form>
+														</div>
 													</div>
 
 												</div>
@@ -62,16 +81,14 @@ exports.serviceTokens = (token, id)=>{
 							</div>
 						 </div>`;
 
-		 				body.insertAdjacentHTML('afterbegin', html);
+		 				body.insertAdjacentHTML('beforeend', html);
 			}
 
 			const load=(response)=>{
-
-				if (response.status === 401) {
-						loading("user-side-bar-open", "display-none");
-					 body.insertAdjacentHTML('afterbegin', loginForm);
-				}else if (response.status === 200 && response.transaction.paymentStatus !== true) {
-					console.log(response)
+				console.log(response)
+				 if (response.status === 200 && response.transaction.paymentStatus !== true) {
+					
+						loading("user-open-side-bar", "display-none");
 					showService(response.transaction, response.transaction.milestones, response.user);
 				}else if (response.status === 200 && response.transaction.paymentStatus === true) {
 					alert("Yay you have paid for this Transaction already.");

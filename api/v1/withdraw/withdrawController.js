@@ -91,6 +91,29 @@ exports.getUserWithdraw= (req, res, next)=>{
 	})
 }
 
+exports.getUserWithdrawForProfile= (req, res, next)=>{
+	withdraws.find({user:req.user._id}).then((withdraws)=>{
+		if (withdraws.length === 0) {
+			console.log('here')
+			req.data.withdraw = 0;
+			next()
+		}else if (withdraws.length > 0) {
+			const totalwithdraws = withdraws.map((withdraw)=>{
+				return withdraw.amount;
+			}).reduce((total, amount) => total + amount);
+			req.data.withdraw = totalwithdraws;
+			next()
+			
+		}
+
+	}).catch((e)=>{
+		console.log('erro here')
+			req.data.withdraw = 0;
+			next()
+	})
+}
+
+
 exports.newWithdraw = (req, res, next)=>{
 		const withdraw =  new withdraws({
 		user:req.user._id,
@@ -104,6 +127,13 @@ exports.newWithdraw = (req, res, next)=>{
 	withdraw.save().then((withdraw)=>{
 		req.data.withdraw = withdraw;
 		console.log({"withdraw":withdraw})
+		next();
+	})
+}
+
+exports.getUserWithdrawals = (req, res, next)=>{
+	withdraws.find({user:req.user._id}).then((withdraws)=>{
+		req.data = {status:200, withdraws:withdraws}
 		next();
 	})
 }

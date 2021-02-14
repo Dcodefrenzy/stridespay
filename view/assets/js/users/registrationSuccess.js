@@ -5,6 +5,10 @@ exports.registrationSuccess = (token, id)=>{
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
 	spinner.className ="display-none";
+	const nav = document.getElementById("user-side-bar-open");
+	const navIcon = document.getElementById("user-open-side-bar");
+	nav.className = "display-none";
+	navIcon.className = "display-none";
 
 				const html = `<div class="">
 							<div class="container">

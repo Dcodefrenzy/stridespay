@@ -6,11 +6,12 @@ const _ = require('lodash');
 const multer = require('multer');
 const path = require('path');
 require('dotenv').config();
+const fs = require('fs'); 
 
 
 let imgPath;
 if ( process.env.DEV_ENV) {
-	imgPath = "/../../../../client/public/Images";
+	imgPath = "../../../view/assets/images";
 	imgPath2 = "/../../../../client/public/Files";
 }else{
     imgPath = "/../../../../client/build/Images";
@@ -19,8 +20,8 @@ if ( process.env.DEV_ENV) {
 
 let storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-	  cb(null, path.join(__dirname, imgPath))
-	  cb(null, path.join(__dirname, imgPath2))
+	  cb(null, path.join(__dirname, "../../../view/assets/images"))
+	  
 	},
 	filename: function (req, file, cb) {
 		cb(null, Date.now() + '-' +file.originalname )
@@ -29,23 +30,37 @@ let storage = multer.diskStorage({
   const upload = multer({ storage: storage }, {limits: { fileSize: 2 }}).single('image');
 
   exports.updateImage =  (req, res, next) => {
-
 		upload(req, res, function (err) {
+
 			const id = req.user._id;
 			if (err instanceof multer.MulterError) {
 				return res.status(500).json(err)
 			} else if (err) {
+				console.log(err)
 				return res.status(500).json(err)
 			}
-			const image = {filename:req.file.filename, path:req.file.path}
+			//const image = {filename:req.file.filename}
 
-		users.findByIdAndUpdate(id, {$set: {image:image}}, {new:true}).then((user)=>{
+		users.findByIdAndUpdate(id, {$set: {image:req.file.filename}}).then((user)=>{
 			if (!user) {
 			const error = {status:403, message:"No admin!"}
 			return res.status(403).send(error);
 			}
-			user ={status:201, message:"upload successful."}
-			res.status(201).send(user);
+			console.log(__dirname)
+			fs.unlink("C:/vms/stridespay/view/assets/images/"+user.image, (err => { 
+			  if (err){
+
+				user ={status:201, message:"upload successful."}
+				res.status(201).send(user);
+			}	
+			  else { 
+			    console.log("\nDeleted file: example_file.txt"); 
+			  
+				user ={status:201, message:"upload successful."}
+				res.status(201).send(user);
+			    //getFilesInDirectory(); 
+			  } 
+			})); 
 		}).catch((e)=>{
 			console.log(e)
 			const error = {status:403, message:e}
@@ -92,7 +107,7 @@ exports.registerUser=(req, res, next)=>{
 		email:req.body.email,
 		firstname:req.body.firstname,
 		lastname:req.body.lastname,
-		name:req.body.firstname+" "+req.body.lastname,
+		name:req.body.firstname+"_"+req.body.lastname,
 		phonenumber: req.body.phonenumber,
 		password: req.body.password,
 		lastLogin: new Date(),
@@ -127,9 +142,12 @@ exports.registerUser=(req, res, next)=>{
 
 
 exports.addUser = (req, res, next)=>{
-	
+		
 	let user = new users({
-		name:req.body.name,
+		email:req.body.email,
+		firstname:req.body.firstname,
+		lastname:req.body.lastname,
+		name:req.body.firstname+"_"+req.body.lastname,
 		phonenumber: req.body.phonenumber,
 		password: req.body.password,
 		lastLogin: new Date(),
@@ -316,7 +334,7 @@ exports.findUser  = (req, res,next)=> {
 				const error = {status:404, message:"No User Found"}
 				return res.status(404).send(error)
 			}
-			const userData = {status:201,email:user.email, name:user.firstname +" "+ user.lastname, _id:user._id,message:"You can change your password using the link below."};
+			const userData = {status:201,email:user.email, phone:user.phonenumber, name:user.firstname +" "+ user.lastname, _id:user._id,message:"You can change your password using the link below."};
 			req.data = userData;
 			next();
 		}).catch((e)=>{
@@ -363,6 +381,7 @@ exports.findUserForTransaction = (req, res, next)=>{
 			req.data.loggerUser = "User";
 			req.data.logsDescription ="You updated a transaction with. "+user.name+" on "+req.data.productName;
 			req.data.title = "Transactions";
+			//console.log(req.data)
 			next();
 	}).catch((e)=>{
 		console.log(e)
@@ -394,6 +413,7 @@ exports.sendVerification=(req, res, next)=>{
 //User Update.
 exports.updateUser = (req, res, next)=>{
 	const id = req.user.id;
+	const username = req.body.username.replace(' ', "_");
 	const user = new users({
 		firstname: req.body.firstname,
 		lastname: req.body.lastname,
@@ -402,7 +422,7 @@ exports.updateUser = (req, res, next)=>{
 		about: req.body.about,
 		location:req.body.location,
 		phonenumber:req.body.phonenumber,
-		name:req.body.username	
+		name:username	
 	});
 	if (!ObjectID.isValid(id)) {
 		return res.status(404).send("err")
@@ -472,40 +492,53 @@ exports.newPasswordChange =(req, res, next) =>{
 	})
 }
 
-exports.updateImage =  (req, res, next) => {
 
-	upload(req, res, function (err) {
-		const id = req.user._id;
-		if (err instanceof multer.MulterError) {
-			return res.status(500).json(err)
-		} else if (err) {
-			return res.status(500).json(err)
-		}
-		const image = {filename:req.file.filename, path:req.file.path}
-
-	users.findByIdAndUpdate(id, {$set: {image:image}}, {new:true}).then((user)=>{
-		if (!user) {
-		const error = {status:403, message:"No admin!"}
-		return res.status(403).send(error);
-		}
-		user ={status:201, message:"upload successful."}
-		res.status(201).send(user);
-	}).catch((e)=>{
-		console.log(e)
-		const error = {status:403, message:e}
-		return res.status(403).send(error);
-	})
-
-})
-}
 
 exports.getMerchantDetails=(req, res, next)=>{
 	users.findById({_id:req.data.transaction.merchant}).then((user)=>{
 		if (user) {
 			req.data.user = user;
+			req.data.name = user.firstname+" "+user.lastname;
+			req.data.email = user.email;
 			res.status(200).send(req.data);
 		}
 	})
+}
+
+exports.getMerchantDetailsForMail=(req, res, next)=>{
+		users.findById({_id:req.data.transaction.merchant}).then((user)=>{
+		if (user) {
+			req.data.user = user;
+			req.data.name = user.firstname+" "+user.lastname;
+			req.data.email = user.email;
+			next();
+		}
+	})
+}
+
+exports.getBuyersDetailsForProfile=async(req, res)=>{
+			let newData;
+	newData = await req.data.transactions.map(async(data, index)=>{
+			 const id = data.buyer;
+			 console.log(id)
+		buyers = await  users.findById({_id:id});
+		return nData = {buyers:buyers};
+	});
+	const resp = await Promise.all(newData);
+	res.status(200).send({status:200,clients:resp,user:req.data.user,wallet:req.data.wallet, withdraw:req.data.withdraw, transactions:req.data.transactions});
+}
+
+
+exports.fetchClient=async(req, res)=>{
+			let newData;
+	newData = await req.data.map(async(data, index)=>{
+			 const id = data.buyer;
+		buyers = await  users.findById({_id:id});
+			// console.log(buyers)
+		return nData = {clients:buyers};
+	});
+	const resp = await Promise.all(newData);
+	res.status(200).send({status:200,data:resp});
 }
 
 //Logout function

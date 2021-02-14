@@ -18,8 +18,8 @@ exports.displayBuyerToken = (token, id)=>{
 				const html = `<div class="">
 							<div class="container">
 								<div class="row align-items-center mt-5 p-0">
-									<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2">
-										<div class="card shadow-lg p-3 mb-5 bg-white rounded">
+									<div class="col-12 col-sm-12  col-md-9 offset-md-2">
+										<div class="card shadow-lg p-3 mb-5 bg-background rounded">
 											<div class="card-body row">
 											<div class="col-12 col-sm-12 col-md-12">
 												<img width="10%" src="/assets/images/fav1.png" class="text-center float-left"/>
@@ -37,12 +37,12 @@ exports.displayBuyerToken = (token, id)=>{
 												<div class="col-12 col-sm-12 col-md-12  mt-5">
 													<p><i class="fas fa-shopping-basket" aria-hidden="true"></i> Product: ${transaction.productName}</p>
 													<p class="text-success">Total price - &#8358;  ${transaction.price.toString().slice(0, -2)}</p>
-													<div class="card card-body">
+													<div class="card card-body bg-background">
 														<p> <i class="fa fa-tasks" aria-hidden="true"></i> Milestones</p>
 													</div>
 													<ol>
 														${milestones.map((milestone)=>{
-														return `<li class="p-3 mb-2 bg-white rounded">
+														return `<li class="p-3 mb-2 bg-background rounded">
 															<p>
 														<i class="fa fa-circle text-green" aria-hidden="true"> ${milestone.milestone} </i></p> 
 															<span class="display-block float-left">${milestone.description}</span>
@@ -50,15 +50,17 @@ exports.displayBuyerToken = (token, id)=>{
 														</li>`
 														})}
 													</ol>
-													<div class="col-12 text-center">
-													<form>
-													  <script src="https://js.paystack.co/v1/inline.js"></script>
-													  <button  id=${transaction._id} value=${"transactions/payment/token/"+transaction._id} class="btn btn-lg btn-green text-center" type="button" onclick="return loadPaymentHandller(this.id, this.value)">Payment </button> 
-													</form>
-													<p>Secured by <a href="https://stridespay.com" class="text-dark" target="_blank">stridespay</a></p>
-													</div>
-
 												</div>
+
+													<div class="col-12 text-center">
+														<div class="row justify-content-center">	
+															<form>
+															  <script src="https://js.paystack.co/v1/inline.js"></script>
+															  <button  id=${transaction._id} value=${"transactions/payment/token/"+transaction._id} class="btn btn-lg btn-green text-center col-12" type="button" onclick="return loadPaymentHandller(this.id, this.value)">Payment </button> 
+															</form>
+														</div>
+															<p>Secured by <a href="https://stridespay.com" class="col-12 text-dark" target="_blank">stridespay</a></p>
+													</div>
 											</div>
 										</div>
 									</div>

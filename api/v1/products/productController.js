@@ -5,6 +5,7 @@ exports.createProduct=(req, res, next)=>{
     const isMerchant = req.body.isMerchant?true:false;
      product = new products({
         product:req.body.product,
+        description:req.body.description,
         price:req.body.price+"00",
         isMerchant:isMerchant,
         display:true,
@@ -21,7 +22,7 @@ exports.createProduct=(req, res, next)=>{
             
         }else{  
 
-            const newproduct = {status:201, product:product.product, price:product.price, isMerchant:product.isMerchant,  productId:product._id, _id:req.user._id};
+            const newproduct = {status:201, product:product.product, price:product.price, isMerchant:product.isMerchant,description:product.description,  productId:product._id, _id:req.user._id};
             req.data = newproduct;
             req.data.loggerUser = "User";
             req.data.logsDescription = "You created a product token.";
@@ -45,6 +46,7 @@ exports.addProduct=(req, res, next)=>{
   
     product = new products({
         product:req.body.product,
+        description:req.body.description,
         price:req.body.price+"00",
         isMerchant:req.data.isMerchant,
         display:true,
@@ -79,34 +81,12 @@ exports.addProduct=(req, res, next)=>{
 	});
 }
 
-exports.updateProduct = (req, res,next)=>{
-    product = new products({
-        name:req.body.name,
-        quantity:req.body.quantity,
-        request:req.body.request,
-        _category:req.body._category,
-    });
-    products.findByIdAndUpdate(req.params.id, {$set: {name:product.name, quantity:product.quantity,request:product.request,_category:product.category,}}).then((product)=>{
-        if (!product) {
-			const err = {status:404, message:"Unable to update product."}
-			return res.status(404).send(err);
-        }else{
-            res.status(200).send({status:200, message:product});
-        }
-    }).catch((e)=>{
-		let err ={}
-		if(e.errors) {err = {status:403, message:e.errors}}
-		else if(e){err = {status:403, message:e}}
-		res.status(404).send(err);
-	});
-}
-
 exports.ViewAllProducts = (req, res)=>{
     products.find(null, {sort: {_id: -1}}).then(products=>res.status(200).send({status:200, products:products}));
 }
 
 exports.findUserProducts = (req, res)=>{
-    products.find({user:req.user._id}, null, {sort: {_id: -1}}).then((products)=>{
+    products.find({user:req.user._id, /*delete:false*/}, null, {sort: {_id: -1}}).then((products)=>{
         if (!products) {
 			const err = {status:404, message:"No product listed yet."}
 			return res.status(404).send(err);
@@ -123,7 +103,7 @@ exports.findUserProducts = (req, res)=>{
 
 exports.findBuyersProductById= (req, res, next)=>{
     console.log(req.params.id)
-    products.findOne({_id:req.params.id, isMerchant:true, isService:false}).then((product)=>{
+    products.findOne({_id:req.params.id, isMerchant:true, isService:false, /*delete:false*/}).then((product)=>{
         if (!product) {
 			const err = {status:404, message:"No product listed yet."}
 			return res.status(404).send(err);
@@ -141,7 +121,7 @@ exports.findBuyersProductById= (req, res, next)=>{
 }
 
 exports.findMerchantProductById= (req, res, next)=>{
-    products.findOne({_id:req.params.id, isMerchant:false, isService:false}).then((product)=>{
+    products.findOne({_id:req.params.id, isMerchant:false, isService:false, /*delete:false*/}).then((product)=>{
         if (!product) {
             const err = {status:404, message:"No product listed yet."}
             return res.status(404).send(err);
@@ -158,10 +138,12 @@ exports.findMerchantProductById= (req, res, next)=>{
     });
 }
 
+
+
 exports.findProductById= (req, res, next)=>{
 
     products.findOne({_id:req.params.id, user:req.user._id}).then((product)=>{
-
+console.log('here products id')
         if (!product) {
             const err = {status:404, message:"No product listed yet."}
             return res.status(404).send(err);
@@ -182,6 +164,7 @@ exports.findProductById= (req, res, next)=>{
 exports.createService=(req, res, next)=>{
      product = new products({
         product:req.body.service,
+        description:req.body.description,
         price:"000",
         isMerchant:true,
         display:true,
@@ -227,7 +210,7 @@ exports.updateServicePrice=(req, res, next)=>{
 }
 exports.findUserServices = (req, res)=>{
     console.log(req.user._id)
-    products.find({user:req.user._id, isService:true}, null, {sort: {_id: -1}}).then((products)=>{
+    products.find({user:req.user._id, isService:true, /*delete:false*/}, null, {sort: {_id: -1}}).then((products)=>{
         if (!products) {
             const err = {status:404, message:"No Service Created yet."}
             return res.status(404).send(err);
@@ -244,9 +227,9 @@ exports.findUserServices = (req, res)=>{
 
 
 exports.findUserServiceById = (req, res, next)=>{
-    products.findOne({user:req.user._id, _id:req.params.id, isService:true}).then((service)=>{
+    products.findOne({user:req.user._id, _id:req.params.id, isService:true, /*delete:false*/}).then((service)=>{
         if (!service) {
-            const err = {status:404, message:"No Service Created yet."}
+            const err = {status:404, message:`Could not find a service with the id ${req.params.id}`}
             return res.status(404).send(err);
         }else{
             req.data = {status:200, service:service, user:req.user};;
@@ -263,18 +246,17 @@ exports.findUserServiceById = (req, res, next)=>{
 
 
         
-exports.updateUserServiceById = (req, res)=>{
-    products.findoneAndUpdate({user:req.user._id, _id:req.params.id, isService:true}, {$set: {product:req.body.service, price:req.body.price+"00",}}).then((products)=>{
-        if (!products) {
+exports.updateUserServiceById = (req, res, next)=>{
+    products.findOneAndUpdate({user:req.user._id, _id:req.params.id, isService:true}, {$set: {product:req.body.title, description:req.body.description, dateUpdated: new Date()}}).then((product)=>{
+        if (!product) {
             const err = {status:404, message:"No Service Created yet."}
             return res.status(404).send(err);
         }else{
-            const newproduct = {status:201, product:product.product, price:product.price, isMerchant:product.isMerchant,  productId:product._id, _id:req.user._id};
+            const newproduct = {status:201, product:product.product, productId:product._id, _id:req.user._id};
             req.data = newproduct;
             req.data.loggerUser = "User";
             req.data.logsDescription = "You updated a service.";
             req.data.title = "Service";
-            req.data.redirect = "/users/services/";
             next();
         }
     }).catch((e)=>{
@@ -285,4 +267,76 @@ exports.updateUserServiceById = (req, res)=>{
         res.status(404).send(err);
     });
 }
+exports.deleteUserServiceById = (req, res, next)=>{
+    products.findOneAndUpdate({user:req.user._id, _id:req.params.id, isService:true}, {$set:{delete:true,dateDeleted:new Date()}}).then((service)=>{
+                if (!service) {
+            const err = {status:403, message:{message:"This Service has either been deleted."} }
+            console.log(err)
+            return res.status(403).send(err);
+        }
+            req.data = {status:200,service:service};
+            req.data._id = req.user._id;
+            req.data.loggerUser = "User";
+            req.data.logsDescription = "A Service was deleted by you";
+                req.data.title = "Service";
+                next();
+        }).catch((e)=>{
+        console.log(e)
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+}
 
+
+exports.updateProductById = (req, res,next)=>{
+    product = new products({
+        product:req.body.title,
+        description:req.body.description,
+        price:req.body.price
+    });
+
+    products.findOneAndUpdate({user:req.user._id, _id:req.params.id, isService:false}, {$set: {product:product.product, description:product.description, price:product.price+"00", dateUpdated:new Date()}}).then((product)=>{
+        if (!product) {
+            const err = {status:404, message:"Unable to update product."}
+            return res.status(404).send(err);
+        }else{
+            req.data = {status:201,product:product};
+            req.data.loggerUser = "User";
+            req.data._id = req.user._id;
+            req.data.logsDescription = "You Updated a product information.";
+            req.data.title = "Product";
+      
+            next();
+        }
+    }).catch((e)=>{
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+}
+
+exports.deleteProductById=(req, res, next)=>{
+    console.log(req.params.id)
+        products.findOneAndUpdate({user:req.user._id, _id:req.params.id, isService:false}, {$set:{delete:true,dateDeleted:new Date()}}).then((product)=>{
+                if (!product) {
+            const err = {status:403, message:{message:"This Product has either been deleted."} }
+            console.log(err)
+            return res.status(403).send(err);
+        }
+            req.data = {status:200,product:product};
+            req.data._id = req.user._id;
+            req.data.loggerUser = "User";
+            req.data.logsDescription = "A product was deleted by you";
+                req.data.title = "Product";
+                next();
+        }).catch((e)=>{
+        console.log(e)
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+}

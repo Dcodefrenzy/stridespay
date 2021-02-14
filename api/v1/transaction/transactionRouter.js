@@ -12,6 +12,13 @@ const walletController = require("../wallet/walletsController.js");
 const smsController = require("../sms/sms.js");
 const router = express.Router();
 
+
+router.route("")
+	.get(usersController.userAuthenticate, controller.fetchUsersTransactions)
+
+router.route("/contract")
+	.get(usersController.userAuthenticate, controller.getAllTransactions)
+
 router.route("/merchant/token/:id")
 	.get(controller.findOneTransactionById, usersController.getMerchantDetails)
 
@@ -28,6 +35,19 @@ router.route("/service/tokens/:id")
 
 router.route("/payment/token/:id")
 	.get(usersController.userAuthenticate, controller.findOneTransactionByIdForPayment)
+
+
+router.route("/read/token/:id")
+	.get(usersController.userAuthenticate, controller.readTransactionById)
+
+
+router.route("/delete/token/:id")
+	.post(usersController.userAuthenticate, controller.deleteTransactionById, logsController.addLogs)
+
+
+router.route("/clients/:id")
+	.get(usersController.userAuthenticate, usersController.findUser, controller.findUserClients)
+
 
 router.route("/start/:id")
 	.patch(usersController.userAuthenticate, controller.checkOngoingTransaction, controller.startTransaction, usersController.findUserForTransaction, pushController.pushNotification, mailController.sendMail, smsController.sendSms, logsController.addLogs)

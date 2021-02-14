@@ -11,13 +11,12 @@ const withdrawController = require("../withdraw/withdrawController.js");
 const premiumController = require("../premium/premiumController.js")
 const router = express.Router();
 
-
 router.route("/signup")
 	.post(controller.verifyEmail, controller.registerUser, 
 			walletController.createWallet, 
 			withdrawController.createWithdraw, 
 			premiumController.addUserCoupon, 
-			/*mailerController.sendRegistrationMail,*/ 
+			mailerController.sendRegistrationMail, 
 			mailerController.welcomeMail, 
 			mailerController.adminNotification, 
 			logsController.addLogs)
@@ -57,10 +56,23 @@ router.route("/verification")
 
 
 router.route("/profile")
-	.get(controller.userAuthenticate, walletController.getUserWallet, withdrawController.getUserWithdraw)
+	.get(controller.userAuthenticate, walletController.getUserWallet, withdrawController.getUserWithdrawForProfile, transactionController.fetchUsersTransactionsForProfile, controller.getBuyersDetailsForProfile)
+
+
+router.route("/profile/image")
+	.post(controller.userAuthenticate, controller.updateImage)
 
 router.route("/create/user")
-	.post(controller.addUser, logsController.addLogs)
+	.post(controller.addUser, 
+			walletController.createWallet, 
+			withdrawController.createWithdraw, 
+			mailerController.sendRegistrationMail, 
+			mailerController.welcomeMail, 
+			mailerController.adminNotification, 
+			logsController.addLogs)
+
+router.route("/client-database")
+	.get(controller.userAuthenticate, transactionController.fetchUsersTransactionsForProfile, controller.fetchClient)
 
 
 router.route("/change/password")

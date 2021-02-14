@@ -5,16 +5,18 @@ exports.servicesHandller = (token, id)=>{
 	let {createService} = require("./createService");
 	const {getRequest}= require("../../request");
 	const body = document.getElementById("body");
+	const {sideBar} = require("../sidebar");
 	const spinner = document.getElementById("spinner");
 	spinner.className ="display-none";
 
 
 			const services=(services)=>{
-
+				
+				sideBar(token, id);
 				const html = `<div id="products">
 							<div class="container">
 								<div class="row align-items-center mt-5 p-0">
-									<div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2">
+									<div class="col-12 col-sm-8 offset-sm-2 col-md-9 offset-md-3 col-lg-9 offset-lg-2">
 										<div class="card min-height">
 											<div class="card-body">
 												<div class="col-12 col-sm-12 col-md-12">

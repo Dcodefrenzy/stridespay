@@ -5,6 +5,10 @@ ProductSchema = mongoose.Schema({
             type:String,
             required:true,
         },
+        description:{
+            type:String,
+            required:true,
+        },
         price:{
             type:String,
             required:true,
@@ -30,10 +34,24 @@ ProductSchema = mongoose.Schema({
             type:Boolean,
             default:false,
         },
+        delete:{
+            type:Boolean,
+            required:true,
+            default:false,
+        },
         dateCreated:{
             type: String,
             required: true,
         },
+        dateUpdated:{
+            type:String,
+            required:false,
+        },
+        dateDeleted:{
+            type:String,
+            required:false,
+        },
+
 });
 
 

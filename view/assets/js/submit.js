@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 	const {loading} = require("./loading");
 	const {loginForm} = require("logins");
 	const {request} = require("request");
+	const {filesRequest} = require("request")
 	const {handleError} = require("errorHandler");
 
 const registerBuyer = (url, token, data)=>{
@@ -213,7 +214,38 @@ const createMilestone = (url, token, data)=>{
 			}else if (res.status === 200) {
 	 		alert("Milestone was Successfully created.")
 			location.reload();
-		}	else if (res.status === 404) {
+			}	else if (res.status === 404) {
+				loading("spinner", "display-none");
+				const body = document.getElementById("body");
+				alert(res.message);
+			} else if (res.status === 401) {
+				loading("spinner", "display-none");
+				const body = document.getElementById("body");
+				body.insertAdjacentHTML('afterbegin', loginForm);
+			}else {
+				loading("spinner", "display-none");
+				console.log(res);
+				if (res.message === "User do not exist.") {
+					handleError({"message":"User do not exist"}, "is invalid");
+				}
+				if (res.message.name === "MongoError") {
+					handleError(res.message.keyValue, "already exist");
+				}
+				handleError(res, "is invalid");
+			}
+		});
+}
+
+const editMilestone = (url, token, data)=>{
+			loading("spinner", "");
+		 request(url, token, "POST", data, (res)=>{
+			 if (res.status === 201) {
+			 	alert("Milestone was Successfully Updated.")
+				location.reload();
+			}else if (res.status === 200) {
+	 		alert("Milestone was Successfully Updated.")
+			location.reload();
+			}	else if (res.status === 404) {
 				loading("spinner", "display-none");
 				const body = document.getElementById("body");
 				alert(res.message);
@@ -306,7 +338,26 @@ const changePassword = (url, token, data)=>{
 	});	
 }
 
-
+const uploadImage =(url, token, data)=>{
+	        const formData = new FormData()
+        	formData.append('image', data);
+    filesRequest(url, token, "POST", formData, (res)=>{
+		 if (res.status === 201) {
+		 	alert("Your Image was uploaded successfully.");
+			window.location = "/users/dashboard";
+		}else if(res.status === 403){
+			loading("spinner", "display-none")
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
+			handleError(res, "is invalid");
+		}else if(res.status === 400){
+			loading("spinner", "display-none")
+			handleError(res.message, "is invalid");
+		}
+	});	
+			
+}
 
  return register = (event)=>{
   	event.preventDefault();
@@ -346,6 +397,11 @@ const changePassword = (url, token, data)=>{
   			updateProfile(form.id, sessionItem, formElement);
   	}else if (event.target.className === "changePassword") {
   		changePassword(form.id, sessionItem, formElement);
+  	}else if (event.target.className === "editMilestone") {
+  		editMilestone(form.id, sessionItem, formElement);
+  	}else if (event.target.className === "uploadImage") {
+  		const image = document.getElementById("profile-image");
+  		uploadImage(form.id, sessionItem, image.files[0]);
   	}
 }
 

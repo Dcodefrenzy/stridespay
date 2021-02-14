@@ -12,7 +12,7 @@ const withdrawRouter = require("./withdraw/withdrawRouter.js");
 const accountRouter = require("./accounts/accountRouter.js");
 api.use("/admins", adminRouter);
 api.use("/users", usersRouter);
-api.use("/logs", logsRouter);
+api.use("/notifications", logsRouter);
 api.use("/products", productRouter);
 api.use("/payments", paymentRouter);
 api.use("/transactions", transactionsRouter);

@@ -8,7 +8,7 @@ exports.createBuyerTransactions=(req, res, next)=>{
     transactions.findOneAndUpdate({_id:req.body.transaction}, {$set:{paymentStatus:true,buyer:req.user._id}}, {new: true}).then((transaction)=>{
         if (transaction) {
             req.data.transaction = transaction;
-            req.data.redirect = "/users/transactions";
+            req.data.redirect = "/users/transaction/"+transaction._id;
             //console.log(transaction)
             next();
         }else{
@@ -23,6 +23,7 @@ const addNewTransaction=(req, res, next)=>{
         product:req.data.product._id,
         creator:req.user.name,
         productName:req.data.product.product,
+        description:req.data.product.description,
         paymentStatus:req.data.paymentStatus,
         milestones:req.data.milestones,
         price:req.data.product.price,
@@ -58,6 +59,7 @@ exports.createNewMerchantTransactions=(req, res, next)=>{
         merchant:req.user._id,
         creator:req.user.name,
         productName:req.data.product.product,
+        description:req.data.product.description,
         product:req.data.product._id,
         paymentStatus:false,
         price:req.data.product.price,
@@ -96,15 +98,17 @@ exports.createNewMerchantTransactions=(req, res, next)=>{
 
 exports.createMerchantTransactions=(req, res, next)=>{
     if (req.data.isMerchant || req.data.product.isMerchant === true) {
-         console.log(req.data.product)
+         
         const user = req.user?req.user._id:req.data._id;
         const username = req.user?req.user.name:req.data.name;
 
+    console.log({"reansact":req.data})
         transaction = new transactions({
         merchant:user,
         creator:username,
         productName:req.data.product.product||req.data.product,
         product:req.data.product._id||req.data.productId,
+        description:req.data.description,
         paymentStatus:false,
         price:req.data.price,
         withdrawn:0,
@@ -114,7 +118,7 @@ exports.createMerchantTransactions=(req, res, next)=>{
         transactionStart:true,
         dateCreated:new Date(),
     });
-        console.log(transaction)
+        
     transaction.save().then((transaction)=>{
         console.log(transaction)
         if (!transaction) {
@@ -141,6 +145,48 @@ exports.createMerchantTransactions=(req, res, next)=>{
 }
 
 
+
+exports.readTransactionById = (req, res)=>{
+
+    transactions.findById({_id:req.params.id, transactionStart:false, transactionComplete:false}).then((transaction)=>{
+        if (!transaction) {
+            const err = {status:403, message:"This transaction has either been used and do not exist anymore."}
+            return res.status(403).send(err);
+        }
+           
+        res.status(200).send({status:200,transaction:transaction, user:req.user});
+    }).catch((e)=>{
+        console.log(e)
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+
+}
+
+exports.deleteTransactionById = (req, res, next)=>{
+      transactions.findByIdAndDelete({_id:req.params.id, transactionStart:false, transactionComplete:false}).then((transaction)=>{
+        if (!transaction) {
+            const err = {status:403, message:{message:"This transaction has either been used and do not exist anymore."} }
+            console.log(err)
+            return res.status(403).send(err);
+        }
+            req.data = {status:200,transaction:transaction};
+            req.data._id = req.user._id;
+            req.data.loggerUser = "User";
+            req.data.logsDescription = "Transaction was deleted";
+                req.data.title = "Transactions";
+                next();
+        }).catch((e)=>{
+        console.log(e)
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+}
+
 exports.findTransactionForPayment = (req, res, next)=>{
 
     transactions.findById({_id:req.params.id}).then((transaction)=>{
@@ -163,7 +209,7 @@ exports.findTransactionForPayment = (req, res, next)=>{
 exports.findOneTransactionById = (req, res, next)=>{
     transactions.findOne({_id:req.params.id, transactionComplete:false}).then((transaction)=>{
         if (!transaction) {
-            const err = {status:403, message:"This transaction Do not exist anymore."}
+            const err = {status:403, message:"This transaction has either been used and do not exist anymore."}
             return res.status(403).send(err);
         }
 
@@ -182,7 +228,7 @@ exports.findOneTransactionById = (req, res, next)=>{
 exports.findOneTransactionByIdForPayment = (req, res)=>{
     transactions.findOne({_id:req.params.id,  transactionComplete:false}).then((transaction)=>{
         if (!transaction) {
-            const err = {status:403, message:"This transaction Do not exist for you."}
+            const err = {status:403, message:"This transaction has either been used and do not exist anymore."}
             return res.status(403).send(err);
         }
        
@@ -211,6 +257,25 @@ exports.findServiceTransactionById= (req, res)=>{
         }else{
                 req.data.transactions = transactions;
             res.status(200).send(req.data);
+        }
+    }).catch((e)=>{
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+}
+
+exports.findUserClients=(req, res)=>{
+
+    transactions.find({merchant:req.user._id, buyer:req.params.id}).then((transactions)=>{
+   
+        if (!transactions) {
+            const err = {status:404, message:"No transactions listed yet."}
+            return res.status(404).send(err);
+        }else{
+            req.data.transactions = transactions;
+            res.status(200).send({status:200,data:req.data});
         }
     }).catch((e)=>{
         let err ={}
@@ -257,6 +322,7 @@ exports.startTransaction =(req, res, next)=>{
                                         _id : req.user._id,
                                         transaction:transaction._id,
                                         productName:transaction.productName,
+                                        description:transaction.description,
                                         milestones:transaction.milestones,
                                         price:transaction.price,
                                         paymentStatus:transaction.paymentStatus,
@@ -299,6 +365,27 @@ exports.fetchUsersTransactions =(req, res, next)=>{
     });
 }
 
+exports.fetchUsersTransactionsForProfile =(req, res, next)=>{
+    transactions.find({merchant:req.user._id, paymentStatus:true}, null, {sort: {_id: -1}}).then((transactions)=>{
+        if (!transactions) {
+            const err = {status:404, message:"No Transactions Found."}
+            return res.status(404).send(err);
+        }else{
+            if (req.data) {
+            req.data.transactions = transactions;
+            }else{
+            req.data = transactions;
+            }
+            next();
+        }
+    }).catch((e)=>{
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+}
+
 
 exports.fetchUserTransactionById =(req, res, next)=>{
 
@@ -317,9 +404,26 @@ exports.fetchUserTransactionById =(req, res, next)=>{
     });
 }
 
+const getMilestonesNumbers=(id)=>{
+    console.log(id)
+    transactions.findById({"_id":id}).then((transaction)=>{
+        console.log({"410":transaction.milestoneComplete})
 
+    return updateMilestoneNumbers(id, transaction.milestoneComplete + 1);
+    
+    })
+}
+
+const updateMilestoneNumbers=(id, numb)=>{
+    console.log({"numb":numb})
+    transactions.findByIdAndUpdate({_id:id}, {$set:{milestoneComplete:numb}}, {new: true}).then((trans)=>{
+        console.log(trans)
+        return trans;
+    });
+}
 exports.merchantUpdateMilestones =(req, res, next)=>{
- 
+    const milestoneCompleteNumber = getMilestonesNumbers(req.body.id);
+
     transactions.findOneAndUpdate({"_id":req.body.id, "merchant":req.user._id, "milestones._id":req.body.milestoneId}, {$set:{"milestones.$.merchant":true}}, {new: true}).then((transaction)=>{
  
         if (!transaction) {
@@ -331,12 +435,13 @@ exports.merchantUpdateMilestones =(req, res, next)=>{
                                         transaction:transaction._id,
                                         isService:transaction.isService,
                                         productName:transaction.productName,
+                                        description:transaction.description,
                                         milestones:transaction.milestones,
                                         price:transaction.price,
                                         paymentStatus:transaction.paymentStatus,
                                         balance:transaction.balance,
                                         withdrawn:transaction.withdrawn, 
-                                        userId:transaction.merchant,
+                                        userId:transaction.buyer,
                                         title:"Transaction",
                                         link:"https://paymerchant.co/users/login",
                                         mailTitle:"Transaction Notification",
@@ -396,13 +501,14 @@ exports.updateBuyerWithdraw  = (req, res, next)=>{
                                         _id : req.user._id,
                                         transaction:transaction._id,
                                         productName:transaction.productName,
+                                        description:transaction.description,
                                         milestones:transaction.milestones,
                                         price:transaction.price,
                                         merchant:transaction.merchant,
                                         paymentStatus:transaction.paymentStatus,
                                         balance:transaction.balance,
                                         withdrawn:transaction.withdrawn, 
-                                        userId:transaction.buyer,
+                                        userId:transaction.merchant,
                                         isService:transaction.isService,
                                         title:"Transaction",
                                         link:"https://paymerchant.co/users/login",
@@ -410,6 +516,7 @@ exports.updateBuyerWithdraw  = (req, res, next)=>{
                                         mailMessage: "A milestone for your transaction -"+transaction.productName+" has been completed by"+req.user.name+" please verify and payout to merchant.",
                              }
                              req.data = newTransaction;
+                             //console.log(req.data)
                       next()
         }
     }).catch((e)=>{
@@ -428,6 +535,7 @@ exports.CreateTransactionForFreelancers = (req, res, next)=>{
         merchant:req.user._id,
         creator:req.user.name,
         productName:req.data.service.product,
+        description:req.data.service.description,
         product:req.data.service._id,
         paymentStatus:false,
         price:req.data.service.price,
@@ -456,6 +564,31 @@ exports.CreateTransactionForFreelancers = (req, res, next)=>{
             req.data.title = "Register";
             next();
         }
+    }).catch((e)=>{
+        console.log(e)
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+}
+
+exports.getUserFinancies=(req, res, next)=>{
+        transactions.find({merchant:req.user._id, transactionComplete:true}).then((transactions)=>{
+        req.data.transactions = transactions;
+        res.status(200).send(req.data);
+    }).catch((e)=>{
+        console.log(e)
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+}
+
+exports.getAllTransactions= (req, res)=>{
+    transactions.find({merchant:req.user._id, transactionComplete:false, paymentStatus:false}).then((transactions)=>{
+            res.status(200).send({status:200,transactions:transactions});
     }).catch((e)=>{
         console.log(e)
         let err ={}

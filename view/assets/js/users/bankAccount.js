@@ -7,11 +7,14 @@ define(function(require, exports, module) {
 	const {loginForm} = require("../logins");		
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
+	const {sideBar} = require("./sidebar");
 	spinner.className ="display-none";
 
      loading("spinner", "display-none");
 	const showbankForm =(banks)=>{
-		const html = `<div id="revert" class="fixed-top bg-green full-height">
+
+				sideBar(token, id);
+		const html = `<div id="revert" class="bg-background full-height">
 				<div class="">
 				<div id="loading"></div>
 					<div class="row mt-2 p-3">
@@ -20,7 +23,7 @@ define(function(require, exports, module) {
 					</div>
 				<div class="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3">
 					<h1>Bank Account</h1>
-					<p class="text-white">create your bank account</p>
+					<p class="text-dark">create your bank account</p>
 					<form id="accounts/create" class="createAccount" name="submitForm" onsubmit="return register(event)">
 						<div class="row">
 							<div class="col-12 col-sm-12 col-md-12">
@@ -58,13 +61,13 @@ define(function(require, exports, module) {
 			</div>
 		</div>
 	 </div>`;
-	 body.insertAdjacentHTML('afterbegin', html);
+	 body.insertAdjacentHTML('beforeend', html);
 	}
 	
 	const loadDashboard=(response)=>{
 		console.log(response);
 		
-			showbankForm(response.data.Banks)
+			//showbankForm(response.data.Banks)
 		if (response.status === "success") {
 			showbankForm(response.data.Banks)
 
