@@ -207,10 +207,12 @@ exports.addUser = (req, res, next)=>{
 //User login.
 
 exports.userLogin = (req, res)=>{
-	console.log(req.body)
+	//
 	if (req.body.email) {
+		console.log({"mail":req.body})
 		loginEmail(req, res);
 	}else if (req.body.phonenumber) {
+		console.log({"herephone":req.body})
 		loginPhone(req, res);
 	}
 }
@@ -219,6 +221,8 @@ const loginPhone = (req, res)=>{
 	phonenumber : req.body.phonenumber,
 	password : req.body.password
 });
+
+		console.log({"loginphone":req.body})
 
 users.findByPhoneCredentials(user.phonenumber, user.password).then((user)=>{
 		return user.generateAuthToken().then((token)=>{
@@ -249,6 +253,7 @@ const loginEmail = (req, res)=>{
 	password : req.body.password
 });
 
+		console.log({"loginemail":req.body})
 users.findByEmailCredentials(user.email, user.password).then((user)=>{
 		return user.generateAuthToken().then((token)=>{
 			const userUpdate = new users({
