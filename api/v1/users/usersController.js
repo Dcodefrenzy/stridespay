@@ -253,19 +253,25 @@ const loginEmail = (req, res)=>{
 	password : req.body.password
 });
 
+		console.log({"loginemail":req.body})
 users.findByEmailCredentials(user.email, user.password).then((user)=>{
 	console.log(user)
 		return user.generateAuthToken().then((token)=>{
+			console.log({"token":token})
 			const userUpdate = new users({
 				lastLogin: Date.now,
 				loginStatus: true,
 			});
+			console.log({"userUpdate":userUpdate})
 			users.findByIdAndUpdate(user._id, {$set: {lastLogin:userUpdate.lastLogin, loginStatus:userUpdate.loginStatus}}).then((newUSer)=>{
+					
+			console.log({"newUSer":newUSer})
 				if(!newUSer) {
 					const err = {status:403, message:"unable to update login status"}
 					return res.status(403).send(err);
 				}else{
 					const userDetails = {status:200, token:token, name:user.firstname +" "+ user.lastname, _id:user._id};
+					console.log(userDetails)
 					res.status(200).send(userDetails);
 				}
 			}) 

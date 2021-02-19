@@ -202,7 +202,7 @@ userSchema.statics.findByPhoneCredentials = function (phonenumber, password){
 userSchema.statics.findByEmailCredentials = function (email, password){
 	const user = this;
 	return user.findOne({email}).then((body)=>{
-		
+		console.log({"credentialmail":body})
 		if (!body) {
 			const err = {status:400, message:{message:"User do not exist."}}
 			return Promise.reject(err);
