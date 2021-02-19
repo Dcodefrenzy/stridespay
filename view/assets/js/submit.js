@@ -37,6 +37,7 @@ const registerMerchant = (url, token, data)=>{
 }
 
 const loginUser=(url, token, data)=>{
+	console.log(data)
 		 request(url, token, "POST", data, (res)=>{
 	 if (res.status === 200) {
 	 	alert("Login Successful.")
@@ -71,6 +72,7 @@ const loginUser=(url, token, data)=>{
 }
 
 const userLogin=(url, token, data)=>{
+	console.log(data)
 		loading("spinner", "dsh-preloader bg-white");
 		 request(url, token, "POST", data, (res)=>{
 		 	console.log(res.status)
@@ -307,9 +309,12 @@ const sendMailVerification = (url, token, data)=>{
 
 const createAccount = (url, token, data)=>{
 		
+	loading("spinner", "dsh-preloader bg-white");
 	request(url, token, "POST", data, (res)=>{
 console.log(res)
 		 if (res.status === 201) {
+
+			loading("spinner", "display-none");
 		 	alert("Your account has been created");
 			window.location = "/users/withdraw";
 		}else if(res.status === 400){

@@ -116,7 +116,7 @@ define(function(require, exports, module) {
 										<a class="nav-link active" id="profile-overview-tab" data-toggle="pill" href="#profile-overview" role="tab" aria-controls="profile-overview" aria-selected="true"> Profile Overview</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" id="profile-manage-tab" data-toggle="pill" href="#profile-manage" role="tab" aria-controls="profile-manage" aria-selected="false">Manage Profile</a>
+										<a class="nav-link" id="profile-manage-tab" data-toggle="pill" href="#profile-manage" role="tab" aria-controls="profile-manage" aria-selected="false">Update Profile</a>
 									</li>
 									<!--
 									<li class="nav-item">

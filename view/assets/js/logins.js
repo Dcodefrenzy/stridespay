@@ -25,8 +25,8 @@ define(function(require, exports, module) {
 						<img src="/assets/images/fav1.png" class="mb-3" alt="Dashield">
 					<h1>Login</h1>
 					<div class="row text-center">
-						<button class="btn-sm btn-success m-2" onclick="return loginEmail(event, 'userLogin')">Login with Email</button>
-						<button class="btn-sm btn-dark m-2" onclick="return loginPhone(event, 'userLogin')">Login with Phone</button>
+						<button class="btn-sm btn-success m-2" onclick="return loginEmail(event, 'loginUser')">Login with Email</button>
+						<button class="btn-sm btn-dark m-2" onclick="return loginPhone(event, 'loginUser')">Login with Phone</button>
 					</div>
 					</div>
 					<div class="dsh-auth-form-inner" id="changeLogin">
@@ -40,7 +40,7 @@ define(function(require, exports, module) {
 								<div class="form-group">
 									<label id="error-password">Password</label>
 									<input type="password" name="password" oninput="return returnValidation(this.value, this.name)" class="form-control mb-3" placeholder="Enter your password here" required>
-									<input type="submit" name="submit" class="form-control btn btn-primary btn-block" value="Signup">
+									<input type="submit" name="submit" class="form-control btn btn-primary btn-block" value="Login">
 									<p class="text-dark">sign up if you dont have an account <a id="login" onclick="return registerSessionForm(event, id)">Signup</a></p>
 									</div>
 								</div>

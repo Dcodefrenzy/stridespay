@@ -45,7 +45,7 @@ define(function(require, exports, module) {
 								<div class="form-group">
 									<label id="error-password">Password</label>
 									<input type="password" name="password" oninput="return returnValidation(this.value, this.name)" class="form-control mb-3" placeholder="Enter your password here" required>
-									<input type="submit" name="submit" class="form-control btn btn-primary btn-block" value="Signup">
+									<input type="submit" name="submit" class="form-control btn btn-primary btn-block" value="Login">
 									<p class="text-dark">sign up if you dont have an account <a href="/users/signup">Signup</a></p>
 									</div>
 								</div>
