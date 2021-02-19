@@ -207,7 +207,7 @@ exports.addUser = (req, res, next)=>{
 //User login.
 
 exports.userLogin = (req, res)=>{
-	//console.log(req.body)
+	console.log(req.body)
 	if (req.body.email) {
 		loginEmail(req, res);
 	}else if (req.body.phonenumber) {
