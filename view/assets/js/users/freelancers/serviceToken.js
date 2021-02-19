@@ -17,7 +17,7 @@ exports.serviceTokens = (token, id)=>{
 
 			const showService=(transaction, milestones, user)=>{
 
-				const html = `<div class="">
+				const html = `<div class="pt-5">
 							<div class="container">
 								<div class="row align-items-center mt-5 p-0">
 									<div class="col-12 col-sm-12 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
