@@ -1,4 +1,25 @@
+require.config({
+	'path': {
+		'jquery':'../../js/jquery',
+		'popper.min': '../../js/popper.min',
+		'script': '../../stridespay/vendor/dist/script.bundle',
+		'libs': '../../stridespay/vendor/dist/libs.bundle',
+	},
+	shim: {
+		'libs':{
+			deps:['jquery', 'popper.min'],
+			exports: 'libs',
+		},
+		'script' :{
+			deps: ['jquery', 'popper.min'],
+			exports: 'script'
+		},
+	}
+})
+
+
 define(function(require, exports, module) {
+
 			const body = document.getElementById("app");
 			let {returnValidation} = require("formValidation");
 			let {register} = require("submit");

@@ -5,7 +5,7 @@
 
 
   exports.payWithPaystack = (payment, id, url)=>{
-   let email = payment.user.email === undefined?"paymerchantafrica@gmail.com":payment.user.email;
+   let email = payment.user.email === undefined?"stridespay@gmail.com":payment.user.email;
 
 
   var handler = PaystackPop.setup({
@@ -44,7 +44,7 @@
   }
 
   exports.flutterwave = (payment, id, url)=>{
-   let email = payment.user.email === undefined?"paymerchantafrica@gmail.com":payment.user.email;
+   let email = payment.user.email === undefined?"stridespay@gmail.com":payment.user.email;
         var x = getpaidSetup({
             PBFPubKey: "FLWPUBK_TEST-10ea59347252ad28408d18b34a000edc-X",
             customer_email: email,

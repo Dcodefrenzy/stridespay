@@ -15,29 +15,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/assets/images/fav1.png" sizes="150x150" type="image/png">
 	<title>stridespay</title>
-	<link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-	<link rel="stylesheet" type="text/css" href="/assets/fontawesome/css/all.css">
+   <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&amp;display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/fontawesome/css/all.css">
+  <!-- partial:../../partial/_globalStyles.html -->
+  <!-- Iconic Fonts -->
+<link rel="stylesheet" href="/assets/stridespay/vendor/fonts/line-icons/LineIcons.min.css" >
+<link rel="stylesheet" href="/assets/stridespay/vendor/fonts/font-awesome/css/all.min.css" >
+
+<!-- Plugins -->
+<link href="/assets/stridespay/vendor/dist/libs.bundle.css" rel="stylesheet">
+
+<!-- Dashield styles -->
+<link href="/assets/stridespay/vendor/dist/style.bundle.css" rel="stylesheet">
 
 
 </head>
-<body id="body" class="bg-background">
 
-        <div class="bg-background sticky  opacity nav-icon">
-          <div class="col-12">
-            <i id="user-open-side-bar" class="fa fa-bars fa-2x text-strides mt-3" aria-hidden="true"></i>
-            <div class="display-none" id="user-close">
-              <i class="float-right fa fa-times-circle text-strides fa-2x"></i>
+<body  class="dsh-body dsh-aside-left-open dsh-minimal-sidebar bg-background">
+  <main id="body" class="body-content clearfix">
+
+      <div class="bg-background sticky  opacity nav-icon">
+          <div>
+            <div id="user-open-side-bar" class="fixed-top bg-background">
+               <i class="fa fa-bars fa-3x text-strides mt-3 ml-3" aria-hidden="true"></i>
+            </div>
+            <div class="display-none mt-5 fixed-times" id="user-close">
+              <i class="float-right fa fa-times-circle text-strides mt-5 fa-3x"></i>
             </div>
         </div>
       </div>
       <nav id="user-side-bar-open" class="nav-hide fixed-top bg-background side-bar full-height p-4 pb-5">
       </nav>
-			<div id="spinner" class="fixed-top bg-background full-height">	
-				<i  class="fa fa-stroopwafel fa-spin fa-3x spining" aria-hidden="true"></i>
-			</div>
+  <!--    <div id="spinner" class="fixed-top bg-background full-height">  
+        <i  class="fa fa-stroopwafel fa-spin fa-3x spining" aria-hidden="true"></i> 
+      </div> -->
+  </main>
+    <div class="dsh-preloader bg-white" id="spinner">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
 
-      <textarea  class="form-control hide display-none" oninput="return returnValidation(this.value, this.name)" name="description" id="textarea" placeholder="eg" required></textarea>
+
+    <div class="hide-display display-none">
+      <textarea  class="form-control" oninput="return returnValidation(this.value, this.name)" name="description" id="textarea" placeholder="eg" required></textarea>
+    </div>
       
 
                     
@@ -55,6 +80,31 @@
                             CKEDITOR.replace( 'description' );
                         </script>
 
+  <!-- partial:../../partial/_globalScripts.html -->
+
+
+ <script  type="text/javascript" src ="/assets/js/jquery.js"></script>
+<script type="text/javascript" src="/assets/js/popper.min.js"></script>
+    <!-- Plugins -->
+<script  src="/assets/stridespay/vendor/dist/libs.bundle.js"></script>
+
+<!-- Dashield core JavaScript -->
+<script src="/assets/stridespay/vendor/dist/script.bundle.js" ></script>
+
+
+  <!-- partial -->
+
+  <!-- Page Specific Scripts -->
+  <script src="/assets/stridespay/vendor/js/datatables.min.js"></script>
+  <script src="/assets/stridespay/js/datatables/dsh-datatables-ext-buttons.js"></script>
+  <!-- Page Specific Scripts -->
+  <script src="/assets/stridespay/vendor/js/apexcharts.min.js"></script>
+  <script src="/assets/stridespay/js/charts/sample-data-stock-prices.js"></script>
+  <script src="/assets/stridespay/js/charts/dsh-apaxcharts.js"></script>
+  <script src="/assets/stridespay/vendor/js/jquery-jvectormap-2.0.3.min.js"> </script>
+  <script src="/assets/stridespay/vendor/js/jquery-jvectormap-world-mill.js"> </script>
+  <script src="/assets/stridespay/js/dashboard/dsh-ecommerce.js" ></script>
+
 </body>
 
 <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
@@ -66,9 +116,12 @@
     });
   });
 </script> 
+
+
+
+
+
 <script type="text/javascript" src="/assets/js/moments.js"></script>
-<script type="text/javascript" src="/assets/js/popper.min.js"></script>
- <script  type="text/javascript" src ="/assets/js/jquery.js"></script>
  <script  type="text/javascript" src ="/assets/js/bootstrap.js"></script>
  <script  type="text/javascript" src ="/assets/js/bootstrap.bundle.min.js"></script>
  <script data-main="/assets/js/main" src = "/assets/js/require.js"></script>

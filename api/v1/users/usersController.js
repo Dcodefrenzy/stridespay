@@ -416,18 +416,23 @@ exports.updateUser = (req, res, next)=>{
 	const username = req.body.username.replace(' ', "_");
 	const user = new users({
 		firstname: req.body.firstname,
+		linkedin:req.body.linkedin,
+		instagram:req.body.instagram,
+		twitter:req.body.twitter,
+		facebook:req.body.facebook,
 		lastname: req.body.lastname,
+		skills:req.body.skills,
 		gender: req.body.gender,
 		age: req.body.age,
 		about: req.body.about,
 		location:req.body.location,
-		phonenumber:req.body.phonenumber,
 		name:username	
 	});
+	console.log(user)
 	if (!ObjectID.isValid(id)) {
 		return res.status(404).send("err")
 	}
-	users.findByIdAndUpdate(id, {$set: {firstname:user.firstname,about:user.about,name:user.name, lastname:user.lastname,gender:user.gender, age:user.age,phonenumber:user.phonenumber,location:user.location}}, {new: true}).then((user)=>{
+	users.findByIdAndUpdate(id, {$set: {firstname:user.firstname,about:user.about,name:user.name, lastname:user.lastname,gender:user.gender, age:user.age,location:user.location,instagram:user.instagram, twitter:user.twitter, linkedin:user.linkedin, facebook:user.facebook, skills:user.skills}}, {new: true}).then((user)=>{
 		if (!user) {
 			const err ={status:403, message:"Unable to update"};
 			return res.status(403).send(err);

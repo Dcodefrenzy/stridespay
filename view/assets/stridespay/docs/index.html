@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+
+<!-- Mirrored from sigmadigitalpartners.com/themes/templatemonster/html/dashield/docs/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Feb 2021 09:06:53 GMT -->
+<head>
+  <meta charset="utf-8">
+  <title>Dashield - Documentation</title>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/docs.css">
+
+</head>
+
+<body class="dsh-body dsh-no-sidebar">
+
+    <div class="dsh-content-wrapper">
+
+      <div class="dsh-fixed-content">
+        <div class="dsh-col dsh-col-lg">
+          <div class="dsh-panel">
+						<div class="dsh-panel-body dsh-user-sidebar p-0">
+							<div class="dsh-user-sidebar--header text-center">
+								<span>v1.0.0</span>
+								<div class="text-center mx-auto my-4">
+									<img src="assets/img/logo-dark.png" style="width: 150px" alt="Dashield">
+								</div>
+
+								<div class="text-center">
+									<h4 class="mb-0">Dashield</h4>
+									<span>Bootstrap 4 Admin Template</span>
+								</div>
+
+							</div>
+							<div class="dsh-user-sidebar--body dsh-crescent-shape">
+
+								<ul class="dsh-sidebar-list">
+									<li class="media pt-0"> <a href="#getStarted">Getting Started</a> </li>
+                  <li class="media pt-0"> <a href="#fileStructure">File Structure</a> </li>
+                  <li class="media pt-0"> <a href="#libraries">Libraries</a> </li>
+                  <li class="media pt-0"> <a href="#utilityClasses">Utility Classes</a> </li>
+                  <li class="media pt-0"> <a href="#datatables">Data Tables</a> </li>
+                  <li class="media pt-0"> <a href="#charts">Charts</a> </li>
+                  <li class="media pt-0"> <a href="#googleFonts">Google Fonts</a> </li>
+                  <li class="media pt-0"> <a href="#credits">Credits</a> </li>
+                  <li class="media pt-0"> <a href="#whatsNext">What's Next</a> </li>
+								</ul>
+
+								<a href="#" class="btn btn-primary-light dsh-semi-bold btn-block">Purchase</a>
+
+							</div>
+						</div>
+					</div>
+        </div>
+        <div class="dsh-col col-flex">
+          <div class="dsh-panel">
+            <div class="dsh-panel-body">
+              <!-- Get Started -->
+              <div class="section" id="getStarted">
+                <div class="dsh-section-title">
+                  <h2>Getting Started</h2>
+                  <p>Thank you for purchasing <b class="text-primary">Dashield</b>. We ara always more than happy to help you with pre and post sales. If you have any question about the template, and if the documentation doesn't mention anything about it.</p>
+                </div>
+                <hr class="dsh-seperator">
+                <h2>Gulp tasks</h2>
+                <p>Dashield comes with multiple gulp tasks that will simplify building you application. To be able to use gulp, you must access your command prompt and  <code>cd</code> to your project folder, e.g <code>cd C:\Users\YOUR_DIRECTORY\Documents\Dashield</code>.
+                This will scope the command line to the directory of your choice. Then you can run any of the following tasks.</p>
+                <p>- <code>gulp inject</code> Injects partials from the <b>partial</b> folder into the respective positions of the page.</p>
+                <pre>
+                  <!-- partial:partial/_globalStyles.html -->
+                    // Your code here
+                  <!-- partial -->
+                </pre>
+                <p>This way, anything that lives in _globalStyles.html partial will be injected between the two lines.</p>
+                <p>- <code>gulp vendorScripts</code> Bundles all scripts assigned in the task which can be found in <code>./gulpfile.js</code> into 1 single js file. (By default this is being placed inside  <code>vendor/dist/libs.bundle.js</code> )</p>
+                <p>- <code>gulp vendorStyles</code> Bundles all style sheets assigned in the task which can be found in <code>./gulpfile.js</code> into 1 single js file.  (By default this is being placed inside  <code>vendor/dist/libs.bundle.css</code> )</p>
+                <p>- <code>gulp styles</code> Minifies the main Dashield stylesheets and places it in <code>vendor/dist/style.bundle.css</code> </p>
+                <p>- <code>gulp scripts</code> Minifies the main Dashield Scripts and places it in <code>vendor/dist/script.bundle.js</code> </p>
+
+              </div>
+              <!-- /Get Started -->
+              <hr class="dsh-seperator">
+
+              <!-- File Structure -->
+              <div class="section" id="fileStructure">
+                <h2>File Structure</h2>
+              </div>
+              <hr class="dsh-seperator">
+              <!-- /File Structure -->
+
+              <!-- Libraries -->
+              <div class="section" id="libraries">
+                <div class="dsh-section-title">
+                  <h2>3rd Party Libraries</h2>
+                  <p>Dashield bundles all libraries (with a few exceptions) into 1 Javascript file, and 1 Css file. However, you can always use <code>gulp vendorScripts</code> and <code>gulp vendorStyles</code> to remove any unused script or stylesheet from the bundles</p>
+                </div>
+
+                <p>Some library intializations are available right off the bat, and only needs a utility class to start using them. The following utility classes can be used to activate libraries:</p>
+
+                <p>- <code>.dsh-select2</code> Converts any list into a select2 dropdown list</p>
+                <p>- <code>.dsh-datepicker</code> Converts any input field into a date picker</p>
+                <p>- <code>.dsh-timepicker</code> Converts any input field into a time picker</p>
+                <p>- <code>.dsh-daterangepicker</code> Converts input field into a date range picker</p>
+                <p>- <code>.dsh-daterangepicker-time</code> Converts any input field into a date range picker with the ability to also filter time</p>
+                <p>- <code>.dsh-daterangepicker-predefined</code> Converts any input field into a dropdown with predefined dates, such as <b>today</b>, <b>last 7 days</b>, etc... </p>
+                <p>- <code>.dsh-tooltip</code> or <code>data-toggle="tooltip"</code> Adds a tooltip to any element </p>
+                <p> This utility has multiple data attributes that you can use to show your tooltips in a different way: </p>
+                <ul class="dsh-list">
+                  <li> <code>data-state</code> which accepts <code>primary, secondary, success, warning, danger, dark, info, or light</code> </li>
+                  <li> <code>data-trigger</code> which accepts <code>click, focus or hover</code> </li>
+                  <li> <code>data-placement</code> which accepts <code>top, left, right, or bottom</code> </li>
+                  <li> <code>title</code> The text which will be displayed in the tooltip</li>
+                </ul>
+                <p>- <code>.dsh-popover</code> or <code>data-toggle="popover"</code> Adds a popover to any element </p>
+                <p>All attributes available for popovers are similar to those of tooltips</p>
+                <p>- <code>.needs-validation</code> and <code>novalidate</code> are a class and attribute respectively which should be added to any form that required client-side validation. Simply add those 2 to any <code>form</code> element and you will implement bootstrap validation </p>
+                <p>- <code>.dsh-custom-scroll</code> adds a clean scroll bar to an element. Note that this element must have a <b>predefined height</b> </p>
+                <hr class="dsh-seperator">
+                <p>Everything else in terms of libraries, should be initialized manually. However, don't worry. Each library has a set of examples which you can find in <code>assets/js/examples/~</code> </p>
+
+              </div>
+              <!-- /Libraries -->
+
+              <!-- Utility Classes -->
+              <div class="section" id="utilityClasses">
+                <div class="dsh-section-title">
+                  <h2>Utility Classes</h2>
+                  <p>At the end of the day, Dashield is supposed to decrease development time for your projects. Which is why we provide you with the following utility classes to write less code yourself.</p>
+                </div>
+                <h6>Setting an active class to an elment within the same parent</h6>
+                <p>- <code>.dsh-can-active</code> class should be added to any element that can contain the class <code>active</code> once clicked </p>
+                <p>- <code>.dsh-active-parent</code> class should be added to the element's main parent. This class should be available to turn off all other active elements </p>
+                <pre>
+                  <div class="dsh-active-parent">
+                    <a href="#" class="dsh-can-active">Example Activateable item</a>
+                    <a href="#" class="dsh-can-active">Example Activateable item</a>
+                    <a href="#" class="dsh-can-active">Example Activateable item</a>
+                    <a href="#" class="dsh-can-active">Example Activateable item</a>
+                    <a href="#" class="dsh-can-active">Example Activateable item</a>
+                  </div>
+                </pre>
+                <h6>Toggling an active class to multiple items within the multiple parents</h6>
+                <p>- <code>.dsh-toggle-active</code> class should be added to any element which can be toggled on or off when clicked. This will add an <code>active</code> class to the element </p>
+                <pre>
+                  <a href="#" class="dsh-toggle-active">Example Activateable item</a>
+                  <a href="#" class="dsh-toggle-active">Example Activateable item</a>
+                  <a href="#" class="dsh-toggle-active">Example Activateable item</a>
+                  <a href="#" class="dsh-toggle-active">Example Activateable item</a>
+                  <a href="#" class="dsh-toggle-active">Example Activateable item</a>
+                </pre>
+                <h6>Select / Deselect All select2 multi tags</h6>
+                <p>To be able to add the <b>Select all</b> option and <b>Deselect All option</b>, you can use the following classes: </p>
+                <p>- <code>.dsh-select-all</code> and <code>.dsh-deselect-all</code> </p>
+                <pre>
+                  <div class="form-group">
+                    <select class="form-control dsh-selelect2" data-placeholder="Select a Color" multiple>
+                      <option value="blue">Blue</option>
+                      <option value="red">Red</option>
+                    </select>
+                    <div class="dsh-selection-options">
+                      <button type="button" class="btn btn-primary dsh-select-all">Select all</button>
+                      <button type="button" class="btn btn-danger dsh-deselect-all">Deselect all</button>
+                    </div>
+                  </div>
+                </pre>
+                <p>It is important to wrap the whole thing in a <code>form-group</code> class, otherwise those classes will not work.</p>
+                <h6>Copy / Cut to clipboard</h6>
+                <p>- <code>.dsh-clipboard</code> to any element or input to copy to clipboard. Add the class <code>.cut</code> to cut the content to clipboard instead</p>
+                <h6>Activate rating</h6>
+                <p>Dashield allows you to have your rating enabled or disabled by simply adding 1 class: </p>
+                <p>- <code>.dsh-can-rate</code> can be used around rating elements to allow them to be hoverable and clickable. Clicking an child of <code>.dsh-can-rate</code> will give it the <code>active</code> class</p>
+                <pre>
+                  <div class="dsh-rating-wrapper dsh-can-rate">
+                    <div class="dsh-rating">
+                      <i class="lni-star-filled"></i>
+                      <i class="lni-star-filled"></i>
+                      <i class="lni-star-filled"></i>
+                      <i class="lni-star-filled"></i>
+                      <i class="lni-star-filled"></i>
+                    </div>
+                  </div>
+                </pre>
+              </div>
+              <!-- /Utility Classes -->
+
+              <!-- Data tables -->
+              <hr class="dsh-seperator">
+              <div class="section" id="datatables">
+                <h2>Data Tables</h2>
+                <p>As mentioned above, not all 3rd party libraries are included in the <code>libs.bundle.js</code> file. One of the scripts would be <code>datatables.min.js</code>. This is due to how big the file is when you include the export plugins. </p>
+                <p>If you are not going to use the export plugins <b>PDF export, CSV export, Print, or HTML export</b>, we recommend you head over to datatables main page, and redownload the file with only the core datatables js, excluding the bundleded plugins that we have in our version of datatables. </p>
+                <p>Now that this is taken care of, let's go over this section.</p>
+                <p>We have bundleded all plugins with datatables, and provided an example for each one. Each page's example can be found in the help popup which can be accessed by clicking the button at the bottom right of your screen.</p>
+              </div>
+              <!-- /Data tables -->
+
+              <!-- Charts -->
+              <hr class="dsh-seperator">
+              <div class="section" id="charts">
+                <h2>Charts</h2>
+                <p>Similar to datatables, apex charts is not included in bundle due to it being a large file (approx. 1MB), and it should only be used on demand</p>
+              </div>
+              <!-- /Charts -->
+
+              <!-- Changing fonts -->
+              <hr class="dsh-seperator">
+              <div class="section" id="googleFonts">
+                <h2>Google Fonts</h2>
+                <p>By default, Dashield used  <b>Poppins as the main font accross the whole template</b>. You can change that by accessing the page and changing the Font URL at the very start of the <code>head tag</code>. Simply go to <a href="https://fonts.google.com/" target="_blank">Google fonts</a>,
+                select the font you like, and replace the link with the one we currently have accross all our pages.</p>
+                <pre>
+                  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&amp;display=swap" rel="stylesheet">
+                </pre>
+                <p> <i>Quick tip would be to search and replace all occurences</i>. To begin, copy the Above line and replace it in your project. This is different based on the IDE being used </p>
+
+              </div>
+              <!-- /Changing fonts -->
+
+              <!-- Credits -->
+              <hr class="dsh-seperator">
+              <div class="section" id="credits">
+                <h2>Credits</h2>
+                <p>The following are the libraries used by Dashield</p>
+                <ul class="dsh-list">
+                  <li> Pixabay</li>
+                  <li> Pexels</li>
+                  <li> Undraw</li>
+                  <li> Flaticon Svgs</li>
+                  <li> Fontawesome</li>
+                  <li> Lineicons</li>
+                  <li> Google Fonts</li>
+                  <li> Bootstrap 4.3</li>
+                  <li> jQuery</li>
+                  <li> apexCharts</li>
+                  <li> Bootstrap Date Pickers</li>
+                  <li> Bootstrap Time picker</li>
+                  <li> ChartJs</li>
+                  <li> Data tables</li>
+                  <li> Bootstrap Date range picker</li>
+                  <li> Dragula</li>
+                  <li> Driver</li>
+                  <li> Dropzone</li>
+                  <li> Full Calendar</li>
+                  <li> jquery Vector Maps</li>
+                  <li> jquery BlockUI</li>
+                  <li> jquery Slim Scroll</li>
+                  <li> jsTree</li>
+                  <li> Moment Js</li>
+                  <li> Morris</li>
+                  <li> Popper</li>
+                  <li> Quill Editor</li>
+                  <li> Select2</li>
+                  <li> Slick Sliders</li>
+                  <li> SweetAlerts 2</li>
+                  <li> Tagify</li>
+                  <li> Toastr</li>
+                </ul>
+                <p>All references and helpful links for the libraries can be found in their respective pages in the template.</p>
+              </div>
+              <!-- /Credits -->
+
+              <!-- Whats Next -->
+              <hr class="dsh-seperator">
+              <div class="section" id="whatsNext">
+                <h2>What's Next</h2>
+                <p>We hope you're enjoying Dashield so far in version 1.0.0. However, we have so much planned for this project, and we are aiming to be as transparent as possible with our clients.</p>
+                <p>Everything in the following list is on the table, with no exact ETA, and are in no specific order</p>
+                <ul class="dsh-list">
+                  <li>Dark Theme</li>
+                  <li>Webpack integration</li>
+                  <li>Sass integration</li>
+                  <li>Angular Version</li>
+                  <li>Vue Version</li>
+                  <li>RTL Support</li>
+                  <li>Laravel Integration</li>
+                  <li>.Net Core (3.x) Integration</li>
+                  <li>Component Builder (A new dashboard building experience)</li>
+                  <li>More plugins and 3rd party libraries</li>
+                  <li>Community Forums</li>
+                  <li>More Dashboards</li>
+                </ul>
+              </div>
+              <!-- /Whats Next -->
+
+              <footer class="mt-5"> <p class="mb-0">Copyright (c) 2020 AndromedaThemes All Rights Reserved.</p> </footer>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+		</div>
+
+
+	</main>
+
+  <script src="assets/js/jquery-3.4.1.min.js"></script>
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+
+<!-- Mirrored from sigmadigitalpartners.com/themes/templatemonster/html/dashield/docs/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Feb 2021 09:06:54 GMT -->
+</html>

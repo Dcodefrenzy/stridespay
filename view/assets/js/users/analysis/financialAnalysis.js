@@ -16,53 +16,95 @@ define(function(require, exports, module) {
 				const numbersOfYears = [0,1,2]
 				numbersOfYears.length = 3;
 				sideBar(token, id);
-				 				const html = `<div id="service" class="">
-							<div class="container">
-								<div class="row align-items-center mt-4 p-0">
-									<div class="col-12 col-sm-12  col-md-8 offset-md-3 col-lg-8 offset-lg-3">
-										<div class="card bg-background shadow-lg p-3 mb-5 mt-3 rounded">
-											<div class="card-body row">
-											<a href="/users/dashboard">
-												<i class="fa fa-arrow-left float-left mt-2 text-dark" aria-hidden="true"></i>
-											</a>
-											<h1 class="col-12 mt-5">Financial Analysis</h1>
-											<div class="bg-background row  col-12 justify-content-center">
-												<div class="card col-12 col-sm-12 col-md-12 col-lg-5 bg-background m-2 p-5">	
-													<p class="text-dark">Total Amount Transacted</p>
-													<h3 class="text-dark" id="total-financies">&#8358 </h3>
-												</div>
-												<div class="card ol-12 col-sm-12 col-md-12 col-lg-5 bg-background m-2 p-5">
-													<p class="text-dark">Total Amount withdrawn</p>
-													<h3 class="text-dark" id="total-withdrawal">&#8358 </h3>
-												</div>
-												<div class="card ol-12 col-sm-12 col-md-12 col-lg-5 bg-background m-2 p-5" >
-													<p class="text-dark">Total Wallet Amount</p>
-													<h3 class="text-dark" id="total-wallet">&#8358 </h3>
-												</div>
-											</div>
-											<div class="card bg-background row p-4 mt-5 col-12">
-												<div class="form-group">
-													<select class="form-control col-12" id="withdraws/financial-analysis" name="${token.token}" onchange="return changeFinanlcials(event, this.name,  this.id, this.value)">
-														${ 
-															
-															numbersOfYears.map((numb, index)=>{
-																const year =  nextYear - index;
-																return `<option onchange="return getBarChart(event, this.name,  this.id, this.value)" value="${year}" id="withdraws/financial-analysis" name="${token.token}">${year}</option>`
+				 				const html = `<div class="dsh-content-wrapper col-12 col-sm-12 col-md-9 offset-md-3 col-lg-10 offset-lg-2 col-xl-10 offset-xl-1">
 
-															})
-														}
-													</select>
+											<!-- Breadcrumbs -->
+											<div class="breadcrumb-wrapper d-flex align-items-start align-items-sm-center justify-content-between flex-column flex-sm-row">
+												<div class="breadcrumb-wrapper--inner d-flex flex-column-reverse">
+													<h1>Financials</h1>
+													<ol class="breadcrumb style-1">
+														<li class="breadcrumb-item"><a href="/users/dashboard">Dashboard</a></li>
+														<li class="breadcrumb-item"><a href="#">Financial Analysis</a></li>													</ol>
 												</div>
-												<div id="columnchart_values" class="col-12 card mt-5"></div>
-												<div id="pie-chart" class="col-12 card mt-5"></div>
 											</div>
-												
+
+											<div class="row"> 	
+								   
+												<div class="col-xl-12">
+													<div class="card">
+														<div class="card-body bg-background">
+															<div class="dsh-section-title">
+																<h5 class="card-title">Financial Analysis</h5>
+															</div>
+															<div class="row">
+																<div class="col-xl-4 col-md-4 col-sm-6">
+														          <div class="card card-body">
+														            <div class="media mb-3 px-0 pt-0">
+														              <div class="media-body">&#8358
+														                <h5 class="dsh-semi-bold"id="total-financies"></h5>
+														                <span>Total Transaction</span>
+														              </div>
+
+														              <div class="ml-3 align-self-center">
+														                <span class="btn btn-icon btn-lg btn-success-light">
+														                  <i class=lni-money-location icon-2x></i>
+														                </span>
+														              </div>
+														            </div>
+														          </div>
+														        </div>
+																<div class="col-xl-4 col-md-4 col-sm-6">
+														          <div class="card card-body">
+														            <div class="media mb-3 px-0 pt-0">
+														              <div class="media-body">&#8358
+														                <h5 class="dsh-semi-bold"id="total-withdrawal"></h5>
+														                <span>Total Withdrawal</span>
+														              </div>
+
+														              <div class="ml-3 align-self-center">
+														                <span class="btn btn-icon btn-lg btn-warning-light">
+														                  <i class="lni-revenue icon-2x"></i>
+														                </span>
+														              </div>
+														            </div>
+														          </div>
+														        </div>
+																<div class="col-xl-4 col-md-4 col-sm-6">
+														          <div class="card card-body">
+														            <div class="media mb-3 px-0 pt-0">
+														              <div class="media-body">&#8358
+														                <h5 class="dsh-semi-bold" id="total-wallet"> </h5>
+														                <span>Total Wallet</span>
+														              </div>
+
+														              <div class="ml-3 align-self-center">
+														                <span class="btn btn-icon btn-lg btn-primary-light">
+														                  <i class="lni-money-location icon-2x"></i>
+														                </span>
+														              </div>
+														            </div>
+														          </div>
+														        </div>
+															</div>
+																<div class="form-group">
+																<select class="form-control col-12" id="withdraws/financial-analysis" name="${token.token}" onchange="return changeFinanlcials(event, this.name,  this.id, this.value)">
+																	${ 
+																							
+																		numbersOfYears.map((numb, index)=>{
+																			const year =  nextYear - index;
+																			return `<option onchange="return getBarChart(event, this.name,  this.id, this.value)" value="${year}" id="withdraws/financial-analysis" name="${token.token}">${year}</option>`
+
+																		})
+																	}
+																	</select>
+															<div id="columnchart_values" class="col-12 card mt-5"></div>
+															<div id="pie-chart" class="col-12 card mt-5"></div>
+													</div>
+												</div>
+
 											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						 </div>`;
+
+										</div>`;
 
 		 				body.insertAdjacentHTML('beforeend', html);
 			}

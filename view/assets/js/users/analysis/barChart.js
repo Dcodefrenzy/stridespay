@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 						}
 						const transactionValue = getTotalTransaction("transactions")
 						const transactionId = document.getElementById('total-financies');
-						transactionId.append(transactionValue)
+						transactionId.innerHTML = transactionValue;
 
 
 
@@ -40,7 +40,7 @@ define(function(require, exports, module) {
 						}
 						const withdrawalValue = getTotalWithdrawal("withdrawal")
 						const withdrawalId = document.getElementById('total-withdrawal');
-						withdrawalId.append(withdrawalValue)
+						withdrawalId.innerHTML =  withdrawalValue;
 
 
 
@@ -52,7 +52,7 @@ define(function(require, exports, module) {
 						}
 						const walletValue = getTotalWallet("wallet")
 						const walletId = document.getElementById('total-wallet');
-						walletId.append(parseInt(walletValue))
+						walletId.innerHTML = parseInt(walletValue);
 
 
 

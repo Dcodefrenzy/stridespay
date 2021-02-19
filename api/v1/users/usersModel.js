@@ -85,6 +85,26 @@ const userSchema = new mongoose.Schema({
 		type:Boolean,
 		required:false,
 	},
+	instagram:{
+		type:String,
+		required:false,
+	},
+	twitter:{
+		type:String,
+		required:false,
+	},
+	facebook:{
+		type:String,
+		required:false,
+	},
+	linkedin:{
+		type:String,
+		required:false,
+	},
+	skills:{
+		type:String,
+		required:false,
+	},
 	roles:{
 		type:Number,
 		required:false,
@@ -138,7 +158,7 @@ const userSchema = new mongoose.Schema({
 	userSchema.methods.toJSON = function(){
 		const user = this;
 		const userObject = user.toObject();
-		return _.pick(userObject, ['_id', 'email', 'firstname', 'lastname', 'name',  'phonenumber', 'gender', 'age', 'location', 'about', 'verification','image', 'lastLogin','loginStatus','dateCreated']);
+		return _.pick(userObject, ['_id', 'email', 'firstname', 'lastname', 'name', 'twitter', 'instagram', 'skills', 'facebook', 'linkedin',  'phonenumber', 'gender', 'age', 'location', 'about', 'verification','image', 'lastLogin','loginStatus','dateCreated']);
 	};
 
 

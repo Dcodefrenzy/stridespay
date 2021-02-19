@@ -14,10 +14,10 @@ exports.displayNotification = (token, id)=>{
 			const displayNotificationHandller=(notifications)=>{
 				
 				sideBar(token, id);
-				const html = `<div class="">
+				const html = `<div class="pt-5">
 							<div class="container">
 								<div class="row align-items-center mt-5 p-0">
-									<div class="col-12 col-sm-12  col-md-9 offset-md-3 col-lg-9 offset-lg-3">
+									<div class="col-12 col-sm-12 col-md-9 offset-md-3 col-lg-10 offset-lg-2 col-xl-10 offset-xl-1">
 										<div class="card shadow-lg p-3 mb-5 bg-background rounded">
 											<div class="card-body row">
 												<div class="col-12 col-sm-12 col-md-12">
@@ -32,13 +32,17 @@ exports.displayNotification = (token, id)=>{
 													</h3>
 													${notifications.map((notification, index)=>{
 														let color;
-														if (notification.title === "Transactions") {color = "bg-green"}
+														if (notification.title === "Register") {color = "bg-dark"}
 														if (notification.title === "Payment") {color = "bg-success"}
-														if (notification.title === "Logout") {color = "bg-info"}
+														if (notification.title === "Logout") {color = "bg-danger"}
 														if (notification.title === "Service") {color = "bg-dark"}
 														if (notification.title === "Account") {color = "bg-primary"}
 														if (notification.title === "Product") {color = "bg-warning"}
 														if (notification.title === "Milestones") {color = "bg-secondary"}
+														if (notification.title === "Transactions") {color = "bg-info"}
+														if (notification.title === "Profile update") {color = "bg-warning"}
+															
+														//else{color = 'bg-primary'}
 												return `<div class="card shadow-lg  bg-background rounded mt-0">
 															<div class="card-body">
 															<div class="${color} card-header">

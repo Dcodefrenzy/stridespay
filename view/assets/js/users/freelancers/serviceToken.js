@@ -41,34 +41,38 @@ exports.serviceTokens = (token, id)=>{
 													<h1>Milestones 
 														<i class="fa fa-tasks" aria-hidden="true"></i>
 													</h1>
-												</div>												
-												<div class="col-12 col-sm-12 col-md-12 text-center">
-													<ul id="timeline">
+												</div>
+												<div class="col-lg-12">
+
+													<!-- Basic timeline -->
 													<div class="">
-															${milestones.map((milestone, index)=>{
-																//console.log(milestone._id)
-													return	`<div class="col-12 col-sm-12 col-md-12">
-																<i class="whatsappLink bg-primary timeline-icon" aria-hidden="true">${index + 1}</i>
-																<li>
-																	<div class="card shadow-lg p-3 mb-2 bg-background bg-radius-sm">
-																		<div class="card-body">
-																			<p class="text-dark"><b>${milestone.milestone}</b></p>
-																			<p><i class="fas fa-info-circle text-green text-left"></i> ${milestone.description}</p>
-																			<p>Milestone price - &#8358;  ${milestone.price.toString().slice(0, -2)}</p>
-																		</div>
-																	</div>
-																</li>
-															</div>`
-														})}
+														<div class="card-body">
+															<div class="dsh-section-title">
+																<h5 class="card-title">Project timeline</h5>
+															</div>
+															<ul class="dsh-timeline">
+																${milestones.map((milestone, index)=>{
+																		console.log(milestone._id)
+																		return `<li>
+																			<div class="dsh-timeline-dot bg-primary"></div>
+																			<h6>${milestone.milestone}</h6>
+																			<p> &#8358;  ${milestone.price.toString().slice(0, -2)}</p>
+																			<p>${milestone.description}</p>
+																			
+																		</li>`;
+																	})}
+															</ul>
+														</div>
 													</div>
-													</ul>
+													<!-- /Basic timeline -->
+
 												</div>
 													<div class="col-12 col-sm-12 col-md-12 mt-3">
 														<div class="row justify-content-center">
 															<form>
 	    													<script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>		
 															  <h4 class="">Total price - &#8358; ${transaction.price.toString().slice(0, -2)}</h4> 
-															  <button  id=${transaction._id} value=${"transactions/payment/token/"+transaction._id} class="btn btn-lg btn-green col-12" type="button" onclick="return loadPaymentHandller(this.id, this.value)">Agreed</button>
+															  <button  id=${transaction._id} value=${"transactions/payment/token/"+transaction._id} class="btn btn-lg btn-success col-12" type="button" onclick="return loadPaymentHandller(this.id, this.value)">Make Payment</button>
 															</form>
 														</div>
 													</div>

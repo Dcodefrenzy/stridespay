@@ -217,7 +217,7 @@
 	opacity: 0.8;
 }
  .side-bar{
- 	width: 250px;
+ 	width: 200px;
  	overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 100px; /* Place content 60px from the top */
   transition: 0.5s; 
@@ -257,6 +257,13 @@ a >.hover-strides:hover {
 	top:0;
 	left: 0;
 }
+.fixed-times{
+	z-index: 100;
+	position: fixed;
+	top:0;
+	left: 0;	
+	width: 100%;
+}
 #timeline{
 	padding: 0;
 	list-style:none;
@@ -270,6 +277,9 @@ a >.hover-strides:hover {
 }
 .hide{
 	display:none;
+}
+.hide-display{
+	display: none;
 }
 
 /* Extra small devices (phones, 600px and down) */

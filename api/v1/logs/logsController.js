@@ -78,14 +78,8 @@ exports.adminLogs =(req, res)=>{
 }
 
 exports.getUserLogs = (req, res)=>{
-	let _loggerId;
-	if (req.doctor) {
-		_loggerId = req.doctor._id;
-	}else{
-		_loggerId = req.user._id;
-	}
 
-	Logs.find({_loggerId:_loggerId}, null, {sort: {_id: -1}}).then((logs)=>{
+	Logs.find({_loggerId:req.user._id}, null, {sort: {_id: -1}}).then((logs)=>{
 		if (!logs) {
 			return res.status(404).send("No logs for this user found");
 		}

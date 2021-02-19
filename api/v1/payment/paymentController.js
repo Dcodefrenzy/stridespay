@@ -4,8 +4,7 @@ const request = require('request-promise');
 
 var paystack = require('paystack')(process.env.PAYSTACK_KEY);
 const paystackLive =  process.env.paystackLive;
-const FLUTTERWAVELOCAL =  process.env.FLUTTERWAVELOCAL;
-const FLUTTERWAVE = process.env.FLUTTERWAVE;
+
 //console.log(process.env.PAYSTACK_KEY)
 /*exports.getAllBanks = (req, res, next)=>{
 	console.log(paystackLive)
@@ -15,6 +14,15 @@ const FLUTTERWAVE = process.env.FLUTTERWAVE;
 		res.status(200).send(bank);
 	})
 }*/
+
+let FLUTTERWAVE;
+if (process.env.Local) {
+	FLUTTERWAVE =  process.env.FLUTTERWAVELOCAL;
+	console.log('using local')
+}else if (!process.env.Local) {
+	FLUTTERWAVE = process.env.FLUTTERWAVE;
+	console.log("using prod")
+}
 
 exports.getAllBanks = (req, res, next)=>{
 		
@@ -87,7 +95,7 @@ exports.payOutUser = (req, res, next)=>{
 }
 exports.verifyPayment=(req, res, next)=>{	
 	const body =  {
-			  "SECKEY": FLUTTERWAVELOCAL,
+			  "SECKEY": FLUTTERWAVE,
 			  "txref": req.body.reference
 			};
 
@@ -137,7 +145,7 @@ exports.verifyPayment=(req, res, next)=>{
 exports.verifyTransactionPayment=(req, res, next)=>{
 	console.log({'res.body':req.body})
 	const body =  {
-			  "SECKEY": FLUTTERWAVELOCAL,
+			  "SECKEY": FLUTTERWAVE,
 			  "txref": req.body.reference
 			};
 			

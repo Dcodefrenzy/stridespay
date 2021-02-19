@@ -71,7 +71,7 @@ const loginUser=(url, token, data)=>{
 }
 
 const userLogin=(url, token, data)=>{
-		loading("spinner", "");
+		loading("spinner", "dsh-preloader bg-white");
 		 request(url, token, "POST", data, (res)=>{
 		 	console.log(res.status)
 	 if (res.status === 200) {
@@ -108,7 +108,7 @@ const userLogin=(url, token, data)=>{
 
 const createNewUser = (url, token, data)=>{
 
-		loading("spinner", "");
+		loading("spinner", "dsh-preloader bg-white");
 		 request(url, token, "POST", data, (res)=>{
 	 if (res.status === 201) {
 	 	loading("spinner", "display-none");
@@ -131,7 +131,7 @@ const createNewUser = (url, token, data)=>{
 
 const registerUser=(url, token, data)=>{
 
-		loading("spinner", "");
+		loading("spinner", "dsh-preloader bg-white");
 		 request(url, token, "POST", data, (res)=>{
 	 if (res.status === 201) {
 	 	alert("Yay! Excited to get going?  A mail has been sent to you.")
@@ -156,7 +156,7 @@ const registerUser=(url, token, data)=>{
 }
 
 const createProduct=(url, token, data)=>{
-		loading("spinner", "");
+		loading("spinner", "dsh-preloader bg-white");
 		 request(url, token, "POST", data, (res)=>{
 	 if (res.status === 201) {
 	 	alert("Post was Successful.")
@@ -182,7 +182,7 @@ const createProduct=(url, token, data)=>{
 }
 
 const createService =(url, token, data)=>{
-			loading("spinner", "");
+			loading("spinner", "dsh-preloader bg-white");
 		 request(url, token, "POST", data, (res)=>{
 	 if (res.status === 201) {
 	 	alert("Service was Successfully created.")
@@ -206,7 +206,7 @@ const createService =(url, token, data)=>{
 	});
 }
 const createMilestone = (url, token, data)=>{
-			loading("spinner", "");
+			loading("spinner", "dsh-preloader bg-white");
 		 request(url, token, "POST", data, (res)=>{
 			 if (res.status === 201) {
 			 	alert("Milestone was Successfully created.")
@@ -237,7 +237,7 @@ const createMilestone = (url, token, data)=>{
 }
 
 const editMilestone = (url, token, data)=>{
-			loading("spinner", "");
+			loading("spinner", "dsh-preloader bg-white");
 		 request(url, token, "POST", data, (res)=>{
 			 if (res.status === 201) {
 			 	alert("Milestone was Successfully Updated.")
@@ -380,7 +380,7 @@ const uploadImage =(url, token, data)=>{
   	}else if (event.target.className === "createProduct") {
   		createProduct(form.id, sessionItem, formElement);
   	}else if (event.target.className === "sendMailVerification") {
-  		loading("spinner", "");
+  		loading("spinner", "dsh-preloader bg-white");
   		sendMailVerification(form.id, sessionItem, formElement);
   	}else if (event.target.className === "userLogin") {
   		userLogin(form.id, sessionItem, formElement);
