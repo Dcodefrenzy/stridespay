@@ -10,6 +10,12 @@ define(function(require, exports, module) {
 
 	spinner.className ="display-none";
 	const showProfile = (user, option, transactions)=>{
+		let skills;
+		if (user.skills === undefined) {
+			skills = "No Skills Added"
+		}else{
+			skills = user.skills;
+		}
 				sideBar(token, id);
 	const html = `<div id="revert" class="bg-background full-height">
 						<div class="dsh-content-wrapper col-12 col-sm-12 col-md-9 offset-md-3 col-lg-10 offset-lg-2 col-xl-10 offset-xl-1">
@@ -370,7 +376,7 @@ define(function(require, exports, module) {
 								<h6 class="card-subtitle">Explore my many talents</h6>
 							</div>
 							<div>
-								${ user.skills.split(",").map((skill)=>{
+								${ skills.split(",").map((skill)=>{
 								return `<span class="btn btn-outline-light mb-1">${skill}</span>`;
 								})}
 							</div>
