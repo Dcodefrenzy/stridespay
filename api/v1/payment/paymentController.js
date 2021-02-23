@@ -166,6 +166,7 @@ console.log(res)
             //check status is success.
             console.log(response.data)
           if (response.status === "success" && response.data.txref == req.body.reference) {
+          	console.log(response.data.txref)
               //check if the amount is same as amount you wanted to charge just to be very sure
               if (response.data.amount == req.data.transaction.price.toString().slice(0, -2)) {
                   console.log("Payment successful");
@@ -200,7 +201,7 @@ console.log(res)
 }
 
 exports.createNewPayment =(req, res, next)=>{
-
+console.log('HERE')
 			const payment = new payments({
 				createdBy:req.user._id,
 				transaction:req.data.transaction._id,
