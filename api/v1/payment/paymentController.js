@@ -154,7 +154,7 @@ exports.verifyTransactionPayment=(req, res, next)=>{
 			console.log({'body':body})
 	request.post(`https://api.flutterwave.com/v3/transactions?tx_ref=${req.body.reference}`, {
 		headers: {"Content-Type": "application/json"},
-		'Authorization': `${FLUTTERWAVE}`
+		'Authorization': `Bearer ${FLUTTERWAVE}`
 		
 	})
 	.then((res)=>{
