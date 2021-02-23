@@ -145,7 +145,7 @@ exports.verifyPayment=(req, res, next)=>{
 
 
 exports.verifyTransactionPayment=(req, res, next)=>{
-	console.log({'res.body':req.body})
+	//console.log({'res.body':req.body})
 	const body =  {
 			  "SECKEY": FLUTTERWAVE,
 			  "txref": req.body.reference
@@ -157,14 +157,14 @@ exports.verifyTransactionPayment=(req, res, next)=>{
 					"Content-Type": "application/json",
 					'Authorization': `Bearer ${FLUTTERWAVE}`
 				}
-		
 	})
 	.then((res)=>{
-console.log(res)
+//console.log(res)
 		const response = JSON.parse(res)
 		console.log({'response':response})
             //check status is success.
             console.log(response.data)
+            console.log(response.data.data)
           if (response.status === "success" && response.data.txref == req.body.reference) {
           	console.log(response.data.txref)
               //check if the amount is same as amount you wanted to charge just to be very sure
