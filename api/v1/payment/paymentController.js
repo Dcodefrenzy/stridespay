@@ -152,13 +152,13 @@ exports.verifyTransactionPayment=(req, res, next)=>{
 			};
 			
 			console.log({'body':body})
-	request.post(`https://api.flutterwave.com/v3/transactions/tx_ref=${req.body.reference}`, {
+	request.post(`https://api.flutterwave.com/v3/transactions?tx_ref=${req.body.reference}`, {
 		headers: {"Content-Type": "application/json"},
-		'Authorization': `Bearer ${FLUTTERWAVE}`
+		'Authorization': `${FLUTTERWAVE}`
 		
 	})
 	.then((res)=>{
-
+console.log(res)
 		const response = JSON.parse(res)
 		console.log({'response':response})
             //check status is success.
