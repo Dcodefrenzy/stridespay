@@ -60,7 +60,7 @@
             }],
             onclose: function() {},
             callback: function(response) {
-              console.log(response.data.txRef)
+              console.log(response.data)
               console.log(response.data.tx)
                 var txref = response.data.tx.txRef; // collect txRef returned and pass to a                    server page to complete status check.
                 
