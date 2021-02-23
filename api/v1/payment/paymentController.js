@@ -15,12 +15,14 @@ const paystackLive =  process.env.paystackLive;
 	})
 }*/
 
-let FLUTTERWAVE;
+let FLUTTERWAVE, FLUTTERWAVEV;
 if (process.env.Local) {
 	FLUTTERWAVE =  process.env.FLUTTERWAVELOCAL;
+	FLUTTERWAVEV = process.env.FLUTTERWAVEVLOCAL;
 	console.log('using local')
 }else if (!process.env.Local) {
 	FLUTTERWAVE = process.env.FLUTTERWAVE;
+	FLUTTERWAVEV = process.env.FLUTTERWAVEV;
 	console.log("using prod")
 }
 
@@ -100,7 +102,7 @@ exports.verifyPayment=(req, res, next)=>{
 			};
 
 			console.log(body)
-	request.post("https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/v2/verify", {
+	request.post(FLUTTERWAVEV, {
 		headers: {"Content-Type": "application/json"},
 		body:JSON.stringify(body)
 	})
@@ -150,7 +152,7 @@ exports.verifyTransactionPayment=(req, res, next)=>{
 			};
 			
 			console.log({'body':body})
-	request.post("https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/v2/verify", {
+	request.post(FLUTTERWAVEV, {
 		headers: {"Content-Type": "application/json"},
 		body:JSON.stringify(body)
 	})
