@@ -164,7 +164,7 @@ console.log(res)
 		const response = JSON.parse(res)
 		console.log({'response':response})
             //check status is success.
-            console.log("get data")
+            console.log(response.data)
           if (response.status === "success" && response.data.txref == req.body.reference) {
               //check if the amount is same as amount you wanted to charge just to be very sure
               if (response.data.amount == req.data.transaction.price.toString().slice(0, -2)) {
