@@ -60,11 +60,12 @@
             }],
             onclose: function() {},
             callback: function(response) {
-              console.log(response.data.data)
+              console.log(response)
+              console.log(response.data.status)
               console.log(response.data.data.txRef)
                 var txref = response.data.data.txRef; // collect txRef returned and pass to a                    server page to complete status check.
                 
-                if (response.data.data.responsemessage === "successful" && response.data.respcode === "00" && txref !== undefined) {
+                if (response.data.status === "success"  && txref !== undefined) {
                   console.log(response.data)
 
                     window.location = "/users/"+url+"/"+txref;
