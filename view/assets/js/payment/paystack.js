@@ -45,8 +45,10 @@
 
   exports.flutterwave = (payment, id, url)=>{
    let email = payment.user.email === undefined?"stridespay@gmail.com":payment.user.email;
+   let pBFKey = window.location.hostname === "stridespay.com"?"FLWSECK-96b1af70aa8a2e5fb4b4f0427d95672b-X":"FLWPUBK_TEST-10ea59347252ad28408d18b34a000edc-X";
+       console.log(pBFKey)
         var x = getpaidSetup({
-            PBFPubKey: "FLWPUBK_TEST-10ea59347252ad28408d18b34a000edc-X",
+            PBFPubKey: pBFKey,
             customer_email: email,
             amount: payment.transaction.price.toString().slice(0, -2),
             customer_phone: payment.user.phonenumber,

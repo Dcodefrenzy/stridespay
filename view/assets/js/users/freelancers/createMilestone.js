@@ -11,7 +11,7 @@ define(function(require, exports, module) {
 			<!-- Breadcrumbs -->
 			<div class="breadcrumb-wrapper d-flex align-items-start align-items-sm-center justify-content-between flex-column flex-sm-row">
 				<div class="breadcrumb-wrapper--inner d-flex flex-column-reverse">
-					<h1>Service</h1>
+					<h1>Milestones</h1>
 					<ol class="breadcrumb style-1">
 						<li class="breadcrumb-item"><a href="/users/dashboard">Dashboard</a></li>
 						<li class="breadcrumb-item"><a href="/users/services/${id}">Service</a></li>
