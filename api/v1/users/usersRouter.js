@@ -78,6 +78,13 @@ router.route("/client-database")
 router.route("/change/password")
 	.patch(controller.userAuthenticate, controller.passwordChange, logsController.addLogs)
 
+
+router.route("/forget/password")
+    .post(controller.findUserByMail, mailerController.sendPasswordMail)
+
+router.route("/update/password")
+	.patch(controller.userAuthenticate, controller.newPasswordChange, logsController.addLogs)
+
 router.route("/logout")
 	.patch(controller.userAuthenticate, controller.logout, logsController.addLogs)
 	

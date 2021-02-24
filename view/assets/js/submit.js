@@ -343,6 +343,46 @@ const changePassword = (url, token, data)=>{
 	});	
 }
 
+const newPassword = (url, token, data)=>{
+	request(url, token, "PATCH", data, (res)=>{
+		 if (res.status === 201) {
+		 	alert("Your password has been changed successfully.");
+			window.location = "/users/login";
+		}else if(res.status === 401){
+		 	alert("Your token has expired.");
+		 	window.location = "/user/forget-password";
+		}else if(res.status === 403){
+			loading("spinner", "display-none")
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
+			handleError(res, "is invalid");
+		}else if(res.status === 400){
+			loading("spinner", "display-none")
+			handleError(res.message, "is invalid");
+		}
+	});	
+}
+
+
+const forgetPassword = (url, token, data)=>{
+		request(url, token, "POST", data, (res)=>{
+		 if (res.status === 200) {
+		 	alert(res.message);
+			window.reload();
+		}else if(res.status === 403){
+			loading("spinner", "display-none")
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
+			handleError(res, "is invalid");
+		}else if(res.status === 400){
+			loading("spinner", "display-none")
+			handleError(res.message, "is invalid");
+		}
+	});	
+}
+
 const uploadImage =(url, token, data)=>{
 	        const formData = new FormData()
         	formData.append('image', data);
@@ -407,6 +447,10 @@ const uploadImage =(url, token, data)=>{
   	}else if (event.target.className === "uploadImage") {
   		const image = document.getElementById("profile-image");
   		uploadImage(form.id, sessionItem, image.files[0]);
+  	}else if (event.target.className === "forgetPassword") {
+  		forgetPassword(form.id, sessionItem, formElement);
+  	}else if (event.target.className === "newPassword") {
+  		newPassword(form.id, {token:formElement.token, id:""}, formElement);
   	}
 }
 

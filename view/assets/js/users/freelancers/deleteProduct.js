@@ -12,8 +12,8 @@ define(function(require, exports, module) {
 	spinner.className ="display-none";
 		const deleteProductHandller = (product)=>{
 
-					const html = `<div id="revert" class="bg-background container">
-				<div class="container">
+					const html = `<div id="revert" class="bg-background container pt-5">
+				<div class="container pt-5">
 				<div id="loading"></div>
 					<div class="row mt-2 p-3">
 					<div class="col-12 col-sm-12 col-md-9 offset-md-3 col-lg-9 offset-lg-3">
@@ -26,9 +26,9 @@ define(function(require, exports, module) {
 					<h3>${product.product.toUpperCase()}</h3>
 					<p>${product.price.toString().slice(0, -2)}</p>
 					<p>${product.description}</p>
-						<div class="row justify-content-center">
-								<button class="btn-sm btn-green col-md-5 col-sm-6 col-12 m-1" id=${`/users/products/${product._id}`} value="No" name=${token}  onclick="return deleteHandler(event, this.id, this.value, this.name)">No</button>
-								<button  class="btn-sm btn-danger col-md-5 col-sm-6 col-12 m-1" id=${"products/product/delete/"+product._id} value="Yes" name=${token}  onclick="return deleteHandler(event, this.id, this.value, this.name)">Yes</button>
+						<div class="">
+								<button class="btn-sm btn-green col-md-5 col-sm-12 col-12 m-1" id=${`/users/products/${product._id}`} value="No" name=${token}  onclick="return deleteHandler(event, this.id, this.value, this.name)">No</button>
+								<button  class="btn-sm btn-danger col-md-5 col-sm-12 col-12 m-1" id=${"products/product/delete/"+product._id} value="Yes" name=${token}  onclick="return deleteHandler(event, this.id, this.value, this.name)">Yes</button>
 						</div>
 				</div>
 			</div>

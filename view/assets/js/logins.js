@@ -42,6 +42,7 @@ define(function(require, exports, module) {
 									<input type="password" name="password" oninput="return returnValidation(this.value, this.name)" class="form-control mb-3" placeholder="Enter your password here" required>
 									<input type="submit" name="submit" class="form-control btn btn-primary btn-block" value="Login">
 									<p class="text-dark">sign up if you dont have an account <a id="login" onclick="return registerSessionForm(event, id)">Signup</a></p>
+									<p class="text-dark"> <a href="/users/forget-password">Forget password?</a></p>
 									</div>
 								</div>
 								<div class="form-group">

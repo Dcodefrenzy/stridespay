@@ -179,3 +179,27 @@ console.log(mailOptions)
 }
 
 
+exports.sendPasswordMail = (req, res, next) =>{
+	const usermail = req.data.email;
+	const name = req.data.name;
+	const url = req.data.link;
+	const topic = req.data.title; 
+	const message = req.data.logsDescription;
+	let mailOptions = {
+		to: usermail,
+		from: `"stridespay" stridespay@gmail.com`,
+		subject: 'Stridespay Notification',
+		text: '',
+		html: `<div style="border:2px solid rgba(0,0,0,.125); border-radius: 10px; padding:20px;"><img style="50%" src="https://www.medikcare.com/assets/images/strides.png" /><h1 style="text-align:center">${topic}</h1><p><b>Dear ${name} </b></p><p style="margin-bottom:50px">${message}.</p> <a href=${url} style="background-color:green; border:0px; border-radius:10px; width:100%; padding:10px;  color:white;">Click Here</a><div>`,
+	  };
+
+		transporter.sendMail(mailOptions, function(error, info){
+		  if (error) {
+			console.log(error);
+		  res.status(200).send({status:403, message:"Mail not sent"})
+		  } else {
+		    console.log('Email sent: ' + info.response);
+		  res.status(200).send({status:200, message:"Mail sent"})
+		  }
+		});
+}

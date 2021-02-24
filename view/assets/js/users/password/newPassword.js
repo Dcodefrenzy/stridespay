@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-	exports.loginSession=(event, id)=>{	
+	exports.newPassword=(event, id)=>{	
 
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
@@ -8,8 +8,6 @@ define(function(require, exports, module) {
 	nav.className = "display-none";
 	navIcon.className = "display-none";
 	spinner.className ="display-none";
-	const loginEmail = require("../users/logins/loginEmail");
-	const loginPhone = require("../users/logins/loginPhone");
 
 		let html = `<main class="body-content clearfix" id="login">
 
@@ -28,26 +26,17 @@ define(function(require, exports, module) {
 				<div class="dsh-auth-form d-flex flex-column align-items-center justify-content-between py-5">
 					<div class="text-center mb-3">
 						<img src="/assets/images/fav1.png" class="mb-3" alt="Dashield">
-					<h1>Login</h1>
-					<div class="row text-center">
-						<button class="btn-sm btn-success m-2" onclick="return loginEmail(event, 'userLogin')">Login with Email</button>
-						<button class="btn-sm btn-dark m-2" onclick="return loginPhone(event, 'userLogin')">Login with Phone</button>
+					<h1>Create New Password</h1>
 					</div>
-					</div>
-					<div class="dsh-auth-form-inner" id="changeLogin">
-						<form id="users/login" class="userLogin" name="submitForm" onsubmit="return register(event)">
-								<p id="error-message"></p>
-								<div class="form-group">
-									<label id="error-message"></label>
-									<label id="error-email">Email</label>
-									<input type="email" name="email" oninput="return returnValidation(this.value, this.name)"  class="form-control" placeholder="Enter your mail here" required>
-								</div>									
+					<div class="dsh-auth-form-inner">
+						<form id="users/update/password" class="newPassword" name="submitForm" onsubmit="return register(event)">
+								<p id="error-message"></p>									
 								<div class="form-group">
 									<label id="error-password">Password</label>
+									<input type="hidden" name="token" value=${id} />
 									<input type="password" name="password" oninput="return returnValidation(this.value, this.name)" class="form-control mb-3" placeholder="Enter your password here" required>
-									<input type="submit" name="submit" class="form-control btn btn-primary btn-block" value="Login">
+									<input type="submit" name="submit" class="form-control btn btn-primary btn-block" value="New Password">
 									<p class="text-dark">sign up if you dont have an account <a href="/users/signup">Signup</a></p>
-									<p class="text-dark"> <a href="/users/forget-password" class="text-primary">Forget password?</a></p>
 									</div>
 								</div>
 								<div class="form-group">

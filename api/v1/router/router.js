@@ -123,6 +123,12 @@ router.route("/change/password")
 router.route("/milestone/:id")
 	.get(loader.load)
 
+router.route("/forget-password")
+	.get(loader.load)
+
+router.route("/new-password/:id")
+	.get(loader.load)
+
 
 
 

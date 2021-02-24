@@ -76,13 +76,12 @@ exports.payOutUser = (req, res, next)=>{
 	const body = {      			
 			  "recipient": req.data.bank.recipient,
 			  "amount": req.data.wallet.amount.toString().slice(0, -2),
-			  "seckey": FLUTTERWAVE,
-			  "narration": "Paymerchant Transfer",
+			  "narration": "Stridespay Transfer",
 			  "currency": "NGN",
 			  "beneficiary_name": req.data.bank.accountName,
 		}
-	request.post("https://api.ravepay.co/v2/gpx/transfers/create", {
-		headers: {"Content-Type": "application/json"},
+	request.post("https://api.flutterwave.com/v3/transfers", {
+		headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${FLUTTERWAVE}`},
 		body:JSON.stringify(body)
 	}).then((response)=>{
 		console.log(JSON.parse(response));

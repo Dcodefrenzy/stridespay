@@ -31,6 +31,8 @@ define(function(require, exports, module) {
 	const {projectAnalysisHandller} = require("users/analysis/projectAnalysis");
 	const {showContracts} = require("users/transactions/contracts/contracts");
 	const {displayNotification} = require("users/notifications");
+	const {forgetPassword} = require("users/password/forgetPassword");
+	const {newPassword} = require("users/password/newPassword");
 	let styles; 
 	let sessionItem = sessionStorage.getItem("user")==="undefined"?{"token":"No token"}: sessionStorage.getItem("user") === "null" ?{"token":"No token"}:sessionStorage.getItem("user") === null?{"token":"No token1"}:JSON.parse(sessionStorage.getItem("user")); 
 
@@ -143,6 +145,13 @@ define(function(require, exports, module) {
 				case "/users/project-analysis":
 				projectAnalysisHandller(sessionItem, path[0]);
 				break;
+				case "/users/forget-password":
+				forgetPassword(sessionItem, path[0]);
+				break;
+				case "/users/new-password/"+path[3]:
+				newPassword(sessionItem, path[3]);
+				break;
+				
 				
 				
 			}

@@ -15,39 +15,53 @@ define(function(require, exports, module){
 
 		const showMilestone = (milestone)=>{
 			sideBar(token, id);
-					const html = `<div id="milestone" class="">
-								<div class="container">
-									<div class="row align-items-center mt-4 p-0">
-										<div class="col-12 col-sm-12  col-md-9 offset-md-3 col-lg-9 offset-lg-3">
-											<a href=${"/users/services/"+milestone.product}><i class="fa fa-arrow-left text-dark"></i></a>
+					const html = `<div  id="milestone" class="">
+										<!-- Body Content Wrapper -->
+								<div class="dsh-content-wrapper col-12 col-sm-12 col-md-9 offset-md-3 col-lg-10 offset-lg-2 col-xl-10 offset-xl-1">
+
+									<!-- Breadcrumbs -->
+									<div class="breadcrumb-wrapper d-flex align-items-start align-items-sm-center justify-content-between flex-column flex-sm-row">
+										<div class="breadcrumb-wrapper--inner d-flex flex-column-reverse">
+											<h1>Service</h1>
+											<ol class="breadcrumb style-1">
+												<li class="breadcrumb-item"><a href="/users/dashboard">Dashboard</a></li>
+												<li class="breadcrumb-item"><a href=${"/users/services/"+milestone.product}>Service</a></li>
+												<li class="breadcrumb-item" aria-current="page">Milestone</li>
+											</ol>
+										</div>
+									</div>
+
+
+									<div class="row">
+
+										<div class="col-md-12">
 											<div class="row">
-												<div class="col-12 col-sm-12 col-md-12 col-lg-12  mt-2">
-													<div class="card bg-background shadow-lg  mb-5  rounded p-3">
-														<div class="col-12 col-sm-8 offset-sm-2 col-md-8  text-center">
-															<p><i class="fa fa-thumbtack" aria-hidden="false"></i> Milestone</p>			
+												<div class="col-md-12">
+													<div class="card">
+														<div class="card-header bg-light media-body">
+															<h5 class="card-title">${milestone.milestone.toUpperCase()}</h5>
+															<h6 class="card-subtitle">&#8358; ${milestone.price.toString().slice(0, -2)}</h6>
 														</div>
-														${
-													 `<div class="col-12">
-															<div class="card shadow-lg  bg-background rounded mt-0">
-																<div class="card-body text-center">
-																<div class="row justify-content-center">
-																	 <button id=${id} class="btn-sm btn-green col-md-5 col-sm-6 col-12 m-1" value=${token.token} name=${token._id} onclick="return editMilestone(event, this.id, this.value, this.name)">Update  <i class="fas fa-edit" aria-hidden="true"></i></button>
-																	 <button id=${id} class="btn-sm btn-danger col-md-5 col-sm-6 col-12 m-1" value=${token.token} name=${token._id} onclick="return deleteMilestone(event, this.id, this.value, this.name)">Delete  <i class="fas fa-trash" aria-hidden="true"></i></button>
-																</div>
-																	<h5 class="mt-3">${milestone.milestone.toUpperCase()}</h5>
-																	<span>&#8358; ${milestone.price.toString().slice(0, -2)}</span>
-																	<p>${milestone.description}</p>
-																</div>
+														<div class="card-body">
+															<h5 class="card-title">Service Description</h5>
+															<p class="card-text">${milestone.description}</p>
+															<div class="text-center">
+																<a class="btn btn-success text-white" id=${id} target=${token.token} name=${token._id} onclick="return editMilestone(event, this.id, this.target, this.name)"><i class="lni-enter"></i>Update Milestone</a>
+																<a  class="btn btn-danger text-white" id=${id}  target=${token.token} name=${token._id} onclick="return deleteMilestone(event, this.id, this.target, this.name)"><i class="lni-trash"></i>Delete Milestone</a>
 															</div>
-														</div>`
-														}
+														</div>
+														<div class="card-footer bg-light">
+															Created: ${moment(milestone.dateCreated).format("L")}
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
+
 								</div>
-							 </div>`;
+				
+						 </div>`;
 
 			 				body.insertAdjacentHTML('beforeend', html);
 		}

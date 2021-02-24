@@ -479,12 +479,36 @@ exports.passwordChange =(req, res, next) =>{
 	})
 }
 
+exports.findUserByMail = (req, res,next)=> {
+	const email = req.body.email;
+
+	users.findOne({email:email}).then((user)=> {
+	if (!user) { 
+		const err ={status:403, message:"Did not find a user with this mail, please enter the mail you used for registration or register by using the link below."};
+		return res.status(403).send(err)
+	}else {
+		return user.generateAuthToken().then((token)=>{
+			if(!token) {
+				const err = {status:403, message:"unable to generate token"}
+				return res.status(403).send(err);
+			}else{	
+				req.data = {status:201,token:token, email:user.email, name:user.firstname +" "+ user.lastname, _id:user._id,  loggerUser:"User", logsDescription:"There was a request to update your password. Please click the link below to get a new password",title:"New Password",link:`stridespay.com/users/new-password/${token}`}
+				next();
+			}
+		})
+	}
+	}).catch((e) => {
+		return res.status(403).send(e);
+	})
+}
+
+
 //Forget password function.
 exports.newPasswordChange =(req, res, next) =>{
 	const _id = req.user._id;
 	users.findById({_id}).then((user)=>{ 
 		const userPassword = new users({
-			password : req.body.newPassword,
+			password : req.body.password,
 		})
 		users.findOneAndUpdate({_id:_id}, {$set: {password:userPassword.password}}, {new:true}).then((user)=>{
 				if(!user) {
