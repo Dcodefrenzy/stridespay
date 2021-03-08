@@ -33,6 +33,7 @@ define(function(require, exports, module) {
 	const {displayNotification} = require("users/notifications");
 	const {forgetPassword} = require("users/password/forgetPassword");
 	const {newPassword} = require("users/password/newPassword");
+	const {editContract} = require("users/transactions/contracts/editContract");
 	let styles; 
 	let sessionItem = sessionStorage.getItem("user")==="undefined"?{"token":"No token"}: sessionStorage.getItem("user") === "null" ?{"token":"No token"}:sessionStorage.getItem("user") === null?{"token":"No token1"}:JSON.parse(sessionStorage.getItem("user")); 
 
@@ -150,6 +151,9 @@ define(function(require, exports, module) {
 				break;
 				case "/users/new-password/"+path[3]:
 				newPassword(sessionItem, path[3]);
+				break;
+				case "/users/contract/update/"+path[4]:
+				editContract(sessionItem, path[4])
 				break;
 				
 				

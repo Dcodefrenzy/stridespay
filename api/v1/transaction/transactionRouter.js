@@ -36,6 +36,18 @@ router.route("/service/tokens/:id")
 router.route("/payment/token/:id")
 	.get(usersController.userAuthenticate, controller.findOneTransactionByIdForPayment)
 
+router.route("/manage/:id")
+	.get(usersController.userAuthenticate, controller.findOneTransactionByIdForEdit)
+
+router.route('/edit/:id')
+	.patch(usersController.userAuthenticate, controller.updateUserTransaction, logsController.addLogs)
+
+router.route('/milestone/edit/:id/:milestoneId')
+	.patch(usersController.userAuthenticate, controller.editTransactionMilestone, controller.updateTransactionPrice, logsController.addLogs)
+
+router.route('/milestone/:id/:milestoneId')
+	.get(usersController.userAuthenticate, controller.findOneTransactionMilestone)
+
 
 router.route("/read/token/:id")
 	.get(usersController.userAuthenticate, controller.readTransactionById)

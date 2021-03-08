@@ -9,6 +9,7 @@ exports.showServiceTransaction = (token, id)=>{
 	const {copyText} = require("../../copyText");
 	const {createMilestone} = require("./createMilestone");
 	const {sideBar} = require("../sidebar");
+	const {editContractMilestone} = require("./../transactions/contracts/editContractMilestone");
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
 	spinner.className ="display-none";
@@ -26,7 +27,7 @@ exports.showServiceTransaction = (token, id)=>{
 					backLink = "/users/products/"+transaction.product;
 
 				}
-				const html = `<div class="pt-5">
+				const html = `<div  id="contract" class="pt-5">
 							<div class="container">
 								<div class="row align-items-center mt-5 p-0">
 									<div class="col-12 col-sm-12 col-md-9 offset-md-3 col-lg-10 offset-lg-2 col-xl-10 offset-xl-1">
@@ -52,9 +53,10 @@ exports.showServiceTransaction = (token, id)=>{
 													<p class="float-right"> <b>Created:</b> ${moment(transaction.dateCreated).format("L")}</p>
 												</div>
 												<div class="col-12 col-sm-12 col-md-12  mt-2">
-													<h6><i class="fa fa-circle text-green" aria-hidden="true"></i> Service: ${transaction.productName}</h6>
+													<h6><i class="fa fa-circle text-green" aria-hidden="true"></i> Service: ${transaction.productName}</h6>										
 													<small><b>Overview: </b>${transaction.description}</small>
 													<p class="text-success">Total price - &#8358;  ${transaction.price.toString().slice(0, -2)}</p>
+													<a href="/users/contract/update/${transaction._id}" class="mt-2 col-md-12  col-sm-12 col-12 btn-lg btn-primary text-white">Edit</a>
 													<div class="col-lg-12">
 
 														<!-- Basic timeline -->
@@ -71,6 +73,7 @@ exports.showServiceTransaction = (token, id)=>{
 																				<h6>${milestone.milestone}</h6>
 																				<p> &#8358;  ${milestone.price.toString().slice(0, -2)}</p>
 																				<p>${milestone.description}</p>
+																				<a class="btn btn-success text-white" id=${id} target=${token.token} name=${milestone._id} onclick="return editContractMilestone(event, this.id, this.target, this.name)"><i class="lni-enter"></i>Update Milestone</a>
 																				
 																			</li>`;
 																		})}

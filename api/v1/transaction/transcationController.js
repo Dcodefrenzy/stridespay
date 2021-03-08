@@ -189,7 +189,7 @@ exports.deleteTransactionById = (req, res, next)=>{
 
 exports.findTransactionForPayment = (req, res, next)=>{
 
-    transactions.findById({_id:req.params.id}).then((transaction)=>{
+    transactions.findById({_id:req.params.id, paymentStatus:false}).then((transaction)=>{
         if (!transaction) {
             const err = {status:403, message:"This transaction Do not exist anymore."}
             return res.status(403).send(err);
@@ -205,6 +205,88 @@ exports.findTransactionForPayment = (req, res, next)=>{
         res.status(404).send(err);
     });
 
+}
+
+exports.findOneTransactionMilestone=(req, res)=>{
+    const _id= req.params.id;
+    const milestoneId = req.params.milestoneId;
+    console.log(_id)
+    console.log(milestoneId)
+    transactions.findOne({"_id":_id, 'paymentStatus':false, "milestones._id":milestoneId}).then((transactionMilestone)=>{        
+    if (!transactionMilestone) {
+        res.status(404).send({status:404,message:"No transaction milestone with this ID"});  
+    }
+   
+        const transaction = {status:200, transactionMilestone:transactionMilestone};
+        res.status(200).send(transaction);
+    
+    }).catch((e)=>{
+        console.log(e)
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(403).send(err);
+    });
+    
+}
+
+
+exports.editTransactionMilestone=(req, res, next)=>{
+    const _id= req.params.id;
+    const milestoneId = req.params.milestoneId;
+    const price  = req.body.price+"00"
+    console.log(_id)
+    console.log(price)
+    transactions.findOneAndUpdate({"_id":_id, "milestones._id":milestoneId}, {$set: {'milestones.$.milestone':req.body.title, 'milestones.$.description':req.body.description, 'milestones.$.price':price}}, {new: true}).then((transactionMilestone)=>{        
+    if (!transactionMilestone) {
+        res.status(404).send({status:404,message:"No transaction milestone with this ID"});  
+    }
+        const newTransaction = {status:201, transactionMilestone:transactionMilestone, milestones:transactionMilestone.milestones, _id:req.user._id};
+        console.log(newTransaction.transactionMilestone.milestones)
+         req.data = newTransaction;
+        req.data = newTransaction;
+        req.data.loggerUser = "Admin";
+        req.data.logsDescription = "Transaction milestone updated.";
+        req.data.title = "Transaction";
+        next();
+    }).catch((e)=>{
+        console.log(e)
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(403).send(err);
+    });
+    
+}
+
+
+
+ exports.updateTransactionPrice = async(req, res, next)=>{
+        const sum = req.data.transactionMilestone.milestones.map((milestone)=>{
+                let price  =+ milestone.price;
+                return price;
+        }).reduce((total, amount) => total + amount); 
+        transactions.findOneAndUpdate({_id:req.data.transactionMilestone._id}, {$set: {price:sum}}).then((transaction)=>{
+            console.log(transaction);
+            next();
+        })
+}
+
+exports.updateUserTransaction = (req, res, next)=>{
+    transactions.findOneAndUpdate({_id:req.params.id, paymentStatus:false}, {$set:{productName:req.body.service, description:req.body.description}}, {new: true}).then((transaction)=>{
+            if (!transaction) {
+            const err = {status:403, message:"This transaction has either been paid for and do not exist anymore for editing."}
+            return res.status(403).send(err);
+            }else if (transaction) {
+                            const transactionData = {status:201, transaction:transaction, _id:req.user._id};
+            req.data = transactionData;
+            req.data.loggerUser = "User";
+            req.data.logsDescription = `You edited your contract with the title ${req.body.service}`;
+            req.data.title = "Contract";
+            next();
+
+            }
+    })
 }
 exports.findOneTransactionById = (req, res, next)=>{
     transactions.findOne({_id:req.params.id, transactionComplete:false}).then((transaction)=>{
@@ -226,7 +308,7 @@ exports.findOneTransactionById = (req, res, next)=>{
 }
 
 exports.findOneTransactionByIdForPayment = (req, res)=>{
-    transactions.findOne({_id:req.params.id,  transactionComplete:false}).then((transaction)=>{
+    transactions.findOne({_id:req.params.id,  paymentStatus:false}).then((transaction)=>{
         if (!transaction) {
             const err = {status:403, message:"This transaction has either been used and do not exist anymore."}
             return res.status(403).send(err);
@@ -247,6 +329,30 @@ exports.findOneTransactionByIdForPayment = (req, res)=>{
     });
 }
 
+exports.findOneTransactionByIdForEdit = (req, res)=>{
+    console.log(req.params)
+    transactions.findOne({_id:req.params.id,  paymentStatus:false}).then((transaction)=>{
+        if (!transaction) {
+            const err = {status:403, message:"This transaction has either been used and do not exist anymore."}
+            return res.status(403).send(err);
+        }
+        //console.log(transaction)
+        if (req.user._id != transaction.merchant) {
+            console.log('elseIF')
+            const err = {status:403, message:"You cannot edit this contract"}
+            return res.status(403).send(err);
+        }else{
+            console.log('else')
+        res.status(200).send({status:200,transaction:transaction, user:req.user});
+        }
+    }).catch((e)=>{
+        console.log(e)
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+}
 
 
 exports.findServiceTransactionById= (req, res)=>{

@@ -65,7 +65,7 @@ define(function(require, exports, module) {
 																<input class="form-control mb-3" id=${transaction._id} type="text" value=${window.location.hostname+"/users/"+serviceLink+"/"+transaction.creator.replace(" ", "-")+"/token/"+transaction._id} readonly="readonly"/>
 																	<a onclick="return copyText(this.target)" target=${transaction._id} class="mt-2 col-md-12  col-sm-12 col-12 btn-sm btn-green text-white">Copy</a>
 																	<a href="/users/services/token/${transaction._id}" class="mt-2 col-md-12  col-sm-12 col-12 btn-sm btn-green text-white">View Contract</a>
-																	<a  class="mt-2 col-md-12 col-sm-12 col-12 btn-sm btn-danger text-white" id=${transaction._id} target="contract" name=${token.token} onclick='return deleteTransaction(event, this.id, this.target, this.name)'>Delete</a>										
+																	<a  class="mt-2 col-md-12 col-sm-12 col-12 btn-sm btn-danger text-white" id=${transaction._id} target="contract" name=${token.token} onclick='return deleteTransaction(event, this.id, this.target, this.name)'>Delete</a>
 																<div style="margin-top:5px;" class="mt-2">
 												                  	<p style="margin-bottom:2px">Share this with your Client</p>										                    
 												                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=${window.location.hostname+"/users/"+serviceLink+"/"+transaction.creator.replace(" ", "-")+"/token/"+transaction._id}&quote=Project Title: ${transaction.productName} Project description: ${description} Created by-${transaction.creator.replace(/(<([^>]+)>)/gi, "")} Total price - &#8358;  ${transaction.price.toString().slice(0, -2)}"  id="blake" class="facebookLink"><i class="fab fa-facebook-f"></i></a>

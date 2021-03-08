@@ -129,6 +129,9 @@ router.route("/forget-password")
 router.route("/new-password/:id")
 	.get(loader.load)
 
+router.route("/contract/update/:id")
+	.get(loader.load)
+
 
 
 

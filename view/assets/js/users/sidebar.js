@@ -252,7 +252,7 @@ define(function (require, exports, module) {
 						 		<div class="row justify-content-center align-content-center">
 						 		${image}
 								<a href="/users/upload/image" class="col-7 text-center"><small >edit</small></a>
-						 		<small class="col-12 offset-3 text-green text-center"><b>@${user.name}</b></small>
+						 		<small class="col-12 text-green text-center"><b>@${user.name}</b></small>
 						 		</div>
 						 	</div>
 						 </div>

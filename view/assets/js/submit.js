@@ -364,6 +364,47 @@ const newPassword = (url, token, data)=>{
 	});	
 }
 
+const editContract = (url, token, data)=>{
+	request(url, token, "PATCH", data, (res)=>{
+		 if (res.status === 201) {
+		 	alert("Your Contract has been edited successfully.");
+			location.reload();
+		}else if(res.status === 401){
+		loading("spinner", "display-none");
+	const body = document.getElementById("body");
+		}else if(res.status === 403){
+			loading("spinner", "display-none")
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
+			handleError(res, "is invalid");
+		}else if(res.status === 400){
+			loading("spinner", "display-none")
+			handleError(res.message, "is invalid");
+		}
+	});	
+
+}
+const editContractMilestone = (url, token, data)=>{
+	request(url, token, "PATCH", data, (res)=>{
+		 if (res.status === 201) {
+		 	alert("Your Contract milestone has been edited successfully.");
+			location.reload();
+		}else if(res.status === 401){
+		loading("spinner", "display-none");
+	const body = document.getElementById("body");
+		}else if(res.status === 403){
+			loading("spinner", "display-none")
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
+			handleError(res, "is invalid");
+		}else if(res.status === 400){
+			loading("spinner", "display-none")
+			handleError(res.message, "is invalid");
+		}
+	});
+}
 
 const forgetPassword = (url, token, data)=>{
 		request(url, token, "POST", data, (res)=>{
@@ -451,7 +492,12 @@ const uploadImage =(url, token, data)=>{
   		forgetPassword(form.id, sessionItem, formElement);
   	}else if (event.target.className === "newPassword") {
   		newPassword(form.id, {token:formElement.token, id:""}, formElement);
+  	}else if (event.target.className === "editContract") {
+  		editContract(form.id, sessionItem, formElement);
+  	}else if (event.target.className === "editContractMilestone") {
+  		editContractMilestone(form.id, sessionItem, formElement);
   	}
+
 }
 
 
