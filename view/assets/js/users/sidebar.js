@@ -264,7 +264,7 @@ define(function (require, exports, module) {
 						          <p class="hover-strides"><a href="/users/projects" class="text-green"><i class="fa fa-plus-circle" aria-hidden="true"></i> New Project</a></p>
 						          <p class="hover-strides"><a href="/users/contracts" class="text-green"><i class="fa fa-handshake" aria-hidden="true"></i> Contracts</a></p>
 						          <p class="hover-strides"><a href="/users/client-database" class="text-green"><i class="fa fa-users" aria-hidden="true"></i> Database</a></p>
-						          <p class="hover-strides"><a href="/users/withdraw" class="text-green"><i class="fa fa-landmark" aria-hidden="true"></i> Wallet</a></p>
+						          <p class="hover-strides"><a href="/users/wallets" class="text-green"><i class="fa fa-landmark" aria-hidden="true"></i> Wallet</a></p>
 						          <h6 class="mt-4"><b>Project Tracking</b></h6>
 						          <p class="hover-strides"><a href="/users/transactions/client" class="text-green"><i class="fa fa-tasks" aria-hidden="true"></i> As Client </a></p>
 						          <p class="hover-strides"><a href="/users/transactions/freelancer" class="text-green"><i class="fa fa-tasks" aria-hidden="true"></i> As Freelancer</a></p>

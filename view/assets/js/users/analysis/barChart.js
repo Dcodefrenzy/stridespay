@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
-	exports.getBarChart = (token,  link, year)=>{
-			const {getRequest} = require("request");
+	exports.getBarChart = (token,  link, currency, year)=>{
+			const {request} = require("request");
 			const {loading} = require("../../loading");
 			const {loginForm} = require("../../logins");
 			const {copyText} = require("../../copyText");
@@ -203,7 +203,7 @@ define(function(require, exports, module) {
 			}
 
 
-			getRequest(link, token, "GET", loadDashboard)
+			request(link, token, "POST", {"currency":currency}, loadDashboard)
 
 	}
 });

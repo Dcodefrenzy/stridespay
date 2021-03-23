@@ -6,12 +6,43 @@ exports.createWithdraw = (req, res, next)=>{
 	const withdraw =  new withdraws({
 		user:req.data._id,
 		amount:0,
+		currency:"NGN",
 		dateCreated:new Date(),
 	});
 
 
 	withdraw.save();
 	next();
+}
+
+
+exports.updateCreateWithdraw = (req, res, next)=>{
+		withdraws.findOne({user:req.user._id, currency:"USD"}).then((withdraw)=>{
+		if (!withdraw) {
+				const withdraw = new withdraws({
+				user:req.user._id,
+				amount:0+"00",
+				currency:"USD",
+				dateCreated:new Date(),
+			});
+			withdraw.save().then((withdraw)=>{
+				console.log({"cereated dollar for withdraw": withdraw})
+				req.data.withdraw = withdraw;
+				next();
+			})
+		}else if (withdraw) {
+				console.log({"retain dollar for withdraw": withdraw})
+				req.data.withdraw = withdraw;
+				next();
+		}
+	})
+
+}
+exports.updateWithdalC = (req, res, next)=>{
+	withdraws.updateMany({user:req.user._id, currency:undefined}, {$set: {currency:"NGN"}}).then((withdraws)=>{
+		console.log(withdraws)
+	next();
+	})
 }
 
 exports.createUSerBeforAdding=(req, res, next)=>{
@@ -81,11 +112,11 @@ console.log('hh')
 	});
 }
 exports.getUserWithdraw= (req, res, next)=>{
-	withdraws.find({user:req.user._id}).then((withdraws)=>{
+	withdraws.find({user:req.user._id, currency:req.data.wallet.currency}).then((withdraws)=>{
 		const totalwithdraws = withdraws.map((withdraw)=>{
 			return withdraw.amount;
 		}).reduce((total, amount) => total + amount);
-		req.data.withdraw = totalwithdraws;
+		req.data.withdraw = {"currency":req.data.wallet.currency, totalwithdraws:totalwithdraws};
 		res.status(200).send(req.data);
 
 	})
@@ -117,6 +148,7 @@ exports.getUserWithdrawForProfile= (req, res, next)=>{
 exports.newWithdraw = (req, res, next)=>{
 		const withdraw =  new withdraws({
 		user:req.user._id,
+		currency:req.data.wallet.currency,
 		amount:req.data.transfer.amount,
 		transferId:req.data.transfer.id,
 		reference:req.data.transfer.reference,
@@ -133,6 +165,13 @@ exports.newWithdraw = (req, res, next)=>{
 
 exports.getUserWithdrawals = (req, res, next)=>{
 	withdraws.find({user:req.user._id}).then((withdraws)=>{
+		req.data = {status:200, withdraws:withdraws}
+		next();
+	})
+}
+
+exports.getUserWithdrawalsByCurrency = (req, res, next)=>{
+	withdraws.find({user:req.user._id, currency:req.body.currency}).then((withdraws)=>{
 		req.data = {status:200, withdraws:withdraws}
 		next();
 	})

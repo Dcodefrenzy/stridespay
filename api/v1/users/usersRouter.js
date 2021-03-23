@@ -56,7 +56,7 @@ router.route("/verification")
 
 
 router.route("/profile")
-	.get(controller.userAuthenticate, walletController.getUserWallet, withdrawController.getUserWithdrawForProfile, transactionController.fetchUsersTransactionsForProfile, controller.getBuyersDetailsForProfile)
+	.get(controller.userAuthenticate, walletController.getUserWallet, walletController.getUserWallets, withdrawController.getUserWithdrawForProfile, transactionController.fetchUsersTransactionsForProfile, controller.getBuyersDetailsForProfile)
 
 
 router.route("/profile/image")

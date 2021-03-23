@@ -5,6 +5,10 @@ WithdrawsSchema = mongoose.Schema({
             type:String,
             required:true,
         },
+        currency:{
+            type:String,
+            required:false,
+        },
         amount:{
             type:Number,
             required:true,

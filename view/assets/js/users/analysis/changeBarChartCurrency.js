@@ -1,12 +1,12 @@
 define(function(require, exports, module) {
-	return changeFinanlcials = (event, token, link, year)=>{
+	return changeFinanlcialsByCurrency = (event, token, link, currency)=>{
 			const {getRequest} = require("request");
 			const {loading} = require("../../loading");
 			const {loginForm} = require("../../logins");
 			const {getBarChart} = require("./barChart");
-				console.log(year)
-				const y = new Date(year).getFullYear();
-			getBarChart({token:token, _id:''}, link, "NGN", y);
+			
+				const y = new Date().getFullYear();
+			getBarChart({token:token, _id:''}, link, currency, y);
 
 	}
 });

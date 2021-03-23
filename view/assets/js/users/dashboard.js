@@ -10,11 +10,12 @@ exports.dashBoardHandller = (token, id)=>{
 	const {updateNotification} = require("./updatePlayerId");
 	const {loginForm} = require("../logins")
 	const spinner = document.getElementById("spinner");
+	const {createWalletCurrency} = require("./createWalletCurrency");
 /*	const sideBar = document.getElementById("user-side-bar-open");
 	sideBar.className="display-none"*/
 	spinner.className ="display-none";
 
-	const dashboard=(user, wallet,withdraw, transactions, clients)=>{
+	const dashboard=(user, wallet,withdraw, transactions, clients, wallets)=>{
 				require(['jquery', 'popper.min', 'script', 'libs'], function ($, popper, script, libs) {
 					console.log(popper)
 				showNotification()
@@ -26,6 +27,7 @@ exports.dashBoardHandller = (token, id)=>{
 				const ongoingTransactionsLength = transactions.filter((transaction)=>{
 					return transaction.transactionComplete === false;
 				});
+
 				const projectPercentage =  transactionsLength.length*100/transactions.length;
 				console.log(clients)
 				let showNoClients = clients.length === 0?`<h3>No Clients Yet</h3>`:"";
@@ -41,6 +43,8 @@ exports.dashBoardHandller = (token, id)=>{
 					        </div>
 
 					        <div class="breadcrumb-controls mt-sm-0 mt-3">
+
+					          ${wallets}
 					          <div class="btn-group dropdown">
 					            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					              Track Projects
@@ -692,7 +696,7 @@ exports.dashBoardHandller = (token, id)=>{
 			}
 
 			const loadDashboard=(response)=>{
-				console.log(response);
+			console.log(response)
 				if (response.status === 401) {
 					console.log(response);
 					loading("user-side-bar-open", "display-none");
@@ -711,7 +715,14 @@ exports.dashBoardHandller = (token, id)=>{
 							newArray.push(client)
 						}
 					})
-					dashboard(response.user, response.wallet, response.withdraw, response.transactions, newArray);
+					let updateWalletButton;
+				const wallets = response.userWallets.find(wallet=> wallet.currency !== "USD")
+				if (wallets  !== "USD") {
+					updateWalletButton = `<a id="wallets/update/currency" onclick="return createWalletCurrency(event, this.id)"> <button type="button" class="btn btn-success-light">Create dollar wallet</button></a>`
+				}else{
+					updateWalletButton = ""
+				}
+					dashboard(response.user, response.wallet, response.withdraw, response.transactions, newArray, updateWalletButton);
 					updateNotification(token);
 				}
 			}

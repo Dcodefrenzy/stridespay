@@ -77,7 +77,7 @@ exports.payOutUser = (req, res, next)=>{
 			  "recipient": req.data.bank.recipient,
 			  "amount": req.data.wallet.amount.toString().slice(0, -2),
 			  "narration": "Stridespay Transfer",
-			  "currency": "NGN",
+			  "currency": req.data.wallet.currency,
 			  "beneficiary_name": req.data.bank.accountName,
 		}
 	request.post("https://api.flutterwave.com/v3/transfers", {

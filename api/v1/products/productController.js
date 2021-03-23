@@ -8,6 +8,7 @@ exports.createProduct=(req, res, next)=>{
         description:req.body.description,
         price:req.body.price+"00",
         isMerchant:isMerchant,
+        currency:req.body.currency,
         display:true,
         user:req.user._id,
         dateCreated:new Date(),
@@ -50,6 +51,7 @@ exports.addProduct=(req, res, next)=>{
         price:req.body.price+"00",
         isMerchant:req.data.isMerchant,
         display:true,
+        currency:req.body.currency,
         user:req.data._id,
         dateCreated:new Date(),
     });
@@ -168,6 +170,7 @@ exports.createService=(req, res, next)=>{
         price:"000",
         isMerchant:true,
         display:true,
+        currency:req.body.currency,
         user:req.user._id,
         isService:true,
         dateCreated:new Date(),
@@ -232,7 +235,7 @@ exports.findUserServiceById = (req, res, next)=>{
             const err = {status:404, message:`Could not find a service with the id ${req.params.id}`}
             return res.status(404).send(err);
         }else{
-            req.data = {status:200, service:service, user:req.user};;
+            req.data = {status:200, service:service, user:req.user};
             next()
         }
     }).catch((e)=>{
@@ -247,7 +250,7 @@ exports.findUserServiceById = (req, res, next)=>{
 
         
 exports.updateUserServiceById = (req, res, next)=>{
-    products.findOneAndUpdate({user:req.user._id, _id:req.params.id, isService:true}, {$set: {product:req.body.title, description:req.body.description, dateUpdated: new Date()}}).then((product)=>{
+    products.findOneAndUpdate({user:req.user._id, _id:req.params.id, isService:true}, {$set: {product:req.body.title, description:req.body.description, currency:req.body.currency,  dateUpdated: new Date()}}).then((product)=>{
         if (!product) {
             const err = {status:404, message:"No Service Created yet."}
             return res.status(404).send(err);
@@ -297,7 +300,7 @@ exports.updateProductById = (req, res,next)=>{
         price:req.body.price
     });
 
-    products.findOneAndUpdate({user:req.user._id, _id:req.params.id, isService:false}, {$set: {product:product.product, description:product.description, price:product.price+"00", dateUpdated:new Date()}}).then((product)=>{
+    products.findOneAndUpdate({user:req.user._id, _id:req.params.id, isService:false}, {$set: {product:product.product, currency:req.body.currency, description:product.description, price:product.price+"00", dateUpdated:new Date()}}).then((product)=>{
         if (!product) {
             const err = {status:404, message:"Unable to update product."}
             return res.status(404).send(err);
@@ -339,4 +342,12 @@ exports.deleteProductById=(req, res, next)=>{
         else if(e){err = {status:403, message:e}}
         res.status(404).send(err);
     });
+}
+
+exports.updateC = (req, res, next)=>{
+    products.updateMany({user:req.user._id, currency:undefined}, {$set: {currency:"NGN"}}).then((product)=>{
+        console.log('products')
+        console.log({"product":product})
+    next();
+    })
 }

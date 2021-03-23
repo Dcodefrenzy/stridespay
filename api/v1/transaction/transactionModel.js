@@ -9,6 +9,10 @@ TransactionsSchema = mongoose.Schema({
             type:String,
             required:false,
         },
+        currency:{
+            type:String,
+            required:false,
+        },
         product:{
             type:String,
             required:true,

@@ -38,6 +38,17 @@ define(function(require, exports, module) {
 											<input type="text" name="product" required oninput="return returnValidation(this.value, this.name)"  class="form-control" placeholder="Product?">
 										</div>
 									</div>
+									<div class="col-12 col-sm-12 col-md-12">
+										<div class="form-group">
+											<label id="error-currency">Currency</label>
+													<select class="form-control" name="currency" oninput="return returnValidation(this.value, this.name)" required>
+														<option value="">Select Currency</option>
+														<option value="NGN">NGN</option>
+														<option value="USD">USD</option>
+													</select>
+											</div>
+									</div>
+
 									<div class="col-12 col-sm-12 col-md-12">							
 										<div class="form-group">
 											<label id="error-price">What is the price?</label>

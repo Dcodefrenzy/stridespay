@@ -565,7 +565,7 @@ exports.getBuyersDetailsForProfile=async(req, res)=>{
 		return nData = {buyers:buyers};
 	});
 	const resp = await Promise.all(newData);
-	res.status(200).send({status:200,clients:resp,user:req.data.user,wallet:req.data.wallet, withdraw:req.data.withdraw, transactions:req.data.transactions});
+	res.status(200).send({status:200,clients:resp,user:req.data.user,wallet:req.data.wallet, userWallets:req.data.userWallets, withdraw:req.data.withdraw, transactions:req.data.transactions});
 }
 
 

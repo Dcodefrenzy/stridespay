@@ -38,6 +38,16 @@ define(function(require, exports, module) {
 										</div>
 									</div>
 									<div class="col-12 col-sm-12 col-md-12">
+										<div class="form-group">
+											<label id="error-bankname" class="card-title">Currency</label>
+													<select class="form-control" name="currency" oninput="return returnValidation(this.value, this.name)" required>
+															<option value="">Select Currency</option>
+															<option value="NGN">NGN</option>
+															<option value="USD">USD</option>
+													</select>
+											</div>
+									</div>
+									<div class="col-12 col-sm-12 col-md-12">
 										<div class="form-group" id='textarea-div'>
 											<label id="error-description" class="card-title">Description</label>
 										</div>

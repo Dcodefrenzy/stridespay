@@ -109,6 +109,7 @@ exports.showServiceTransaction = (token, id)=>{
 			}
 
 			const load=(response)=>{
+				console.log(response)
 				if (response.status === 401) {
 					loading("user-side-bar-open", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);

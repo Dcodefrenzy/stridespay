@@ -7,6 +7,7 @@ define(function(require, exports, module) {
 			const {sideBar} = require("../sidebar");
 			const {getBarChart} = require("./barChart");
 			const {changeFinanlcials} = require("./changeBarChart");
+			const {changeFinanlcialsByCurrency} = require("./changeBarChartCurrency");
 			const body = document.getElementById("body");
 			const spinner = document.getElementById("spinner");
 			spinner.className ="display-none";
@@ -36,6 +37,12 @@ define(function(require, exports, module) {
 															<div class="dsh-section-title">
 																<h5 class="card-title">Financial Analysis</h5>
 															</div>
+																<label>Change Currency</label>
+																<select class="form-control col-12 mb-3" id="withdraws/financial-analysis" name="${token.token}" onchange="return changeFinanlcialsByCurrency(event, this.name,  this.id, this.value)">
+																	<option  value="NGN" id="withdraws/financial-analysis" name="${token.token}">NGN</option>
+																	<option  value="USD" id="withdraws/financial-analysis" name="${token.token}">USD</option>
+
+																</select>
 															<div class="row">
 																<div class="col-xl-4 col-md-4 col-sm-6">
 														          <div class="card card-body">
@@ -110,7 +117,7 @@ define(function(require, exports, module) {
 			}
 
 			finanlcialAnalysisMap();
-			getBarChart(token, "withdraws/financial-analysis", new Date().getFullYear());
+			getBarChart(token, "withdraws/financial-analysis", "NGN", new Date().getFullYear());
 
 	}
 });

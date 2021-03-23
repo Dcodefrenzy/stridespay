@@ -87,11 +87,11 @@ exports.showProductHandller = (token, id)=>{
 
 													</div>
 												</div>
-												<div class="col-lg-4">
+												<div class="col-lg-12 col-12">
 													<div class="dsh-product-thumb">
 
 														<!-- Main Thumb -->
-														<div class="dsh-product-primary-thumb">
+														<div class="dsh-product-primary">
 															<div class="thumb dsh-slider-item">
 																<span class="btn btn-icon btn-lg btn-success-light btn-round mb-3">
 																	<i class="lni-book icon-2x"></i>

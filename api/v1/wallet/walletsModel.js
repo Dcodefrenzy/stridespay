@@ -5,6 +5,9 @@ WalletsSchema = mongoose.Schema({
             type:String,
             required:true,
         },
+        currency:{
+            type:String,
+        },
         amount:{
             type:Number,
             required:true,

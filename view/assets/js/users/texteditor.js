@@ -7,7 +7,7 @@ define(function (require, exports, module) {
 		const body = document.getElementById("body");
 		const textarea = document.getElementById('textarea');
 		const div = document.getElementById('textarea-div');
-		console.log(textarea)
+		//console.log(textarea)
 		textarea.oninput = "return returnValidation(this.value, this.name)"
 		if (value === undefined) {
 			textarea.value = "";

@@ -70,7 +70,7 @@ exports.projectAnalysisHandller = (token, id)=>{
 										<!-- Order Statistics -->
 										<div class="card">
 												<div class="card-body">
-													<select class="form-control col-12" id="withdraws/financial-analysis" name="${token.token}" onchange="return changeProject(event, this.name,  this.id, this.value)">
+													<select class="form-control col-12" id="withdraws/project-analysis" name="${token.token}" onchange="return changeProject(event, this.name,  this.id, this.value)">
 														${ 
 															numbersOfYears.map((numb, index)=>{
 																const year =  nextYear - index;
@@ -129,7 +129,7 @@ exports.projectAnalysisHandller = (token, id)=>{
 				}else if (response.status === 200) {
 					projectAnalysis(response.user, response.wallet, response.withdraw, response.transactions, response.clients);
 
-					getProjectBarChart(token, "withdraws/financial-analysis", new Date().getFullYear());
+					getProjectBarChart(token, "withdraws/project-analysis", new Date().getFullYear());
 					
 				}
 			}

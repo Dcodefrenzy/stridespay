@@ -10,6 +10,7 @@ const transactionsRouter = require("./transaction/transactionRouter.js");
 const milestoneRouter = require("./milestones/milestoneRouter.js");
 const withdrawRouter = require("./withdraw/withdrawRouter.js");
 const accountRouter = require("./accounts/accountRouter.js");
+const walletRouter = require("./wallet/walletsRouter.js");
 api.use("/admins", adminRouter);
 api.use("/users", usersRouter);
 api.use("/notifications", logsRouter);
@@ -19,5 +20,6 @@ api.use("/transactions", transactionsRouter);
 api.use("/milestones", milestoneRouter);
 api.use("/withdraws", withdrawRouter);
 api.use("/accounts", accountRouter);
+api.use("/wallets", walletRouter);
 
 module.exports = api;

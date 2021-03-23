@@ -181,6 +181,7 @@ exports.fetchMilestonesPayment = (req, res, next)=>{
 exports.fetchServiceMilestone = (req, res, next)=>{
 	milestones.find({product:req.data.service._id}).then((milestones)=>{
 		
+		req.data.currency = req.data.service.currency;
 		req.data.milestones = milestones;
 		next();
 

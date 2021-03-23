@@ -96,6 +96,12 @@ router.route("/services/token/:id")
 router.route("/withdraw")
 	.get(loader.load)
 
+router.route("/withdraw/:id")
+	.get(loader.load)
+
+router.route("/wallets")
+	.get(loader.load)
+
 router.route("/bank/account")
 	.get(loader.load)
 

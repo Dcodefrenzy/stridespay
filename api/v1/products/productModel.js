@@ -9,6 +9,10 @@ ProductSchema = mongoose.Schema({
             type:String,
             required:true,
         },
+        currency:{
+            type:String,
+            required:false,
+        },
         price:{
             type:String,
             required:true,

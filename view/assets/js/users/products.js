@@ -106,15 +106,18 @@ exports.productsHandller = (token, id)=>{
 		}
 		else if (response.status === 200) {
 			console.log(response)
+
 			if (response.products.length >0) {
 				const product = response.products.map((product)=>{							
 					let title  = product.isMerchant===true?"Selling":product.isMerchant===false?"Buying":"";
+					let currencyCharacter = product.currency === "USD"?"$":product.currency === "NGN"?"&#8358":"&#8358"
+
 					if (product.isService === false && product.delete ===false) {
 							return `<div class="col-12 col-sm-12 col-md-12">
 											<div class="card">
 												<div class="card-body">
 													<h5 class="card-title">${product.product}</h5>
-													<h6 class="card-subtitle">&#8358 ${product.price.slice(0, -2)}</h6>
+													<h6 class="card-subtitle">${currencyCharacter} ${product.price.slice(0, -2)}</h6>
 													<hr>
 													<small>Description:</small>
 													<p class="card-text">${product.description}</p>
@@ -125,12 +128,14 @@ exports.productsHandller = (token, id)=>{
 					};
 				});
 				const services = response.products.map((product)=>{
+					let currencyCharacter = product.currency === "USD"?"$":product.currency === "NGN"?"&#8358":"&#8358"
+
 					if (product.isService  === true && product.delete ===false) {
 						return	`<div class="col-12 col-sm-12 col-md-12">
 											<div class="card">
 												<div class="card-body">
 													<h5 class="card-title">${product.product}</h5>
-													<h6 class="card-subtitle">&#8358 ${product.price.slice(0, -2)}</h6>
+													<h6 class="card-subtitle">${currencyCharacter} ${product.price.slice(0, -2)}</h6>
 													<hr>
 													<small>Description:</small>
 													<p class="card-text">${product.description}</p>

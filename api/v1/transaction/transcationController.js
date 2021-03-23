@@ -23,6 +23,7 @@ const addNewTransaction=(req, res, next)=>{
         product:req.data.product._id,
         creator:req.user.name,
         productName:req.data.product.product,
+        currency:req.data.currency,
         description:req.data.product.description,
         paymentStatus:req.data.paymentStatus,
         milestones:req.data.milestones,
@@ -61,6 +62,7 @@ exports.createNewMerchantTransactions=(req, res, next)=>{
         productName:req.data.product.product,
         description:req.data.product.description,
         product:req.data.product._id,
+        currency:req.data.currency,
         paymentStatus:false,
         price:req.data.product.price,
         balance:req.data.product.price,
@@ -111,6 +113,7 @@ exports.createMerchantTransactions=(req, res, next)=>{
         description:req.data.description,
         paymentStatus:false,
         price:req.data.price,
+        currency:req.data.currency,
         withdrawn:0,
         isService:false,
         balance:req.data.price,
@@ -273,7 +276,8 @@ exports.editTransactionMilestone=(req, res, next)=>{
 }
 
 exports.updateUserTransaction = (req, res, next)=>{
-    transactions.findOneAndUpdate({_id:req.params.id, paymentStatus:false}, {$set:{productName:req.body.service, description:req.body.description}}, {new: true}).then((transaction)=>{
+    console.log(req.body)
+    transactions.findOneAndUpdate({_id:req.params.id, paymentStatus:false}, {$set:{productName:req.body.service, currency:req.body.currency, description:req.body.description}}, {new: true}).then((transaction)=>{
             if (!transaction) {
             const err = {status:403, message:"This transaction has either been paid for and do not exist anymore for editing."}
             return res.status(403).send(err);
@@ -644,6 +648,7 @@ exports.CreateTransactionForFreelancers = (req, res, next)=>{
         description:req.data.service.description,
         product:req.data.service._id,
         paymentStatus:false,
+        currency:req.data.currency,
         price:req.data.service.price,
         balance:req.data.service.price,
         milestones:req.data.milestones,
@@ -681,6 +686,27 @@ exports.CreateTransactionForFreelancers = (req, res, next)=>{
 
 exports.getUserFinancies=(req, res, next)=>{
         transactions.find({merchant:req.user._id, transactionComplete:true}).then((transactions)=>{
+        req.data.transactions = transactions;
+        res.status(200).send(req.data);
+    }).catch((e)=>{
+        console.log(e)
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+}
+
+exports.updateC = (req, res, next)=>{
+    transactions.updateMany({merchant:req.user._id, currency:undefined}, {$set: {currency:"NGN"}}).then((transaction)=>{
+        console.log(transaction)
+    next();
+    })
+}
+
+
+exports.getUserFinanciesByCurrency=(req, res, next)=>{
+        transactions.find({merchant:req.user._id, transactionComplete:true, currency:req.body.currency}).then((transactions)=>{
         req.data.transactions = transactions;
         res.status(200).send(req.data);
     }).catch((e)=>{
