@@ -17,6 +17,7 @@ exports.transactionHandller = (token, id)=>{
 
 				sideBar(token, id);
 				const paymentStatus = transaction.paymentStatus == true?"Paid":"Not yet Paid";
+				let currencyCharacter = transaction.currency === "USD"?"$":transaction.currency === "NGN"?"&#8358":"&#8358"
 				let link;
 				if (transaction.merchant === token._id) {
 					link =  "/users/transactions/freelancer";
@@ -44,7 +45,7 @@ exports.transactionHandller = (token, id)=>{
 						<ul class="list-group flex-list borderless mb-4">
 							<li class="list-group-item">
 								<h6>${transaction.productName}</h6>
-								<span> &#8358;  ${transaction.price.toString().slice(0, -2)}</span>
+								<span> ${currencyCharacter}  ${transaction.price.toString().slice(0, -2)}</span>
 							</li>
 							<li class="list-group-item">
 								<h6>${transaction.creator}</h6>
@@ -76,7 +77,7 @@ exports.transactionHandller = (token, id)=>{
 											<div class="dsh-timeline-dot bg-primary"></div>
 											<h6>${milestone.milestone}</h6>
 											<p> ${milestoneStatus}</p>
-											<p> &#8358;  ${milestone.price.toString().slice(0, -2)}</p>
+											<p> ${currencyCharacter}  ${milestone.price.toString().slice(0, -2)}</p>
 											<p>${milestone.description}</p>
 											${userButton}
 											${merchantButton}

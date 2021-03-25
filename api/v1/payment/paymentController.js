@@ -69,18 +69,59 @@ exports.addRecipient = (req, res, next)=>{
  
 }
 
-exports.payOutUser = (req, res, next)=>{
+exports.payOutUser =(req, res, next)=>{
+	if (process.env.Local) {
+			payOutUserLocal(req, res, next);
+	console.log('using local')
+}else if (!process.env.Local) {
+	payOutUserProduction(req, res, next)
+	console.log("using prod")
+}
+}
+const payOutUserProduction = (req, res, next)=>{
 	if (req.data.wallet.amount.toString().slice(0, -2) == 0) {
 		return res.status(403).send({status:403, error:"wallet", subError:"amount", message:"Wallet amount is low, so you can not withdraw at this moment."});
 	}
+	console.log(req.data);
 	const body = {      			
 			  "recipient": req.data.bank.recipient,
-			  "amount": req.data.wallet.amount.toString().slice(0, -2),
+			  "account_bank": req.data.bank.bankCode,
+	    	  "account_number": req.data.bank.account,
+			  "amount": req.body.amount,
 			  "narration": "Stridespay Transfer",
 			  "currency": req.data.wallet.currency,
 			  "beneficiary_name": req.data.bank.accountName,
 		}
 	request.post("https://api.flutterwave.com/v3/transfers", {
+		headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${FLUTTERWAVE}`},
+		body:JSON.stringify(body)
+	}).then((response)=>{
+		console.log(JSON.parse(response));
+		req.data.transfer = JSON.parse(response).data;
+		next();
+	})
+    .catch(function (err) {
+    	console.log(err)
+    	if (err.statusCode === 400) {}
+        res.status(400).send({status:400, message:{accountnumber:"Your account number "+req.body.accountnumber}})
+    });
+}
+const payOutUserLocal = (req, res, next)=>{
+	if (req.data.wallet.amount.toString().slice(0, -2) == 0) {
+		return res.status(404).send({status:404, error:"wallet", subError:"amount", message:"Wallet amount is low, so you can not withdraw at this moment."});
+	}
+	console.log(req.data);
+	const body = {      			
+			  "recipient": req.data.bank.recipient,
+			  "account_bank": req.data.bank.bankCode,
+	    	  "account_number": req.data.bank.account,
+			  "amount": req.body.amount,
+			  "narration": "Stridespay Transfer",
+			  "seckey": process.env.FLUTTERWAVELOCAL,
+			  "currency": req.data.wallet.currency,
+			  "beneficiary_name": req.data.bank.accountName,
+		}
+	request.post("https://api.ravepay.co/v2/gpx/transfers/create", {
 		headers: {"Content-Type": "application/json", 'Authorization': `Bearer ${FLUTTERWAVE}`},
 		body:JSON.stringify(body)
 	}).then((response)=>{
@@ -205,6 +246,7 @@ console.log('HERE')
 			const payment = new payments({
 				createdBy:req.user._id,
 				transaction:req.data.transaction._id,
+				currency:req.data.transaction.currency,
 				paymentStatus:req.data.paymentStatus,
 				price:req.data.transaction.price,
 				dateCreated: new Date(),
@@ -219,7 +261,7 @@ console.log('HERE')
 					req.data.title = "Payment";
 					req.data.mailTitle = "Payment Verification"; 
 					req.data.link = "/users/transaction/"+req.data.transaction._id;
-					req.data.mailMessage = `A payment of ${payment.price.toString().slice(0, -2)}NGN was made by ${req.user.firstname+" "+req.user.lastname} for project ${req.data.transaction.productName}. Please visit the link below and start your project.`;
+					req.data.mailMessage = `A payment of ${payment.price.toString().slice(0, -2)}${req.data.transaction.currency} was made by ${req.user.firstname+" "+req.user.lastname} for project ${req.data.transaction.productName}. Please visit the link below and start your project.`;
 					next();
 					}
 			})

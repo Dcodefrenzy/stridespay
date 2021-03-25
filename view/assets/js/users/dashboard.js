@@ -716,8 +716,8 @@ exports.dashBoardHandller = (token, id)=>{
 						}
 					})
 					let updateWalletButton;
-				const wallets = response.userWallets.find(wallet=> wallet.currency !== "USD")
-				if (wallets  !== "USD") {
+				const wallets = response.userWallets.find(wallet=> wallet.currency === "USD")
+				if (wallets  === undefined) {
 					updateWalletButton = `<a id="wallets/update/currency" onclick="return createWalletCurrency(event, this.id)"> <button type="button" class="btn btn-success-light">Create dollar wallet</button></a>`
 				}else{
 					updateWalletButton = ""

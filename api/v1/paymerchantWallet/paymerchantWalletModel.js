@@ -5,6 +5,9 @@ PaymerchantWalletsSchema = mongoose.Schema({
             type:String,
             required:true,
         },
+        currency:{
+            type:String,
+        },
         user:{
             type:String,
             required:true,

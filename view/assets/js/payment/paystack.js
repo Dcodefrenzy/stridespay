@@ -13,7 +13,7 @@
         email: email,
         phone:payment.user.phonenumber,
         amount: payment.transaction.price,
-        currency: "NGN",
+        currency: payment.transaction.currency,
         ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
         metadata: {
            custom_fields: [
@@ -52,7 +52,7 @@
             customer_email: email,
             amount: payment.transaction.price.toString().slice(0, -2),
             customer_phone: payment.user.phonenumber,
-            currency: "NGN",
+            currency: payment.transaction.currency,
             txref: ''+Math.floor((Math.random() * 1000000000) + 1),
             meta: [{
                 metaname: "customer name",
@@ -65,10 +65,16 @@
               console.log(response.data.data.txRef)
                 var txref = response.data.data.txRef; // collect txRef returned and pass to a                    server page to complete status check.
                 
+              console.log(txref)
                 if (response.data.status === "success"  && txref !== undefined) {
                   console.log(response.data)
 
                     window.location = "/users/"+url+"/"+txref;
+                }else if (response.data.data.status === "successful" && txref !== undefined) {                  
+                  console.log(response.data)
+
+                    window.location = "/users/"+url+"/"+txref;
+                  
                 } else {
                   console.log(response.data)
                   console.log('err')

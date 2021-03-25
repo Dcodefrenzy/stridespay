@@ -7,6 +7,7 @@ exports.addFinalcialTranaction = (req, res, next)=>{
 	finalcial =	 new finalcials({
 			from:req.user._id,
 			to:req.data.merchant,
+			currency:req.data.currency,
 			transaction:req.data._id,
 			paymentStatus:req.data.paymentStatus,
 			amount:req.data.milestonesPrice,

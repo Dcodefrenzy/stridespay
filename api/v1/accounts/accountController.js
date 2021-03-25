@@ -64,6 +64,7 @@ exports.findUserAccount = (req, res, next)=>{
 		if (!account) {
 			res.status(403).send({status:403, message:"You have not added your bank account yet"});
 		}else{
+			console.log(account)
 			req.data.bank = account;
 			next();
 		}

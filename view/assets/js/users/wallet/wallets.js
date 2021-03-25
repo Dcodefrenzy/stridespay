@@ -35,6 +35,8 @@ define(function(require, exports, module) {
 															</div>
 															<div class="row justify-content-center">
 															${wallets.map((wallet)=>{
+
+																walletAmount = wallet.amount === 0 ?0:wallet.amount.toString().slice(0, -2)
 																let currency, currencyCharacter;
 																currencyCharacter = wallet.currency === "USD"?"$":wallet.currency === "NGN"?"&#8358":"&#8358"
 																currency = wallet.currency === "USD"?'<i class="lni-revenue icon-2x"></i>':' <i class=lni-money-location icon-2x></i>'
@@ -43,7 +45,7 @@ define(function(require, exports, module) {
 														            <div class="media mb-3 px-0 pt-0">
 														              <div class="media-body">
 														              	<b>${currencyCharacter}</b>
-														                <h5 class="dsh-semi-bold"id="total-financies">${wallet.amount}</h5>
+														                <h5 class="dsh-semi-bold"id="total-financies">${walletAmount}</h5>
 														                <p>Total Wallet (${wallet.currency})</p>
 														              	<a href="/users/withdraw/${wallet._id}"><button class="btn-sm btn-dark mt-3">withdraw</button></a>
 														              </div>

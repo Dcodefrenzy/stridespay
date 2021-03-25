@@ -17,6 +17,8 @@ exports.serviceTokens = (token, id)=>{
 
 			const showService=(transaction, milestones, user)=>{
 
+					let currency, currencyCharacter;
+					currencyCharacter = transaction.currency === "USD"?"$":transaction.currency === "NGN"?"&#8358":"&#8358"
 				const html = `<div class="pt-5">
 							<div class="container">
 								<div class="row align-items-center mt-5 p-0">
@@ -56,7 +58,7 @@ exports.serviceTokens = (token, id)=>{
 																		return `<li>
 																			<div class="dsh-timeline-dot bg-primary"></div>
 																			<h6>${milestone.milestone}</h6>
-																			<p> &#8358;  ${milestone.price.toString().slice(0, -2)}</p>
+																			<p> ${currencyCharacter} ${milestone.price.toString().slice(0, -2)}</p>
 																			<p>${milestone.description}</p>
 																			
 																		</li>`;
@@ -71,7 +73,7 @@ exports.serviceTokens = (token, id)=>{
 														<div class="row justify-content-center">
 															<form>
 	    													<script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>		
-															  <h4 class="">Total price - &#8358; ${transaction.price.toString().slice(0, -2)}</h4> 
+															  <h4 class="">Total price - ${currencyCharacter} ${transaction.price.toString().slice(0, -2)}</h4> 
 															  <button  id=${transaction._id} value=${"transactions/payment/token/"+transaction._id} class="btn btn-lg btn-success col-12" type="button" onclick="return loadPaymentHandller(this.id, this.value)">Make Payment</button>
 															</form>
 														</div>

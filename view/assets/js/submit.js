@@ -406,11 +406,39 @@ const editContractMilestone = (url, token, data)=>{
 	});
 }
 
+const createWithdraw= (url, token, data)=>{
+
+		loading("spinner", "dsh-preloader bg-white");
+		request(url, token, "POST", data, (res)=>{
+		 if (res.status === 201) {
+			loading("spinner", "display-none")
+		 	alert(res.message);
+			location.reload();
+		}else if(res.status === 403){
+			loading("spinner", "display-none")
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
+			handleError(res, "is invalid");
+		}else if (res.status === 404) {
+			console.log(res.message)
+			loading("spinner", "display-none")
+		 	alert(res.message);
+			location.reload();
+		}
+		else if(res.status === 400){
+			loading("spinner", "display-none")
+			handleError(res.message, "is invalid");
+		}
+	});	
+}
+
+
 const forgetPassword = (url, token, data)=>{
 		request(url, token, "POST", data, (res)=>{
 		 if (res.status === 200) {
 		 	alert(res.message);
-			window.reload();
+			location.reload();
 		}else if(res.status === 403){
 			loading("spinner", "display-none")
 			if (res.message.name === "MongoError") {
@@ -444,6 +472,7 @@ const uploadImage =(url, token, data)=>{
 	});	
 			
 }
+
 
  return register = (event)=>{
   	event.preventDefault();
@@ -496,6 +525,8 @@ const uploadImage =(url, token, data)=>{
   		editContract(form.id, sessionItem, formElement);
   	}else if (event.target.className === "editContractMilestone") {
   		editContractMilestone(form.id, sessionItem, formElement);
+  	}else if (event.target.className === "createWithdraw") {
+  		createWithdraw(form.id, sessionItem, formElement)
   	}
 
 }

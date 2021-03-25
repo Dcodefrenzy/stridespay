@@ -23,7 +23,7 @@ exports.createProduct=(req, res, next)=>{
             
         }else{  
 
-            const newproduct = {status:201, product:product.product, price:product.price, isMerchant:product.isMerchant,description:product.description,  productId:product._id, _id:req.user._id};
+            const newproduct = {status:201, product:product.product, currency:product.currency, price:product.price, isMerchant:product.isMerchant,description:product.description,  productId:product._id, _id:req.user._id};
             req.data = newproduct;
             req.data.loggerUser = "User";
             req.data.logsDescription = "You created a product token.";

@@ -194,8 +194,8 @@ define(function(require, exports, module) {
 				
 				if (response.status === 401) {
 					console.log(response);
-					loading("user-side-bar-open", "display-none");
-					 body.insertAdjacentHTML('afterbegin', loginForm);
+					//loading("user-side-bar-open", "display-none");
+					// body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
 					console.log(response);
 					showChart(response);

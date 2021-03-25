@@ -19,6 +19,8 @@ exports.showServiceTransaction = (token, id)=>{
 
 				console.log(transaction)
 				let link, backLink;
+					let currency, currencyCharacter;
+					currencyCharacter = transaction.currency === "USD"?"$":transaction.currency === "NGN"?"&#8358":"&#8358"
 				if (transaction.isService === true) {
 					link = "/users/freelancer/"+transaction.creator.replace(" ", "-")+"/token/"+transaction._id;
 					backLink = "/users/services/"+transaction.product;
@@ -55,7 +57,7 @@ exports.showServiceTransaction = (token, id)=>{
 												<div class="col-12 col-sm-12 col-md-12  mt-2">
 													<h6><i class="fa fa-circle text-green" aria-hidden="true"></i> Service: ${transaction.productName}</h6>										
 													<small><b>Overview: </b>${transaction.description}</small>
-													<p class="text-success">Total price - &#8358;  ${transaction.price.toString().slice(0, -2)}</p>
+													<p class="text-success">Total price - ${currencyCharacter}  ${transaction.price.toString().slice(0, -2)}</p>
 													<a href="/users/contract/update/${transaction._id}" class="mt-2 col-md-12  col-sm-12 col-12 btn-lg btn-primary text-white">Edit</a>
 													<div class="col-lg-12">
 
@@ -71,7 +73,7 @@ exports.showServiceTransaction = (token, id)=>{
 																			return `<li>
 																				<div class="dsh-timeline-dot bg-primary"></div>
 																				<h6>${milestone.milestone}</h6>
-																				<p> &#8358;  ${milestone.price.toString().slice(0, -2)}</p>
+																				<p> ${currencyCharacter}  ${milestone.price.toString().slice(0, -2)}</p>
 																				<p>${milestone.description}</p>
 																				<a class="btn btn-success text-white" id=${id} target=${token.token} name=${milestone._id} onclick="return editContractMilestone(event, this.id, this.target, this.name)"><i class="lni-enter"></i>Update Milestone</a>
 																				

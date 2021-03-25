@@ -62,7 +62,7 @@ exports.createNewMerchantTransactions=(req, res, next)=>{
         productName:req.data.product.product,
         description:req.data.product.description,
         product:req.data.product._id,
-        currency:req.data.currency,
+        currency:req.data.product.currency,
         paymentStatus:false,
         price:req.data.product.price,
         balance:req.data.product.price,
@@ -269,7 +269,7 @@ exports.editTransactionMilestone=(req, res, next)=>{
                 let price  =+ milestone.price;
                 return price;
         }).reduce((total, amount) => total + amount); 
-        transactions.findOneAndUpdate({_id:req.data.transactionMilestone._id}, {$set: {price:sum}}).then((transaction)=>{
+        transactions.findOneAndUpdate({_id:req.data.transactionMilestone._id}, {$set: {price:sum, balance:sum}}).then((transaction)=>{
             console.log(transaction);
             next();
         })
@@ -295,6 +295,9 @@ exports.updateUserTransaction = (req, res, next)=>{
 exports.findOneTransactionById = (req, res, next)=>{
     transactions.findOne({_id:req.params.id, transactionComplete:false}).then((transaction)=>{
         if (!transaction) {
+            const err = {status:403, message:"This transaction has either been used and do not exist anymore."}
+            return res.status(403).send(err);
+        }else if (transaction.paymentStatus === true) {
             const err = {status:403, message:"This transaction has either been used and do not exist anymore."}
             return res.status(403).send(err);
         }
@@ -610,6 +613,7 @@ exports.updateBuyerWithdraw  = (req, res, next)=>{
         }else{            const newTransaction = {
                                         _id : req.user._id,
                                         transaction:transaction._id,
+                                        currency:transaction.currency,
                                         productName:transaction.productName,
                                         description:transaction.description,
                                         milestones:transaction.milestones,

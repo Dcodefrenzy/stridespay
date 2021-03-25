@@ -199,6 +199,32 @@ userSchema.statics.findByPhoneCredentials = function (phonenumber, password){
 	})
 }
 
+
+userSchema.statics.checkPassword = function(email, password){
+	const user = this;
+		return user.findOne({email}).then((body)=>{
+		console.log({"credentialmail":body})
+		if (!body) {
+			const err = {status:400, message:{message:"User do not exist."}}
+			return Promise.reject(err);
+		}
+		if(body.deleteUser === true) {
+			const err = {status:400, message:{message:"This user has been deleted."}}
+			return Promise.reject(err);
+		}
+		return new Promise((resolve, reject)=>{
+			bcrypt.compare(password, body.password, (err, res)=>{
+				if (res) {
+					return resolve(body);
+					
+				}else{
+					const error = {status:404, message:"Password is not correct"}
+					return reject(error);
+				}	
+			})
+		})
+	})
+}
 userSchema.statics.findByEmailCredentials = function (email, password){
 	const user = this;
 	return user.findOne({email}).then((body)=>{

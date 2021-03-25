@@ -13,6 +13,9 @@ FinalcialsSchema = mongoose.Schema({
             type:String,
             required:true,
         },
+        currency:{
+            type:String
+        },
         paymentStatus:{
             type:Boolean,
             required:false,

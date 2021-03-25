@@ -48,7 +48,8 @@ console.log(id)
 							<div class="tab-content" id="myTabContent">
 								<div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
 									${transactions.map((transaction, index)=>{
-										let query;
+														let query;
+														let currencyCharacter = transaction.currency === "USD"?"$":transaction.currency === "NGN"?"&#8358":"&#8358"
 													  if (id === "client") {query = transaction.buyer}
 													  else if (id === "freelancer") {query = transaction.merchant}
 												if (transaction.transactionComplete === false && token._id === query) {
@@ -57,7 +58,7 @@ console.log(id)
 											<div class="card">
 												<div class="card-body">
 													<h5 class="card-title">${transaction.productName}</h5>
-													<h6 class="card-subtitle">&#8358 ${transaction.price.toString().slice(0, -2)}</h6>
+													<h6 class="card-subtitle">${currencyCharacter} ${transaction.price.toString().slice(0, -2)}</h6>
 													<h6 class="card-subtitle">${moment(transaction.dateCreated).fromNow()}</h6>
 													<hr>
 													<h5>Description:</h5>
@@ -83,7 +84,8 @@ console.log(id)
 								</div>
 								<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 													${transactions.map((transaction, index)=>{
-										let query;
+														let currencyCharacter = transaction.currency === "USD"?"$":transaction.currency === "NGN"?"&#8358":"&#8358"
+														let query;
 													  if (id === "client") {query = transaction.buyer}
 													  else if (id === "freelancer") {query = transaction.merchant}
 												if (transaction.transactionComplete === true && token._id === query) {
@@ -92,7 +94,7 @@ console.log(id)
 											<div class="card">
 												<div class="card-body">
 													<h5 class="card-title">${transaction.productName}</h5>
-													<h6 class="card-subtitle">&#8358 ${transaction.price.toString().slice(0, -2)}</h6>
+													<h6 class="card-subtitle">${currencyCharacter} ${transaction.price.toString().slice(0, -2)}</h6>
 													<h6 class="card-subtitle">${moment(transaction.dateCreated).fromNow()}</h6>
 													<p><i class="fa fa-check-circle text-success text-left"></i> Transaction completed</p>
 													<hr>

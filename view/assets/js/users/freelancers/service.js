@@ -17,6 +17,8 @@ exports.showServiceHandller = (token, id)=>{
 	spinner.className ="display-none";
 
 			const showService=(user, service, milestones, transaction, display)=>{
+					let currency, currencyCharacter;
+					currencyCharacter = transaction.currency === "USD"?"$":transaction.currency === "NGN"?"&#8358":"&#8358"
 				sideBar(token, id);
 				const html = `<div id="service" class="">
 										<!-- Body Content Wrapper -->
@@ -74,7 +76,7 @@ exports.showServiceHandller = (token, id)=>{
 																	</div>
 																</div>
 															</div>
-															<h6 class="card-subtitle">&#8358; ${service.price.toString().slice(0, -2)}</h6>
+															<h6 class="card-subtitle">${currencyCharacter} ${service.price.toString().slice(0, -2)}</h6>
 														</div>
 														<div class="card-body">
 															<h5 class="card-title">Service Description</h5>
@@ -105,7 +107,7 @@ exports.showServiceHandller = (token, id)=>{
 																return `<li>
 																	<div class="dsh-timeline-dot bg-success"></div>
 																	<h6>${milestone.milestone.toUpperCase()}</h6>
-																	<span> <i class="lni-money-protection"></i> &#8358; ${milestone.price.toString().slice(0, -2)}</span>
+																	<span> <i class="lni-money-protection"></i> ${currencyCharacter} ${milestone.price.toString().slice(0, -2)}</span>
 																	<span> <i class="lni-timer"></i> ${moment(milestone.dateCreated).format("L")}</span>
 																	<p>${milestone.description.slice(0, 150)}</p>
 																	<a class="btn btn-success text-white" href="/users/milestone/${milestone._id}">Manage Milestones details</a>

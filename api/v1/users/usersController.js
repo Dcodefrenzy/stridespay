@@ -205,6 +205,22 @@ exports.addUser = (req, res, next)=>{
 
 
 //User login.
+exports.passwordAuthenticate = (req, res, next)=>{
+	users.checkPassword(req.user.email, req.body.password).then((user)=>{
+	console.log(user)
+		if (user) {
+			next();
+		}else if (!user) {
+			const err = {status:404, message:"Password incorrect"}
+			return res.status(404).send(err);
+		}
+			
+	}).catch((e)=>{
+		console.log(e);
+		res.status(404).send(e);
+	});
+}
+
 
 exports.userLogin = (req, res)=>{
 	//

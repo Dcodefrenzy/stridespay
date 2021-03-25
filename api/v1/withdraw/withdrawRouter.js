@@ -4,9 +4,9 @@ const {sendMail} = require("../mail/mailController.js");
 const productController = require("../products/productController.js");
 const milestoneController = require("../milestones/milestoneController.js");
 const transactionController = require("../transaction/transcationController.js");
-const {getUserWallet, subtractUserWallet, getUserWallets, getUserWalletForWithdrawl, getUserWalletsByCurrency} = require("../wallet/walletsController.js");
+const {getUserWallet, subtractUserWallet, getUserWallets, getUserWalletForWithdrawl, getUserWalletsByCurrency, verifyUserAmountForWithdraw} = require("../wallet/walletsController.js");
 const {getUserWithdraw, newWithdraw, getUserWithdrawals, getUserWithdrawalsByCurrency} = require("./withdrawController.js");
-const {userAuthenticate} = require("../users/usersController.js");
+const {userAuthenticate, passwordAuthenticate} = require("../users/usersController.js");
 const {findUserAccount} = require("../accounts/accountController.js");
 const {pushNotification} = require("../push/pushController.js");
 const {payOutUser} = require("../payment/paymentController.js");
@@ -21,9 +21,11 @@ router.route("/project-analysis")
 
 router.route("/financial-analysis")
 		.post(userAuthenticate, getUserWithdrawalsByCurrency, getUserWalletsByCurrency, transactionController.getUserFinanciesByCurrency)
-router.route("/initiate")
+router.route("/initiate/:id")
 		.post(userAuthenticate, 
-			 getUserWallet, 
+			passwordAuthenticate,
+			verifyUserAmountForWithdraw,
+			 getUserWalletForWithdrawl, 
 			 findUserAccount,
 			 payOutUser, 
 			 newWithdraw, 
