@@ -32,9 +32,19 @@ define(function(require, exports, module){
 						<h5 class="card-title">Clients</h5>
 						<h6 class="card-subtitle">You can contact your clients and also exports them in a file.</h6>
 					</div>
-					<div id="buttons_datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="row"><div class="col-sm-12 text-right"><div class="dt-buttons btn-group flex-wrap">      <button class="btn buttons-print btn-primary" tabindex="0" aria-controls="buttons_datatable" type="button"><span>Print</span></button> <button class="btn buttons-excel buttons-html5 btn-primary" tabindex="0" aria-controls="buttons_datatable" type="button"><span>Excel</span></button> <button class="btn buttons-csv buttons-html5 btn-primary" tabindex="0" aria-controls="buttons_datatable" type="button"><span>CSV</span></button> 									<button class="btn btn-sm btn-primary" id="${token.token}" name="${id}" onclick="return getClientDatabasePDF(event, this.id, this.name)">PDF </button></div></div></div><div class="row"><div class="col-sm-12"></div></div><table id="buttons_datatable" class="table table-bordered dataTable no-footer dtr-inline" role="grid" aria-describedby="buttons_datatable_info" style="width: 1036px;">
+					<div id="buttons_datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+						<!-- 
+						<div class="row">
+						<div class="col-sm-12 text-right"><div class="dt-buttons btn-group flex-wrap"> 
+						     
+						<button class="btn buttons-print btn-primary" tabindex="0" aria-controls="buttons_datatable" type="button"><span>Print</span></button> <button class="btn buttons-excel buttons-html5 btn-primary" tabindex="0" aria-controls="buttons_datatable" type="button"><span>Excel</span></button> <button class="btn buttons-csv buttons-html5 btn-primary" tabindex="0" aria-controls="buttons_datatable" type="button"><span>CSV</span></button> 									
+						<button class="btn btn-sm btn-primary" id="${token.token}" name="${id}" onclick="return getClientDatabasePDF(event, this.id, this.name)">PDF </button></div></div></div><div class="row"><div class="col-sm-12">
+						</div>
+						</div>
+						-->
+						<table id="buttons_datatable" class="table table-bordered dataTable no-footer dtr-inline" role="grid" aria-describedby="buttons_datatable_info" style="width: 1036px;">
 						<thead>
-							<tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="buttons_datatable" rowspan="1" colspan="1" style="width: 141.25px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">First Name</th><th class="sorting" tabindex="0" aria-controls="buttons_datatable" rowspan="1" colspan="1" style="width: 235.25px;" aria-label="Position: activate to sort column ascending">Last Name</th><th class="sorting" tabindex="0" aria-controls="buttons_datatable" rowspan="1" colspan="1" style="width: 111.25px;" aria-label="Office: activate to sort column ascending">Projetcs</th><th class="sorting" tabindex="0" aria-controls="buttons_datatable" rowspan="1" colspan="1" style="width: 48.25px;" aria-label="Actions: activate to sort column ascending">Actions</th></tr>
+							<tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="buttons_datatable" rowspan="1" colspan="1" style="width: 141.25px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">First Name</th><th class="sorting" tabindex="0" aria-controls="buttons_datatable" rowspan="1" colspan="1" style="width: 235.25px;" aria-label="Position: activate to sort column ascending">Last Name</th><th class="sorting" tabindex="0" aria-controls="buttons_datatable" rowspan="1" colspan="1" style="width: 111.25px;" aria-label="Office: activate to sort column ascending">Projetcs</th><th class="sorting" tabindex="0" aria-controls="buttons_datatable" rowspan="1" colspan="1" style="width: 48.25px;" aria-label="Actions: activate to sort column ascending">Actions</th></tr> 
 						</thead>
 						<tbody>
 							
