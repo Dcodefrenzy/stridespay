@@ -131,8 +131,13 @@ const payOutUserLocal = (req, res, next)=>{
 	})
     .catch(function (err) {
     	console.log(err)
-    	if (err.statusCode === 400) {}
+    	if (err.statusCode === 400) {
+
         res.status(400).send({status:400, message:{accountnumber:"Your account number "+req.body.accountnumber}})
+    }else{
+
+        res.status(403).send({status:403, message:err.message})
+    }
     });
 }
 exports.verifyPayment=(req, res, next)=>{	
@@ -252,7 +257,7 @@ console.log('HERE')
 				dateCreated: new Date(),
 			});
 			payment.save().then((payment)=>{
-				console.log('saved')
+				console.log({'saved':payment})
 					if (payment) {
 					const payMentStatus = req.data.paymentStatus === true?"successful":"not successful";
 					req.data._id = req.user._id; 

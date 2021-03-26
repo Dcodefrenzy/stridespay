@@ -1,26 +1,39 @@
 const {PaymerchantWallets} = require("./paymerchantWalletModel.js");
 
+const returnInteger = (number)=>{
+return parseInt(number);
+}
 
 
+const deductMoney = (milestonePrice, currency)=>{
+		let deduction;
+	if (currency === "USD") {
+		console.log({"USD":milestonePrice})
+	return  deduction = returnInteger(milestonePrice.toString().slice(0, -2))  * 6/100;
 
+	}else if (currency === "NGN") {
+		console.log({"NGN":milestonePrice})
+	return  deduction = returnInteger(milestonePrice.toString().slice(0, -2)) * 3/100;
+		if (deduction > 3000) {
+			return deduction = 3000;
+		}else if (deduction < 3000) {
+			return deduction = checkDeduction;	
+		}
+	}
+}
 exports.addAddTooPaymerchant = (req, res, next)=>{
 
-	let deduction;
-	const checkDeduction = req.data.milestones[req.body.index].price * 3/100;
-	if (checkDeduction > 300000) {
-		deduction = 300000;
-	}else if (checkDeduction < 300000) {
-		deduction = checkDeduction;	
-	}
+	let deduction = deductMoney(req.data.milestones[req.body.index].price, req.data.currency);
 
+	let userPayment = returnInteger(req.data.milestones[req.body.index].price.toString().slice(0, -2))  - deduction
 	   paymerchantWalletModel = new PaymerchantWallets({
 	   		transaction:req.data.transaction,
 	   		user:req.user._id,
 	   		currency:req.data.currency,
 	   		description: req.data.milestones[req.body.index].description,
-	   		userPayment: req.data.milestones[req.body.index].price - deduction,
+	   		userPayment: userPayment+"00",
 	   		totalPayment: req.data.milestones[req.body.index].price,
-	   		paymerchantAmount:deduction,
+	   		paymerchantAmount:deduction+"00",
 	   		dateCreated: new Date(),
 	   });
 	   paymerchantWalletModel.save().then((paymerchantAmount)=>{

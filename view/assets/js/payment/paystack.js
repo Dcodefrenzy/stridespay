@@ -75,6 +75,10 @@
 
                     window.location = "/users/"+url+"/"+txref;
                   
+                }else if (response.data.data.responsemessage === "successful") {
+                                    console.log(response.data.tx.txRef)
+
+                    window.location = "/users/"+url+"/"+response.data.tx.txRef
                 } else {
                   console.log(response.data)
                   console.log('err')

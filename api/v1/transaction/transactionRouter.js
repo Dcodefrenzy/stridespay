@@ -34,7 +34,7 @@ router.route("/service/tokens/:id")
 
 
 router.route("/payment/token/:id")
-	.get(usersController.userAuthenticate, controller.findOneTransactionByIdForPayment)
+	.get(usersController.userAuthenticate, usersController.addUserRole, controller.findOneTransactionByIdForPayment)
 
 router.route("/manage/:id")
 	.get(usersController.userAuthenticate, controller.findOneTransactionByIdForEdit)
@@ -77,11 +77,11 @@ router.route("/merchant/update/milestone")
 router.route("/buyer/update/milestone")
 	.patch(		usersController.userAuthenticate,
 				controller.checkBuyerWithdrawForChanges,
-				 controller.buyerUpdateMilestones, 
-				 controller.updateBuyerWithdraw,
+				 controller.buyerUpdateMilestones,
 				paymerchantWalletController.addAddTooPaymerchant,
 				walletController.createUSerBeforAdding,
 				 finalcialTransactionController.addFinalcialTranaction, 
+				 controller.updateBuyerWithdraw, 
 				 usersController.findUserForTransaction,  
 				 pushController.pushNotification, 
 				 mailController.sendMail, 

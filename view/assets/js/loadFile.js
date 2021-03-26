@@ -19,6 +19,7 @@ define(function(require, exports, module) {
 	const {verifyPayment} = require("payment/payment_verify");
 	const {verifyPaymentProduct} = require("payment/productPaymentVerify");
 	const {withdraw} = require("users/withdraw");
+	const {transferMoney} = require("users/transferMoney");
 	const {registrationSuccess} = require("users/registrationSuccess");
 	const {profile} = require("users/profile");
 	const {settingsHandler} = require("users/settings");
@@ -116,6 +117,9 @@ define(function(require, exports, module) {
 				break;
 				case "/users/wallets":
 				wallets(sessionItem, path[0]);
+				break;
+				case "/users/withdraw/all/"+path[4]:
+				transferMoney(sessionItem, path[4]);
 				break;
 				case "/users/withdraw/"+path[3]:
 				withdraw(sessionItem, path[3]);

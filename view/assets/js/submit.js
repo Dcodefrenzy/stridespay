@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 const registerBuyer = (url, token, data)=>{
 	 request(url, token, "POST", data, (res)=>{
 	 if (res.status === 201) {
-		sessionStorage.setItem("user", JSON.stringify({"token":res.token, "_id":res._id}))
+		sessionStorage.setItem("user", JSON.stringify({"token":res.token, "_id":res._id, "role":res.roles}))
 		window.location = res.redirect;
 	}else {
 		console.log(res);
@@ -23,7 +23,7 @@ const registerBuyer = (url, token, data)=>{
 const registerMerchant = (url, token, data)=>{
 	 request(url, token, "POST", data, (res)=>{
 	 if (res.status === 201) {
-		sessionStorage.setItem("user", JSON.stringify({"token":res.token, "_id":res._id}))
+		sessionStorage.setItem("user", JSON.stringify({"token":res.token, "_id":res._id, "role":res.roles}))
 		window.location = res.redirect;
 	}else {
 		console.log(res);
@@ -41,7 +41,7 @@ const loginUser=(url, token, data)=>{
 		 request(url, token, "POST", data, (res)=>{
 	 if (res.status === 200) {
 	 	alert("Login Successful.")
-		sessionStorage.setItem("user", JSON.stringify({"token":res.token, "_id":res._id}))
+		sessionStorage.setItem("user", JSON.stringify({"token":res.token, "_id":res._id, "role":res.roles}))
 		loading("login", "display-none");
 		location.reload();
 	}else if (res.status === 400) {
@@ -78,7 +78,7 @@ const userLogin=(url, token, data)=>{
 		 	console.log(res.status)
 	 if (res.status === 200) {
 	 	alert("Login Successful.")
-		sessionStorage.setItem("user", JSON.stringify({"token":res.token, "_id":res._id}))
+		sessionStorage.setItem("user", JSON.stringify({"token":res.token, "_id":res._id, "role":res.roles}))
 		window.location = "/users/dashboard";
 	}else if (res.status === 400) {
 				loading("spinner", "display-none");
@@ -407,7 +407,7 @@ const editContractMilestone = (url, token, data)=>{
 }
 
 const createWithdraw= (url, token, data)=>{
-
+	console.log(data)
 		loading("spinner", "dsh-preloader bg-white");
 		request(url, token, "POST", data, (res)=>{
 		 if (res.status === 201) {

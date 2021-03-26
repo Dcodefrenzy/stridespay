@@ -158,7 +158,7 @@ const userSchema = new mongoose.Schema({
 	userSchema.methods.toJSON = function(){
 		const user = this;
 		const userObject = user.toObject();
-		return _.pick(userObject, ['_id', 'email', 'firstname', 'lastname', 'name', 'twitter', 'instagram', 'skills', 'facebook', 'linkedin',  'phonenumber', 'gender', 'age', 'location', 'about', 'verification','image', 'lastLogin','loginStatus','dateCreated']);
+		return _.pick(userObject, ['_id', 'email', 'firstname', 'lastname', 'name', 'twitter', 'instagram', 'skills', 'facebook', 'linkedin',  'phonenumber', 'gender', 'age', 'location', 'about', 'verification','image',"roles", 'lastLogin','loginStatus','dateCreated']);
 	};
 
 

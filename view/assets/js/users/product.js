@@ -18,6 +18,7 @@ exports.showProductHandller = (token, id)=>{
 
 			const showProduct=(user,product, milestones, transaction, display)=>{
 				
+					let currencyCharacter = product.currency === "USD"?"$":product.currency === "NGN"?"&#8358":"&#8358"
 				sideBar(token, id);
 				const html = `<div class="dsh-content-wrapper col-12 col-sm-12 col-md-9 offset-md-3 col-lg-10 offset-lg-2 col-xl-10 offset-xl-1" id="product">
 								<!-- Breadcrumbs -->
@@ -50,7 +51,7 @@ exports.showProductHandller = (token, id)=>{
 
 														<!-- Price -->
 														<div class="dsh-price-wrapper">
-															<p class="dsh-price">&#8358; ${product.price.slice(0, -2)}</p>
+															<p class="dsh-price">${currencyCharacter} ${product.price.slice(0, -2)}</p>
 															
 														</div>
 														<!-- /Price -->

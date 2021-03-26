@@ -107,9 +107,10 @@ return parseInt(number);
 
 const addToUserWallet = (req, res, next)=>{
 
-	const newBalance  = returnInteger(req.data.milestonesPrice) + returnInteger(req.data.wallet.amount);
+	let newBalance  = returnInteger(req.data.milestonesPrice) + returnInteger(req.data.wallet.amount);
 
 	console.log({"add to wallet returning":req.data.currency});
+	console.log({"add to wallet returning":newBalance});
 	wallets.findOneAndUpdate({user:req.data.merchant, currency:req.data.currency}, {$set: {amount:newBalance}}).then((wallet)=>{
 		if (wallet) {
 

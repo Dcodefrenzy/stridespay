@@ -325,7 +325,7 @@ exports.findOneTransactionByIdForPayment = (req, res)=>{
             const err = {status:403, message:"This transaction Do not exist for you, As you are the user"}
             return res.status(403).send(err);
         }else{
-        res.status(200).send({status:200,transaction:transaction, user:req.user});
+        res.status(200).send({status:200,transaction:transaction, user:req.data });
         }
     }).catch((e)=>{
         console.log(e)

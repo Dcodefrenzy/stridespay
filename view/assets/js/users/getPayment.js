@@ -20,6 +20,7 @@ return loadPaymentHandller = (id, link)=>{
 		getRequest(url, sessionItem, "GET", function (response) {
 			console.log(response)
 					if (response.status === 200) {
+	sessionStorage.setItem("user", JSON.stringify({"token":sessionItem.token, "_id":response.user._id, "role":response.user.roles}))
 						flutterwave(response, id, paymentLink);
 					}else if (response.status === 401) {
 					loading("user-side-bar-open", "display-none");

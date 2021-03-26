@@ -36,6 +36,9 @@ router.route("/subscribe/:id")
 router.route("/register")
 	.post(controller.addUser, walletController.createWallet, withdrawController.createWithdraw, productController.addProduct, milestoneController.addMilestone,transactionController.createMerchantTransactions, logsController.addLogs)
 
+router.route("/update/role")
+	.patch(controller.userAuthenticate, controller.updateUserRole)
+
 router.route("/login")
 	.post(controller.userLogin)
 

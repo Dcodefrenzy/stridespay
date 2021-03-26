@@ -6,8 +6,9 @@ define(function (require, exports, module) {
 	const {getRequest} = require("request");
 	const {loginForm} = require("../logins");
 	const {logout} = require("./logout");
+	const {switchAccount} = require("../switchAccount");
 	const nav = document.getElementById("user-side-bar-open");
-		const showNavBar=(user, wallet,withdraw)=>{
+		const showNavBar=(user, wallet,withdraw, links)=>{
 			let image;
 			if (user.image) {
 				image = `<img width="100%" src="/assets/images/${user.image}" class="col-7 profile-image"/>`;								
@@ -257,16 +258,75 @@ define(function (require, exports, module) {
 						 	</div>
 						 </div>
 						 </div>
-						        <div class="mt-5 mx-3">
+						 ${links}
+					</div>`;
+		 				nav.insertAdjacentHTML('afterbegin', html);
+		}
+
+
+		const loadDashboard=(response)=>{
+				if (response.status === 401) {
+					loading("user-side-bar-open", "display-none");
+					 body.insertAdjacentHTML('afterbegin', loginForm);
+				}else if (response.status === 200) {
+					let links;
+					if (token.role === 1) {
+
+						      links =  `<div class="mt-5 mx-3">
 						          <p class="hover-strides"><a href="/users/dashboard" class="text-green"><i class="fa fa-home" aria-hidden="true"></i> Home</a></p>
 						          <p class="hover-strides"><a href="/users/profile" class="text-green"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></p>
+						          <h6 class="mt-4"><b>Switch Account</b></h6>
+						          <p class="hover-strides" onclick="return switchAccount(event, 1)"><a href="#" class="text-green"><i class="fa fa-toggle-on" aria-hidden="true"></i> Client</a></p>
 						          <h6 class="mt-4"><b>Your Business</b></h6>
 						          <p class="hover-strides"><a href="/users/projects" class="text-green"><i class="fa fa-plus-circle" aria-hidden="true"></i> New Project</a></p>
 						          <p class="hover-strides"><a href="/users/contracts" class="text-green"><i class="fa fa-handshake" aria-hidden="true"></i> Contracts</a></p>
 						          <p class="hover-strides"><a href="/users/client-database" class="text-green"><i class="fa fa-users" aria-hidden="true"></i> Database</a></p>
 						          <p class="hover-strides"><a href="/users/wallets" class="text-green"><i class="fa fa-landmark" aria-hidden="true"></i> Wallet</a></p>
 						          <h6 class="mt-4"><b>Project Tracking</b></h6>
-						          <p class="hover-strides"><a href="/users/transactions/client" class="text-green"><i class="fa fa-tasks" aria-hidden="true"></i> As Client </a></p>
+						          <p class="hover-strides"><a href="/users/transactions/freelancer" class="text-green"><i class="fa fa-tasks" aria-hidden="true"></i> Track project</a></p>
+						          <h6 class="mt-4">Analysis</b></h6>
+						          <p class="hover-strides"><a href="/users/financial-analysis" class="text-green"><i class="fa fa-chart-bar" aria-hidden="true"></i> Financials</a></p>
+						          <p class="hover-strides"><a href="/users/project-analysis" class="text-green"><i class="fa fa-chart-pie fa-spin" aria-hidden="true"></i> Projects</a></p>
+						          <h6 class="mt-4"><b>Others</b></h6>
+						          <p class="hover-strides"><a href="/users/settings" class="text-green"><i class="fa fa-cog fa-spin" aria-hidden="true"></i> Settings</a></p>
+						          <p class="hover-strides" onclick="return logout(event)"><a href="#" class="text-green"><i class="fa fa-arrow-left" aria-hidden="true"></i> Log out</a></p>
+						          <h6 class="mt-4"><b>Coming soon!!!</b></h6>
+						          <p class="hover-strides"><a href="#" class="text-green"><i class="fas fa-gift" aria-hidden="true"></i> Premium</a></p>
+						          <p class="hover-strides"><a href="#" class="text-green"><i class="fa fa-user-plus" aria-hidden="true"></i> Invite friends</a></p>
+						          <p class="hover-strides"><a href="#" class="text-green"><i class="fa fa-file" aria-hidden="true"></i> Contract Templates</a></p>
+						          <p class="hover-strides"><a href="#" class="text-green"><i class="fa fa-bullhorn" aria-hidden="true"></i> whispers (task)</a></p>
+						        </div>`
+					}else if (token.role === 2) {
+						links = `<div class="mt-5 mx-3">
+						          <p class="hover-strides"><a href="/users/dashboard" class="text-green"><i class="fa fa-home" aria-hidden="true"></i> Home</a></p>
+						          <p class="hover-strides"><a href="/users/profile" class="text-green"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></p>
+						          <h6 class="mt-4"><b>Switch Account</b></h6>
+						          <p class="hover-strides" onclick="return switchAccount(event, 2)"><a href="#" class="text-green"><i class="fa fa-toggle-off" aria-hidden="true"></i> Merchant</a></p>
+						          <h6 class="mt-4"><b>Your Business</b></h6>
+						          <p class="hover-strides"><a href="/users/wallets" class="text-green"><i class="fa fa-landmark" aria-hidden="true"></i> Wallet</a></p>
+						          <h6 class="mt-4"><b>Project Tracking</b></h6>
+						          <p class="hover-strides"><a href="/users/transactions/client" class="text-green"><i class="fa fa-tasks" aria-hidden="true"></i> Track your project </a></p>
+						          <h6 class="mt-4"><b>Others</b></h6>
+						          <p class="hover-strides"><a href="/users/settings" class="text-green"><i class="fa fa-cog fa-spin" aria-hidden="true"></i> Settings</a></p>
+						          <p class="hover-strides" onclick="return logout(event)"><a href="#" class="text-green"><i class="fa fa-arrow-left" aria-hidden="true"></i> Log out</a></p>
+						          <h6 class="mt-4"><b>Coming soon!!!</b></h6>
+						          <p class="hover-strides"><a href="#" class="text-green"><i class="fas fa-gift" aria-hidden="true"></i> Premium</a></p>
+						          <p class="hover-strides"><a href="#" class="text-green"><i class="fa fa-user-plus" aria-hidden="true"></i> Invite friends</a></p>
+						          <p class="hover-strides"><a href="#" class="text-green"><i class="fa fa-file" aria-hidden="true"></i> Contract Templates</a></p>
+						          <p class="hover-strides"><a href="#" class="text-green"><i class="fa fa-bullhorn" aria-hidden="true"></i> whispers (task)</a></p>
+						        </div>`
+					}else  {
+						links = `<div class="mt-5 mx-3">
+						          <p class="hover-strides"><a href="/users/dashboard" class="text-green"><i class="fa fa-home" aria-hidden="true"></i> Home</a></p>
+						          <p class="hover-strides"><a href="/users/profile" class="text-green"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></p>
+						          <h6 class="mt-4"><b>Switch Account</b></h6>
+						          <p class="hover-strides" onclick="return switchAccount(event, 1)"><a href="#" class="text-green"><i class="fa fa-toggle-on" aria-hidden="true"></i> Client</a></p>
+						          <h6 class="mt-4"><b>Your Business</b></h6>
+						          <p class="hover-strides"><a href="/users/projects" class="text-green"><i class="fa fa-plus-circle" aria-hidden="true"></i> New Project</a></p>
+						          <p class="hover-strides"><a href="/users/contracts" class="text-green"><i class="fa fa-handshake" aria-hidden="true"></i> Contracts</a></p>
+						          <p class="hover-strides"><a href="/users/client-database" class="text-green"><i class="fa fa-users" aria-hidden="true"></i> Database</a></p>
+						          <p class="hover-strides"><a href="/users/wallets" class="text-green"><i class="fa fa-landmark" aria-hidden="true"></i> Wallet</a></p>
+						          <h6 class="mt-4"><b>Project Tracking</b></h6>
 						          <p class="hover-strides"><a href="/users/transactions/freelancer" class="text-green"><i class="fa fa-tasks" aria-hidden="true"></i> As Freelancer</a></p>
 						          <h6 class="mt-4">Analysis</b></h6>
 						          <p class="hover-strides"><a href="/users/financial-analysis" class="text-green"><i class="fa fa-chart-bar" aria-hidden="true"></i> Financials</a></p>
@@ -279,18 +339,10 @@ define(function (require, exports, module) {
 						          <p class="hover-strides"><a href="#" class="text-green"><i class="fa fa-user-plus" aria-hidden="true"></i> Invite friends</a></p>
 						          <p class="hover-strides"><a href="#" class="text-green"><i class="fa fa-file" aria-hidden="true"></i> Contract Templates</a></p>
 						          <p class="hover-strides"><a href="#" class="text-green"><i class="fa fa-bullhorn" aria-hidden="true"></i> whispers (task)</a></p>
-						        </div>
-					</div>`;
-		 				nav.insertAdjacentHTML('afterbegin', html);
-		}
+						        </div>`
+					}
 
-
-		const loadDashboard=(response)=>{
-				if (response.status === 401) {
-					loading("user-side-bar-open", "display-none");
-					 body.insertAdjacentHTML('afterbegin', loginForm);
-				}else if (response.status === 200) {
-					showNavBar(response.user, response.wallet, response.withdraw);
+					showNavBar(response.user, response.wallet, response.withdraw, links);
 					updateNotification(token);
 				}
 			}

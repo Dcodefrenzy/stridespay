@@ -5,8 +5,7 @@ define(function(require, exports, module) {
 	const {getRequest} = require("../request")
 	const {loginForm} = require("../logins");
   const {loading} = require("../loading");
-	const {startTransfer} = require("./transfer");
-	const {initiateTransfer} = require("./transferMoney");	
+	const {startTransfer} = require("./transfer");	
 	const body = document.getElementById("body");
 	const spinner = document.getElementById("spinner");
 	const {sideBar} = require("./sidebar");
@@ -77,7 +76,7 @@ define(function(require, exports, module) {
 																	</form>
 																	<h4>Full Withdral</h4>
 																	<p>Click the button below to withdraw everything from your wallet.</p>
-																	<input type="submit" class="btn-lg- btn-success" onclick="initiateTransfer(event, this.name, this.id)"   name="${token.token}" id="${id}" class="form-control btn-lg btn-dark" value="Withdraw">	
+																	<a href="/users/withdraw/all/${id}" class="btn-lg- btn-success">Withdraw All</a>	
 																	</div>
 																		
 																</div

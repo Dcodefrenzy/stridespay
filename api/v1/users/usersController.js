@@ -109,6 +109,7 @@ exports.registerUser=(req, res, next)=>{
 		lastname:req.body.lastname,
 		name:req.body.firstname+"_"+req.body.lastname,
 		phonenumber: req.body.phonenumber,
+		roles:1,
 		password: req.body.password,
 		lastLogin: new Date(),
 		dateCreated: new Date(),		
@@ -140,7 +141,31 @@ exports.registerUser=(req, res, next)=>{
 	
 }
 
+exports.addUserRole=(req, res, next)=>{
+	if (req.user.roles === 2) {
+		req.data = req.user;
+		next();
+	}else{
+		users.findByIdAndUpdate(req.user._id, {$set: {roles:2}}, {new: true}).then((user)=>{
+			req.data = user;
+			next();
+		})	
+	}
 
+}
+exports.updateUserRole = (req, res, next)=>{
+	let role;
+	if (req.body.role === 1) {
+		role = 2
+	}else if (req.body.role === 2) {
+		role = 1
+	}
+		users.findByIdAndUpdate(req.user._id, {$set: {roles:role}}, {new: true}).then((user)=>{
+			res.status(201).send({user:user, status:201});
+			
+		})	
+
+}
 exports.addUser = (req, res, next)=>{
 		
 	let user = new users({
@@ -149,6 +174,7 @@ exports.addUser = (req, res, next)=>{
 		lastname:req.body.lastname,
 		name:req.body.firstname+"_"+req.body.lastname,
 		phonenumber: req.body.phonenumber,
+		roles:1,
 		password: req.body.password,
 		lastLogin: new Date(),
 		dateCreated: new Date(),		

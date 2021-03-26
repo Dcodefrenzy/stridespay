@@ -1,27 +1,28 @@
 define(function(require, exports, module) {
 		 
 
-	return initiateTransfer =(event, token, id)=>{
+	 exports.transferMoney =(token, id)=>{
 	const {getRequest} = require("../request")
 	const {loginForm} = require("../logins");
   const {loading} = require("../loading");		
 	const body = document.getElementById("body");
-	const spinner = document.getElementById("transfer");
+	const spinner = document.getElementById("spinner");
+	const {sideBar} = require("./sidebar");
 	spinner.className ="display-none";
 	
 		const displayWithdraw = (wallet)=>{
-
+			sideBar(token, id);
 				walletAmount = wallet.amount === 0 ?0:wallet.amount.toString().slice(0, -2)
 		const html = `<div id="revert" class="dsh-content-wrapper col-12 col-sm-12 col-md-9 offset-md-3 col-lg-10 offset-lg-2 col-xl-10 offset-xl-1">
 
 			<!-- Breadcrumbs -->
 			<div class="breadcrumb-wrapper d-flex align-items-start align-items-sm-center justify-content-between flex-column flex-sm-row">
 				<div class="breadcrumb-wrapper--inner d-flex flex-column-reverse">
-					<h1>Product</h1>
+					<h1>Withdraw All</h1>
 					<ol class="breadcrumb style-1">
 						<li class="breadcrumb-item"><a href="/users/dashboard">Dashboard</a></li>
-						<li class="breadcrumb-item"><a href="/users/projects">projects</a></li>
-						<li class="breadcrumb-item" aria-current="page">Product</li>
+						<li class="breadcrumb-item"><a href="/users/withdraw/${id}">withdraw</a></li>
+						<li class="breadcrumb-item" aria-current="page">All</li>
 					</ol>
 				</div>
 			</div>
@@ -31,7 +32,7 @@ define(function(require, exports, module) {
 				<div class="col-xl-12">
 					<div class="card">
 						<div class="card-body">
-							<h1>Product Token</h1>
+							<h1>Withdraw</h1>
 							<p class="text-dark">create a product prepaid token and speed up your transcations</p>
 
 							<form id="withdraws/initiate/${id}" class="createWithdraw" name="submitForm" onsubmit="return register(event)">
@@ -50,7 +51,7 @@ define(function(require, exports, module) {
 									</div>
 									<div class="col-12 col-sm-12 col-md-12">
 										<div class="form-group">
-											<input type="submit"   name="${id}" class="form-control btn-lg btn-dark" value="Withdraw">
+											<input type="submit"  class="form-control btn-lg btn-dark" value="Withdraw All">
 										</div>
 									<div>
 								</div>
@@ -81,7 +82,7 @@ define(function(require, exports, module) {
 			}
 
 
-			getRequest("withdraws/withdraw/"+id, {"token":token,"":""}, "GET", loadDashboard);
+			getRequest("withdraws/withdraw/"+id, token, "GET", loadDashboard);
 	}
 
 

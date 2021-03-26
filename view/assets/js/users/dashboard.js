@@ -8,6 +8,7 @@ exports.dashBoardHandller = (token, id)=>{
 	const {showNotification} = require("./showNotification");
 	const {sideBar} = require("./sidebar");
 	const {updateNotification} = require("./updatePlayerId");
+	const {switchAccount} = require("../switchAccount");
 	const {loginForm} = require("../logins")
 	const spinner = document.getElementById("spinner");
 	const {createWalletCurrency} = require("./createWalletCurrency");
@@ -15,7 +16,7 @@ exports.dashBoardHandller = (token, id)=>{
 	sideBar.className="display-none"*/
 	spinner.className ="display-none";
 
-	const dashboard=(user, wallet,withdraw, transactions, clients, wallets)=>{
+	const dashboard=(user, wallet,withdraw, transactions, clients, wallets, buttonDisplay)=>{
 				require(['jquery', 'popper.min', 'script', 'libs'], function ($, popper, script, libs) {
 					console.log(popper)
 				showNotification()
@@ -45,28 +46,8 @@ exports.dashBoardHandller = (token, id)=>{
 					        <div class="breadcrumb-controls mt-sm-0 mt-3">
 
 					          ${wallets}
-					          <div class="btn-group dropdown">
-					            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					              Track Projects
-					            </button>
-					            <div class="dropdown-menu">
-					              <a class="dropdown-item media align-items-center" href="/users/transactions/client">
-					                <i class="lni-bar-chart"></i>
-					                <div class="media-body">
-					                  <h6>As a client</h6>
-					                  <p class="text-muted fs-12">Track your paid project</p>
-					                </div>
-					              </a>
-					              <a class="dropdown-item media align-items-center" href="/users/transactions/freelancer">
-					                <i class="lni-pie-chart"></i>
-					                <div class="media-body">
-					                  <h6>As a Freelancer</h6>
-					                  <p class="text-muted fs-12">Projects you are working on</p>
-					                </div>
-					              </a>
-					            </div>
-					          </div>
-					         <a href="/users/projects"> <button type="button" class="btn btn-secondary">Create Project</button></a>
+					          ${buttonDisplay}
+					          
 					        </div>
 
 					      </div>
@@ -722,7 +703,50 @@ exports.dashBoardHandller = (token, id)=>{
 				}else{
 					updateWalletButton = ""
 				}
-					dashboard(response.user, response.wallet, response.withdraw, response.transactions, newArray, updateWalletButton);
+
+								let buttonDisplay
+				if (token.role === 2) {
+					buttonDisplay = `
+								<!--
+					          	<div class="btn-group dropdown">	
+					            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					              Switch Account
+					            </button>
+					            <div class="dropdown-menu">
+					              <a class="dropdown-item media align-items-center" onclick="return switchAccount(event, 1)">
+					                <i class="lni-bar-chart"></i>
+					                <div class="media-body">
+					                  <h6>Switch to Merchant account</h6>
+					                  <p class="text-muted fs-12">use stridespay as a merchant or freelancer</p>
+					                </div>
+					              </a>
+					            </div>
+					          </div>
+					          -->
+								<a href="/users/transactions/client"> <button type="button" class="btn btn-primary">Track your paid project</button></a>`
+				}else{
+					buttonDisplay = `
+								<!--
+					          	<div class="btn-group dropdown">
+					            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					              Track Projects
+					            </button>
+					            <div class="dropdown-menu">
+					              <a class="dropdown-item media align-items-center" onclick="return switchAccount(event, 2)">
+					                <i class="lni-pie-chart"></i>
+					                <div class="media-body">
+					                  <h6>Switch to Client account</h6>
+					                  <p class="text-muted fs-12">User stridespay as a client</p>
+					                </div>
+					              </a>
+					            </div>
+					          </div> 
+					          -->
+					         <a href="/users/transactions/freelancer"> <button type="button" class="btn btn-primary">Track your ongoing project</button></a>
+					         <a href="/users/projects"> <button type="button" class="btn btn-secondary">Create Project</button></a>
+					        `
+				}
+					dashboard(response.user, response.wallet, response.withdraw, response.transactions, newArray, updateWalletButton, buttonDisplay);
 					updateNotification(token);
 				}
 			}

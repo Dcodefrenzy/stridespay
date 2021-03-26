@@ -115,7 +115,11 @@ exports.showServiceTransaction = (token, id)=>{
 				if (response.status === 401) {
 					loading("user-side-bar-open", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);
-				}else if (response.status === 200) {
+				}else if (response.status === 403) {
+					alert(response.message);
+					window.location = "/users/transactions/freelancer"
+				}
+				else if (response.status === 200) {
 
 					showService(response.transaction, response.transaction.milestones, response.user);
 				}

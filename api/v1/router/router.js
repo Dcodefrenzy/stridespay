@@ -96,8 +96,13 @@ router.route("/services/token/:id")
 router.route("/withdraw")
 	.get(loader.load)
 
+router.route("/withdraw/all/:id")
+	.get(loader.load)
+	
 router.route("/withdraw/:id")
 	.get(loader.load)
+
+
 
 router.route("/wallets")
 	.get(loader.load)
