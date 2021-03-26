@@ -42,7 +42,7 @@ exports.settingsHandler = (token, id)=>{
 													</a>
 												</div>
 												<div class="col-12 col-sm-10 offset-sm-1 col-md-10 offset-md-1">
-													<a href="/users/withdraw" class="text-dark">
+													<a href="/users/wallets" class="text-dark">
 													<div class="card bg-background mt-2">
 														<div class="card-body">Withdraw <i class="fa fa-landmark float-right text-dark" aria-hidden="true"></i>
 														</div>

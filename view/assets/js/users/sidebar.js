@@ -305,7 +305,7 @@ define(function (require, exports, module) {
 						          <h6 class="mt-4"><b>Your Business</b></h6>
 						          <p class="hover-strides"><a href="/users/wallets" class="text-green"><i class="fa fa-landmark" aria-hidden="true"></i> Wallet</a></p>
 						          <h6 class="mt-4"><b>Project Tracking</b></h6>
-						          <p class="hover-strides"><a href="/users/transactions/client" class="text-green"><i class="fa fa-tasks" aria-hidden="true"></i> Track your project </a></p>
+						          <p class="hover-strides"><a href="/users/transactions/client" class="text-green"><i class="fa fa-tasks" aria-hidden="true"></i> Track projects </a></p>
 						          <h6 class="mt-4"><b>Others</b></h6>
 						          <p class="hover-strides"><a href="/users/settings" class="text-green"><i class="fa fa-cog fa-spin" aria-hidden="true"></i> Settings</a></p>
 						          <p class="hover-strides" onclick="return logout(event)"><a href="#" class="text-green"><i class="fa fa-arrow-left" aria-hidden="true"></i> Log out</a></p>
