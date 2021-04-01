@@ -7,6 +7,8 @@ const transactionController = require("../transaction/transcationController.js")
 const controller = require("./walletsController.js");
 const withdrawalController = require("../withdraw/withdrawController.js");
 const productController = require("../products/productController");
+const adminController = require("../paymerchantWallet/paymerchantWalletController.js");
+const paymentController = require("../payment/paymentController.js");
 
 const router = express.Router();
 
@@ -14,7 +16,7 @@ router.route("/")
 		.get(userController.userAuthenticate, controller.getUserWalletsForWithdrawal)
 
 router.route("/update/currency")
-		.patch(userController.userAuthenticate, controller.updateC, controller.updateCreateWallet, transactionController.updateC, productController.updateC, withdrawalController.updateWithdalC, addLogs)
+		.patch(userController.userAuthenticate, controller.updateC, controller.updateCreateWallet, paymentController.updateWithdalC, transactionController.updateC, productController.updateC, adminController.updateWithdalC, withdrawalController.updateWithdalC, addLogs)
 
 
 

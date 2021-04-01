@@ -1,6 +1,6 @@
 const {withdraws} = require("./withdrawModel.js");
 
-
+//withdrawals do not use kobo
 
 exports.createWithdraw = (req, res, next)=>{
 	const withdraw =  new withdraws({
@@ -166,6 +166,13 @@ exports.newWithdraw = (req, res, next)=>{
 exports.getUserWithdrawals = (req, res, next)=>{
 	withdraws.find({user:req.user._id}).then((withdraws)=>{
 		req.data = {status:200, withdraws:withdraws}
+		next();
+	})
+}
+
+exports.getAdminWithdrawal = (req, res, next)=>{
+	withdraws.find().then((withdraws)=>{
+		req.data.withdraws = withdraws
 		next();
 	})
 }

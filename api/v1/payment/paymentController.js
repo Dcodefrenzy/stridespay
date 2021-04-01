@@ -271,3 +271,23 @@ console.log('HERE')
 					}
 			})
 }
+
+exports.getAllPayments = (req, res, next)=>{
+    payments.find().then((payments)=>{
+            req.data.payments = payments;
+            res.status(200).send(req.data);
+    }).catch((e)=>{
+        console.log(e)
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+}
+
+exports.updateWithdalC = (req, res, next)=>{
+	payments.updateMany({currency:undefined}, {$set: {currency:"NGN"}}).then((payments)=>{
+		console.log(payments)
+	next();
+	})
+}

@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
 	const {loading} = require("./loading");
 	const {loginForm} = require("logins");
-	const {request} = require("request");
+	const {request, adminRequest} = require("request");
 	const {filesRequest} = require("request")
 	const {handleError} = require("errorHandler");
 
@@ -433,6 +433,101 @@ const createWithdraw= (url, token, data)=>{
 	});	
 }
 
+const registerAdmin = (url, token, data)=>{
+		loading("spinner", "dsh-preloader bg-white");
+		adminRequest(url, token, "POST", data, (res)=>{
+		 if (res.status === 201) {
+		 	console.log(res)
+			loading("spinner", "display-none")
+		 	alert("Registration successful");
+		 	window.location = "/admins/dashboard";
+			
+		}else if(res.status === 403){
+			loading("spinner", "display-none")
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
+			handleError(res, "is invalid");
+		}else if (res.status === 404) {
+			console.log(res.message)
+			loading("spinner", "display-none")
+		 	alert(res.message);
+			location.reload();
+		}
+		else if(res.status === 400){
+			loading("spinner", "display-none")
+			handleError(res.message, "is invalid");
+		}
+	});	
+}
+
+const loginAdminSession = (url, token, data)=>{
+		loading("spinner", "dsh-preloader bg-white");
+		adminRequest(url, token, "POST", data, (res)=>{
+		 if (res.status === 200) {
+		 	console.log(res)
+			loading("spinner", "display-none")
+		 	alert("Login successful");
+			sessionStorage.setItem("admin", JSON.stringify({"token":res.token, "_id":res._id, "role":res.level}))
+		 	location.reload();
+		
+			
+		}else if(res.status === 403){
+			loading("spinner", "display-none")
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
+			handleError(res, "is invalid");
+		}else if (res.status === 404) {
+			console.log(res.message)
+			loading("spinner", "display-none")
+		 	alert(res.message);
+			location.reload();
+		}
+		else if(res.status === 400){
+			loading("spinner", "display-none")
+			if (res.message) {
+				if (res.message.message) {
+					handleError({"message":"User do not exist"}, res.message.message);
+				}
+				if (res.message.name === "MongoError") {
+					handleError(res.message.keyValue, "already exist");
+				}else{
+					handleError(res.message, "is invalid");
+				}
+			};
+		}
+	});	
+}
+
+const loginAdmin = (url, token, data)=>{
+		loading("spinner", "dsh-preloader bg-white");
+		adminRequest(url, token, "POST", data, (res)=>{
+		 if (res.status === 200) {
+		 	console.log(res)
+			loading("spinner", "display-none")
+		 	alert("Login successful");
+		 	window.location = "/admins/dashboard";
+			
+		}else if(res.status === 403){
+			loading("spinner", "display-none")
+			if (res.message.name === "MongoError") {
+				handleError(res.message.keyValue, "already exist");
+			}
+			handleError(res, "is invalid");
+		}else if (res.status === 404) {
+			console.log(res.message)
+			loading("spinner", "display-none")
+		 	alert(res.message);
+			location.reload();
+		}
+		else if(res.status === 400){
+			loading("spinner", "display-none")
+			handleError(res.message, "is invalid");
+		}
+	});	
+}
+
 
 const forgetPassword = (url, token, data)=>{
 		request(url, token, "POST", data, (res)=>{
@@ -478,6 +573,8 @@ const uploadImage =(url, token, data)=>{
   	event.preventDefault();
 
     const sessionItem = JSON.parse(sessionStorage.getItem("user")) !== null?JSON.parse(sessionStorage.getItem("user")):{"token":"No token"}; 
+  	let sessionItemAdmin = sessionStorage.getItem("admin")==="undefined"?{"token":"No token"}: sessionStorage.getItem("admin") === "null" ?{"token":"No token"}:sessionStorage.getItem("admin") === null?{"token":"No token1"}:JSON.parse(sessionStorage.getItem("admin")); 
+
   	form	=	document.forms["submitForm"];
   	let	input	= Array.from(form.elements);
   	let formElement = {};
@@ -527,6 +624,13 @@ const uploadImage =(url, token, data)=>{
   		editContractMilestone(form.id, sessionItem, formElement);
   	}else if (event.target.className === "createWithdraw") {
   		createWithdraw(form.id, sessionItem, formElement)
+  		//admin
+  	}else if (event.target.className === "registerAdmin") {
+  		registerAdmin(form.id, sessionItemAdmin, formElement)
+  	}else if (event.target.className === "loginAdminSession") {
+  		loginAdminSession(form.id, sessionItemAdmin, formElement)
+  	}else if (event.target.className === "loginAdmin") {
+  		loginAdmin(form.id, sessionItemAdmin, formElement)
   	}
 
 }

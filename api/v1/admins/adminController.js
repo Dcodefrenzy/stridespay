@@ -89,16 +89,17 @@ exports.masterAdminAuthenticate =  (req, res, next)=> {
 exports.addAdmin = (req, res, next)=> {
 	const admin = new admins({
 		email: req.body.email,
-		phoneNumber: req.body.phoneNumber,
+		phoneNumber: req.body.phonenumber,
 		firstname: req.body.firstname,
 		lastname: req.body.lastname,
 		level: req.body.level,
 		verification: false,
 		dateCreated: new Date,
 		deleteAdmin: 0,
-		password: req.body.phoneNumber,
-		_createdBy: req.admin._id
+		password: req.body.phonenumber,
+		_createdBy: req.admin._id,
 	});
+	console.log(admin)
 	admin.save().then((admin)=> {
 		return admin.generateAuthToken().then((token)=>{	
 		const adminData = {status:201,token:token, email:admin.email, name:admin.firstname +" "+ admin.lastname, _id:admin._id, isAdmin:true};
@@ -130,11 +131,26 @@ exports.viewAdmins = (req, res)=> {
 	})
 }
 
+exports.getAdmins = (req, res, next)=> {
+	admins.find().then((admins)=>{
+		if(!admins) {
+			const error = {status:404, message:"No Admin Found"}
+			return res.status(404).send(error)
+		}
+			req.data.admins = admins;
+			next();
+	}).catch((e)=>{
+			const error = {status:404, message:"No Admin Found"}
+			return res.status(404).send(error)
+	})
+}
+
 exports.adminLogin = (req, res)=> {
 		const admin = new admins({
 		email : req.body.email,
 		password : req.body.password
 	});
+		console.log(admin)
 	admins.findByCredentials(admin.email, admin.password)
 	.then((admin)=>{
 		return admin.generateAuthToken().then((token)=>{
@@ -147,7 +163,7 @@ exports.adminLogin = (req, res)=> {
 					const err = {status:403, message:"unable to update login status"}
 					return res.status(403).send(err);
 				}else{	
-				const adminDetails = {status:200, token:token, name:admin.firstname +" "+ admin.lastname, level:admin.level};
+				const adminDetails = {status:200, _id:admin._id, token:token, name:admin.firstname +" "+ admin.lastname, level:admin.level};
 				res.header('x-auth', token).send(adminDetails);
 				}
 			})
@@ -264,8 +280,29 @@ exports.adminProfile = (req, res)=> {
 		const err ={status:403, message:"No user with this id"};
 		return res.status(403).send(err)
 	}
-		const adminProfile = {status:200, message:admin}; 
+		const adminProfile = {status:200, admin:admin}; 
+
 		res.status(200).send(adminProfile);
+	}).catch((e) => {
+		return res.status(403).send(e);
+	})
+}
+
+
+exports.adminDashboardProfile = (req, res, next)=> {
+	const id = req.admin._id;
+	if(!ObjectID.isValid(id)) {
+		const err = {status:404, message:"Bad user id"}
+		return res.status(404).send(err);
+	}
+	admins.findOne(id).then((admin)=> {
+	if (!admin) { 
+		const err ={status:403, message:"No user with this id"};
+		return res.status(403).send(err)
+	}
+		const adminProfile = {status:200, admin:admin}; 
+			req.data = adminProfile;
+			next();
 	}).catch((e) => {
 		return res.status(403).send(e);
 	})

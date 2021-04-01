@@ -36,9 +36,21 @@ define(function(require, exports, module) {
 	const {newPassword} = require("users/password/newPassword");
 	const {editContract} = require("users/transactions/contracts/editContract");
 	const {wallets} = require("users/wallet/wallets");
-	let styles; 
-	let sessionItem = sessionStorage.getItem("user")==="undefined"?{"token":"No token"}: sessionStorage.getItem("user") === "null" ?{"token":"No token"}:sessionStorage.getItem("user") === null?{"token":"No token1"}:JSON.parse(sessionStorage.getItem("user")); 
 
+	//Admin route
+	const {createAdmin} = require("admins/register");
+	const {adminDashboard} = require("admins/dashboard");
+	const {showUserDatabase} = require("admins/users");
+	const {adminUsersTransactions} = require("admins/transactions");
+	const {showUserWithdraw} = require("admins/withdraw");
+	const {adminStridespayWallets} =require("admins/wallet");
+	const {adminUsersPaymentTransactions} = require("admins/payments");
+
+	let styles; 
+	let sessionItem = sessionStorage.getItem("user")==="undefined"?{"token":"No token"}: sessionStorage.getItem("user") === "null" ?{"token":"No token"}:sessionStorage.getItem("user") === null?{"token":"No token1"}:JSON.parse(sessionStorage.getItem("user"));
+
+
+	let sessionItemAdmin = sessionStorage.getItem("admin")==="undefined"?{"token":"No token"}: sessionStorage.getItem("admin") === "null" ?{"token":"No token"}:sessionStorage.getItem("admin") === null?{"token":"No token1"}:JSON.parse(sessionStorage.getItem("admin")); 
 	const getId = (url)=>{
 		var pathArray = window.location.pathname.split('/');
 		return pathArray
@@ -165,6 +177,36 @@ define(function(require, exports, module) {
 				break;
 				case "/users/contract/update/"+path[4]:
 				editContract(sessionItem, path[4])
+				break;
+
+				//Admin Route
+
+				case "/admins/register":
+				createAdmin(sessionItemAdmin, path[0]);
+				break;
+
+				case "/admins/dashboard":
+				adminDashboard(sessionItemAdmin, path[0]);
+				break;
+
+				case "/admins/users":
+				showUserDatabase(sessionItemAdmin, path[0]);
+				break;
+
+				case "/admins/transactions":
+				adminUsersTransactions(sessionItemAdmin, path[0]);
+				break;
+
+				case "/admins/withdrawals":
+				showUserWithdraw(sessionItemAdmin, path[0]);
+				break;
+
+				case "/admins/wallet":
+				adminStridespayWallets(sessionItemAdmin, path[0]);
+				break;
+
+				case "/admins/finalcial/transactions":
+				adminUsersPaymentTransactions(sessionItemAdmin, path[0]);
 				break;
 				
 				

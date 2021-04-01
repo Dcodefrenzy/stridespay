@@ -47,3 +47,23 @@ exports.addAddTooPaymerchant = (req, res, next)=>{
 		res.status(404).send(e)
 	})
 }
+
+exports.getAdminWallet= (req, res, next)=>{
+    PaymerchantWallets.find().then((adminWallets)=>{
+            req.data.adminWallets = adminWallets;
+            next();
+    }).catch((e)=>{
+        console.log(e)
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+}
+
+exports.updateWithdalC = (req, res, next)=>{
+	PaymerchantWallets.updateMany({currency:undefined}, {$set: {currency:"NGN"}}).then((PaymerchantWallets)=>{
+		console.log(PaymerchantWallets)
+	next();
+	})
+}

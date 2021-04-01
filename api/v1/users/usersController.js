@@ -623,6 +623,12 @@ exports.fetchClient=async(req, res)=>{
 	res.status(200).send({status:200,data:resp});
 }
 
+exports.getAdminUsers= (req, res, next)=>{
+	users.find().then((users)=>{
+		req.data.users = users;
+		next();
+	})
+}
 //Logout function
 exports.logout =(req, res, next)=>{
 	const id = req.user._id;

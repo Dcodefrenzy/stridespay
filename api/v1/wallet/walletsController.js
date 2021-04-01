@@ -239,6 +239,13 @@ console.log('wallets hehrehhe')
 	})
 }
 
+exports.getAdminWallet = (req, res, next)=>{
+	wallets.find().then((wallets)=>{
+		req.data.userWallets = wallets;
+		next();
+	})
+}
+
 exports.getUserWalletsByCurrency=(req, res, next)=>{
 	wallets.find({user:req.user._id, currency:req.body.currency}).then((wallets)=>{
 		req.data.wallets = wallets;

@@ -7,7 +7,8 @@ const morgan = require("morgan");
 const api = require("./api/v1/api.js");
 var path = require('path');
 require('dotenv').config()
-const loderRouter = require("./api/v1/router/router.js");
+const loaderRouter = require("./api/v1/router/router.js");
+const loadeAdminRouter = require("./api/v1/router/adminRouter.js");
 
 const router = express.Router();
 
@@ -22,7 +23,8 @@ app.use(morgan('dev'));
 app.use(cors(coreOptions));
  app.use(express.static("view"));
  app.use("/api/v1", api); 
- app.use("/users", loderRouter);
+ app.use("/users", loaderRouter);
+ app.use("/admins", loadeAdminRouter);
 
 
 /*app.get('/users/product/payment/:id', function(req,res){

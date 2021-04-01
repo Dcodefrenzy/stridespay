@@ -2,6 +2,12 @@ const Router = require("express");
 const adminController = require("./adminController.js");
 const mailController = require("../mail/mailController");
 const logsController = require("../logs/logsController");
+const transactionController = require("../transaction/transcationController.js");
+const stridespayWalletController = require("../paymerchantWallet/paymerchantWalletController.js");
+const userWalletController = require('../wallet/walletsController.js');
+const userWithdrawalController = require("../withdraw/withdrawController.js");
+const paymentController =require("../payment/paymentController.js");
+const usersController = require("../users/usersController.js");
 const router = Router();
 
 
@@ -19,6 +25,21 @@ router.route("/update")
 
 router.route("/profile")
 	.get(adminController.adminAuthenticate, adminController.adminProfile)
+
+
+router.route("/dashboard")
+	.get(
+		adminController.adminAuthenticate, 
+		adminController.adminDashboardProfile, 
+		adminController.getAdmins,
+		usersController.getAdminUsers,
+		transactionController.getStartedTransactions,
+		stridespayWalletController.getAdminWallet,
+		userWalletController.getAdminWallet,
+		userWithdrawalController.getAdminWithdrawal,
+		paymentController.getAllPayments
+		)
+
 
 router.route("/profile/update")
 .patch(adminController.adminAuthenticate, adminController.updateProfile, logsController.addLogs)

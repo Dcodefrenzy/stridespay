@@ -733,3 +733,16 @@ exports.getAllTransactions= (req, res)=>{
         res.status(404).send(err);
     });
 }
+
+exports.getStartedTransactions= (req, res, next)=>{
+    transactions.find({paymentStatus:true}).then((transactions)=>{
+            req.data.transactions = transactions;
+            next()
+    }).catch((e)=>{
+        console.log(e)
+        let err ={}
+        if(e.errors) {err = {status:403, message:e.errors}}
+        else if(e){err = {status:403, message:e}}
+        res.status(404).send(err);
+    });
+}
