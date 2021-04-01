@@ -97,7 +97,7 @@ exports.addAdmin = (req, res, next)=> {
 		dateCreated: new Date,
 		deleteAdmin: 0,
 		password: req.body.phonenumber,
-		_createdBy: req.admin._id,
+		_createdBy: req.body.firstname
 	});
 	console.log(admin)
 	admin.save().then((admin)=> {

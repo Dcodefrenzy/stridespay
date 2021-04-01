@@ -12,7 +12,7 @@ const router = Router();
 
 
 router.route("/register")
-	.post( adminController.masterAdminAuthenticate,  adminController.addAdmin, mailController.sendRegistrationMail, logsController.addLogs)
+	.post( /*adminController.masterAdminAuthenticate,*/  adminController.addAdmin, mailController.sendRegistrationMail, logsController.addLogs)
 
 router.route("/login")
 	.post(adminController.adminLogin)
