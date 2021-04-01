@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 
 	spinner.className ="display-none";
 	
-		//sideBar(token, id);
+		sideBar(token, id);
 		const html = `<div id="revert" class="dsh-content-wrapper col-12 col-sm-12 col-md-9 offset-md-3 col-lg-10 offset-lg-2 col-xl-10 offset-xl-1">
 
 			<!-- Breadcrumbs -->
