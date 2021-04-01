@@ -20,6 +20,9 @@ exports.adminDashboard = (token, id)=>{
 		}
 	const adminUsdWallet = adminWallets.filter(checkUSDCurrency).map((adminWallet)=>{
 		console.log(adminWallet.paymerchantAmount)
+				if (!adminWallet) {
+					return [0, 0, 0]
+				}
 				return adminWallet.paymerchantAmount
 		}).reduce((total, amount) => total + amount);
 
