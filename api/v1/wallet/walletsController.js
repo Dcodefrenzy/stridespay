@@ -186,13 +186,10 @@ exports.getUserWallet = (req, res, next)=>{
 
 exports.verifyUserAmountForWithdraw = (req, res, next)=>{
 		wallets.findOne({user:req.user._id, _id:req.params.id}).then((wallet)=>{
-			if (wallet && req.body.amount === 0) {
+			if (req.body.amount === 0) {
 					const err = {status:404, message:"Amount cannot be lesser than or equals to zero."}
-            		return res.status(404).send(err);}
-			if (wallet && wallet.amount === 0) {
-					const err = {status:404, message:"You are tying to withdraw an amount greated than your balance"}
             		return res.status(404).send(err);
-			}
+            	}
 
 			 if (wallet && returnInteger(wallet.amount.toString().slice(0, -2)) >= req.body.amount) {
 							

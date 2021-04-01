@@ -146,6 +146,7 @@ exports.getUserWithdrawForProfile= (req, res, next)=>{
 
 
 exports.newWithdraw = (req, res, next)=>{
+	
 		const withdraw =  new withdraws({
 		user:req.user._id,
 		currency:req.data.wallet.currency,

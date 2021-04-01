@@ -79,7 +79,7 @@ exports.payOutUser =(req, res, next)=>{
 }
 }
 const payOutUserProduction = (req, res, next)=>{
-	if (req.data.wallet.amount.toString().slice(0, -2) == 0) {
+	if (req.body.amount) {
 		return res.status(403).send({status:403, error:"wallet", subError:"amount", message:"Wallet amount is low, so you can not withdraw at this moment."});
 	}
 	console.log(req.data);
@@ -107,7 +107,7 @@ const payOutUserProduction = (req, res, next)=>{
     });
 }
 const payOutUserLocal = (req, res, next)=>{
-	if (req.data.wallet.amount.toString().slice(0, -2) == 0) {
+	if (req.body.amount == 0) {
 		return res.status(404).send({status:404, error:"wallet", subError:"amount", message:"Wallet amount is low, so you can not withdraw at this moment."});
 	}
 	console.log(req.data);
@@ -136,7 +136,7 @@ const payOutUserLocal = (req, res, next)=>{
         res.status(400).send({status:400, message:{accountnumber:"Your account number "+req.body.accountnumber}})
     }else{
 
-        res.status(403).send({status:403, message:err.message})
+        res.status(400).send({status:400, message:err.message})
     }
     });
 }

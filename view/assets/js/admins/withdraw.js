@@ -81,7 +81,11 @@ define(function(require, exports, module){
 					loading("user-side-bar-open", "display-none");
 					 body.insertAdjacentHTML('afterbegin', loginForm);
 				}else if (response.status === 200) {
-					userWithdraw(response.users, response.withdraws);
+					function filterWithdraw(arr){
+						return arr.amount !== 0
+					}
+					const withdraws = response.withdraws.filter(filterWithdraw)
+					userWithdraw(response.users, withdraws);
 				}
 			}
 
